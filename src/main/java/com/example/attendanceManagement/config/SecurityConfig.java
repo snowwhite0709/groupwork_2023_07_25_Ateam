@@ -2,12 +2,8 @@ package com.example.attendanceManagement.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -27,9 +23,7 @@ public class SecurityConfig {
 		).authorizeHttpRequests(authz -> authz
 				.requestMatchers("/login").permitAll()// 「/login」はすべて許可
 				// URL ごとに Role の権限を設定
-				.requestMatchers("/bucho").hasRole("BUCHO")
-				.requestMatchers("/kacho").hasRole("KACHO")
-				.requestMatchers("/syain").hasRole("SYAIN")
+				
 				.anyRequest().authenticated() // 他の URL はログイン後のみアクセス可能
 				).exceptionHandling((exceptionHandling) -> exceptionHandling
 						.accessDeniedPage("/error")
@@ -37,18 +31,18 @@ public class SecurityConfig {
 		return http.build();
 	}
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-//	 System.out.println(new BCryptPasswordEncoder().encode("syain"));
-	return new BCryptPasswordEncoder();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+////	 System.out.println(new BCryptPasswordEncoder().encode("syain"));
+//	return new BCryptPasswordEncoder();
+//	}
 	
-	@Bean
-	public RoleHierarchy roleHierarchy() {
-	// ロール階層の設定
-	 RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-	 String hierarchy = "ROLE_BUCHO > ROLE_KACHO \n ROLE_KACHO > ROLE_SYAIN";
-	 roleHierarchy.setHierarchy(hierarchy);
-	 return roleHierarchy;
-	}
+//	@Bean
+//	public RoleHierarchy roleHierarchy() {
+//	// ロール階層の設定
+//	 RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+//	 String hierarchy = "ROLE_BUCHO > ROLE_KACHO \n ROLE_KACHO > ROLE_SYAIN";
+//	 roleHierarchy.setHierarchy(hierarchy);
+//	 return roleHierarchy;
+//	}
 }

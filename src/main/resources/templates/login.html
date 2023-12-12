@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-	<!--CSS-->
+	<meta charset="UTF-8">
+	<link th:href="@{/style.css}" rel="stylesheet">
+	<title>ログイン</title>
+	
 	<style>
-		<!--全体画面の色-->
-	body {
+		body {
     background-color: rgb(255, 255, 255);
+     background-image:url(https://prog-8.com/images/html/advanced/top.png);
   }
   
   form {
@@ -15,12 +19,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    background-color: rgb(0, 128, 255);
+    background-color: rgb(0, 128, 192);
     text-align: center;
   }
   
   form h1,form p {
-    color: rgb(255, 255, 255);
+    color: white;
     font-weight: 500;
   }
   
@@ -40,13 +44,17 @@
     border-radius: 24px;
     transition: 0.25s;
     text-align: center;
+    color: rgb(0, 0, 0);
   }
   
+  input::placeholder {
+	  color:#f0f8ff
+  }
   form input[type = "id"]:focus,form input[type = "password"]:focus {
     width: 280px;
-    background-color: rgb(128, 255, 255);
+    background-color: #f0f8ff;
   }
-  
+
   form input[type = "submit"]{
     border: 0;
     background: none;
@@ -66,24 +74,26 @@
   form input[type = "submit"]:hover {
     background-color: #ff69b4;
     border: 2px solid #ff69b4;
-  }
-  </style>
-  <!--CSS終わり-->
-<meta charset="UTF-8">
-<title>ログイン</title>
+  }	
+		
+		
+	</style>
+	
 </head>
+
 <body>
 	<!-- HTMLコード -->
-<form name="login_form">
-    <div class="login_form_top">
-      <h1>LOGIN</h1>
-      <p>UserID、Passwordをご入力の上、「LOGIN」ボタンをクリックしてください。</p>
-    </div>
-    <div class="login_form_btm">
-      <input type="id" name="user_id" placeholder="UserID">
-      <input type="password" name="password" placeholder="Password">
-      <input type="submit" name="botton" value="LOGIN">
-    </div>
-  </form>
+	<form name="login_form">
+		<div class="login_form_top">
+			<h1>LOGIN</h1>
+			<p>UserID、Passwordをご入力の上、「LOGIN」ボタンをクリックしてください。</p>
+		</div>
+		<div class="login_form_btm">
+			<input type="id" name="user_id" placeholder="UserID">
+			<input type="password" name="password" placeholder="Password">
+			<input type="submit" name="botton" value="LOGIN">
+		</div>
+	</form>
 </body>
+
 </html>
