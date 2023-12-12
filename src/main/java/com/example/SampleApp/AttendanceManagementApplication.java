@@ -13,5 +13,4 @@ public class AttendanceManagementApplication {
 		
 		SpringApplication.run(AttendanceManagementApplication.class, args);
 	}
-	/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
 }
