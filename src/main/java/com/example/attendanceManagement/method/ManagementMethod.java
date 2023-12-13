@@ -33,7 +33,7 @@ public class ManagementMethod {
 			if(!bindingResult.hasErrors()) {
 				service.Insert(sample);
 				redirectAttributes.addFlashAttribute("complete","登録が完了しました");
-				return "redirect:/home";
+				return "redirect:/managementpage";
 			}else {
 				return null;
 			}

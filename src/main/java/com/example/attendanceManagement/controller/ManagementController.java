@@ -45,12 +45,22 @@ public class ManagementController {
 	@PostMapping("/insert")
 	public String insert(@Validated User_tableForm user_tableForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
-			User_table  u = new User_table();
-			if(!bindingResult.hasErrors()) {
-				redirectAttributes.addFlashAttribute("complete","登録が完了しました");
-				return "redirect:/managementpage";
-			}else {
-				return null;
-			}
+		User_table user_table = new User_table();
+		user_table.setPass(user_tableForm.getPass());
+		user_table.setLastname(user_tableForm.getLastname());
+		user_table.setFirstname(user_tableForm.getFirstname());
+		user_table.setSex(user_tableForm.getSex());
+		user_table.setAge(user_tableForm.getAge());
+		user_table.setStatus(user_tableForm.getStatus());
+		user_table.setRank(user_tableForm.getRank());
+		user_table.setAdmin(user_tableForm.getAdmin());
+		
+		if(!bindingResult.hasErrors()) {
+			service.Insert(user_table);
+			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
+			return "redirect:/management/accountedit";
+		}else {
+			return null;
+		}
 	}
 }
