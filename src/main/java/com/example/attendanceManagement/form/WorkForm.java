@@ -1,16 +1,16 @@
 package com.example.attendanceManagement.form;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 
 @Data
 public class WorkForm {
 	private Integer id;
-	private Date day;
-	private Date attendancetime;
-	private Date leavingtime;
-	private Date overtime;
+	private Timestamp day;
+	private Timestamp attendancetime;
+	private Timestamp leavingtime;
+	private Timestamp overtime;
 	private Integer kind;
 	private boolean approval;
 }
