@@ -17,7 +17,7 @@ public class User_table {
 	private String firstname;
 	private Integer sex;
 	private Integer age;
-	private Integer integer;
+	private Integer status;
 	private Integer rank;
 	private Integer admin;
 	
