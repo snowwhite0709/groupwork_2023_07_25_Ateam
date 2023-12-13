@@ -16,4 +16,6 @@ public interface WorkService {
     
     /* データを更新する */
     void UpdateWork(Work work);
+    
+    Iterable<Work> getWork();
 }

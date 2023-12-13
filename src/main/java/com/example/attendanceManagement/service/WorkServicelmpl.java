@@ -40,4 +40,10 @@ public class WorkServicelmpl implements WorkService{
 		repository.save(work);
 	}
 
+	@Override
+	public Iterable<Work> getWork() {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.getWork();
+	}
+
 }

@@ -1,5 +1,7 @@
 package com.example.attendanceManagement.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,22 +9,25 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.User_table;
+import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.form.User_tableForm;
-import com.example.attendanceManagement.method.ManagementMethod;
 import com.example.attendanceManagement.service.User_tableService;
+import com.example.attendanceManagement.service.WorkService;
 
 @Controller
 @RequestMapping("/management")
 public class ManagementController {
 	
 	@Autowired
-	User_tableService service;
-	ManagementMethod m = new ManagementMethod(); 
+	User_tableService user_tableService;
+	@Autowired
+	WorkService workService;
 	
 	@ModelAttribute
 	public User_tableForm setUpForm() {
@@ -31,7 +36,9 @@ public class ManagementController {
 	}
 	
 	@GetMapping	
-	public String managementPage() {
+	public String managementPage(Model model) {
+		Iterable<Work> list = workService.getWork();
+		model.addAttribute("list",list);
 		return "managementpage";
 	}
 	
@@ -56,11 +63,21 @@ public class ManagementController {
 		user_table.setAdmin(user_tableForm.getAdmin());
 		
 		if(!bindingResult.hasErrors()) {
-			service.Insert(user_table);
+			user_tableService.Insert(user_table);
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
 			return "redirect:/management/accountedit";
 		}else {
 			return null;
 		}
+	}
+	
+	@PostMapping("/{id}")
+	public String approval(@PathVariable Integer id) {
+			Work work = new Work();
+			Optional<Work> w = workService.SlectOneById(id);
+			work = w.get();
+			work.setApproval(true);
+			workService.UpdateWork(work);
+		return "managementpage";
 	}
 }
