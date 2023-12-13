@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.entry}">main</title>
+<link rel="stylesheet" href="http://localhost:8080/css/tnk.css">
+
+</head>
+<body>
+	<header>
+		<h1>
+			<a href="">
+				<img class="logo"    th:src="@{/a/b.png}" >
+			</a>
+		</h1>
+	
+		<nav>
+			<ul class="nav-menu">
+				<li><a href="">name</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<div th:with="today=${#dates.createNow()}">	
+	<span th:text="${#dates.format(today,'yyyy年MM月dd日')}"></span>
+	</div>
+
+	<center>
+	<font size="7">
+		<script>// <![CDATA[
+			function digs(num) {
+				return ( num < 10 )?num = "0" + num:num = num
+			}
+			function Watch() {
+				var date = new Date();
+				var nowHour = digs( date.getHours() );
+				var nowMin = digs( date.getMinutes() );
+				var nowSec = digs( date.getSeconds() );
+				var msg= nowHour + ":" + nowMin + ":" + nowSec;
+				document.getElementById("Watch").innerHTML = msg;
+			}
+		setInterval('Watch()',500);
+		// ]]></script>
+		</div>
+		<div id="Watch">00:00:00</div>
+		
+	</font>
+	</center>
+	
+	<a href="" class="btn_01">出勤</a><br/>
+	<a href="" class="btn_01">退勤</a><br/>
+	<a href="" class="btn_01">休憩開始</a><br/>
+	<a href="" class="btn_01">休憩終了</a>
+	
+</body>
+</html>
