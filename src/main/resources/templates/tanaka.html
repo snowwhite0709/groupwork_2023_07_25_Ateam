@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title th:text="#{title.entry}">main</title>
-<link rel="stylesheet" href="http://localhost:8080/css/tnk.css">
-
+<link rel="stylesheet" th:href="@{/css/tnk.css}">
 </head>
 <body>
 	<header>
@@ -47,7 +46,11 @@
 	</font>
 	</center>
 	
-	<a href="" class="btn_01">出勤</a><br/>
+	
+	<a th:href="@{/attend}"  class="btn_01">出勤</a><br/>
+	
+	
+	
 	<a href="" class="btn_01">退勤</a><br/>
 	<a href="" class="btn_01">休憩開始</a><br/>
 	<a href="" class="btn_01">休憩終了</a>
