@@ -14,7 +14,10 @@ import lombok.NoArgsConstructor;
 public class Work {
 	 @Id
 	private Integer id;
-	private Timestamp attendance;
-	private Timestamp leaving;
+	private Timestamp day;
+	private Timestamp attendancetime;
+	private Timestamp leavingtime;
+	private Timestamp overtime;
 	private Integer kind;
+	private boolean approval;
 }
