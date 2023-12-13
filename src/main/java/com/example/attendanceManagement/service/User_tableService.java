@@ -5,7 +5,9 @@ import java.util.Optional;
 import com.example.attendanceManagement.entity.User_table;
 
 public interface User_tableService {
-
+	
+	
+	
 	/* 全件取得 */
 	Iterable<User_table> SelectAll();
 	
@@ -17,4 +19,6 @@ public interface User_tableService {
     
     /* データを更新する */
     void Update(User_table user_table);
+
+	
 }

@@ -40,4 +40,5 @@ public class User_tableServicelmpl implements User_tableService{
 		repository.save(user_table);
 		
 	}
+
 }
