@@ -6,38 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.attendanceManagement.entity.User_table;
-import com.example.attendanceManagement.repository.User_tableRepository;
+import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.repository.WorkRepository;
 
 @Service
 @Transactional
-public class User_tableServicelmpl implements User_tableService{
-	
+public class WorkServicelmpl implements WorkService{
+
 	@Autowired
-	User_tableRepository repository;
+	WorkRepository repository;
 	
 	@Override
-	public Iterable<User_table> SelectAll() {
+	public Iterable<Work> SelectAll() {
 		// TODO 自動生成されたメソッド・スタブ
 		return repository.findAll();
 	}
 
 	@Override
-	public Optional<User_table> SlectOneById(Integer id) {
+	public Optional<Work> SlectOneById(Integer id) {
 		// TODO 自動生成されたメソッド・スタブ
 		return repository.findById(id);
 	}
 
 	@Override
-	public void Insert(User_table user_table) {
+	public void InsertWork(Work work) {
 		// TODO 自動生成されたメソッド・スタブ
-		repository.save(user_table);
-		
+		repository.save(work);
 	}
 
 	@Override
-	public void Update(User_table user_table) {
-		repository.save(user_table);
-		
+	public void UpdateWork(Work work) {
+		// TODO 自動生成されたメソッド・スタブ
+		repository.save(work);
 	}
+
 }

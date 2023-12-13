@@ -13,8 +13,8 @@ public interface User_tableService {
 	Optional<User_table> SlectOneById(Integer id);
 	
 	/* 取得したデータをDBにInsertする */
-    void InsertUser_table(User_table user_table);
+    void Insert(User_table user_table);
     
     /* データを更新する */
-    void UpdateUser_table(User_table user_table);
+    void Update(User_table user_table);
 }
