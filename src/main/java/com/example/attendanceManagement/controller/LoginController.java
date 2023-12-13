@@ -18,14 +18,11 @@ public class LoginController {
 		// ログイン画面を表示
 		return "login";
 	}
-//	// SecurityConfig の defaultSuccessUrl で指定した URL
-//		@GetMapping("loginsuccess")
-//		public String loginSuccess(Model model) {
-//		// ユーザー名
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		UserDetailsImpl principal = (UserDetailsImpl) auth.getPrincipal();
-//		model.addAttribute("username", principal.getUsername());
-//		// ログインに成功したら表示する URL
-//		return "success";
-//		}
+	// SecurityConfig の defaultSuccessUrl で指定した URL
+		@GetMapping("loginsuccess")
+		public String loginSuccess(Model model) {
+
+		// ログインに成功したら表示する URL
+		return "success";
+		}
 }
