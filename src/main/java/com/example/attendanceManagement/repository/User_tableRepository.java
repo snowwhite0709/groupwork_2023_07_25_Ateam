@@ -6,4 +6,5 @@ import com.example.attendanceManagement.entity.User_table;
 
 public interface User_tableRepository extends CrudRepository<User_table, Integer>{
 
+	/*ｓ*/
 }
