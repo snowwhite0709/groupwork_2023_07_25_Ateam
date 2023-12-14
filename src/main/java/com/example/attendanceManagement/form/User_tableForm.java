@@ -4,6 +4,7 @@ import lombok.Data;
 @Data
 public class User_tableForm {
 
+	private Integer id;
 	private String pass;
 	private String lastname;
 	private String firstname;

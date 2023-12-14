@@ -117,7 +117,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 	//更新用のModel作成
 	private void makeUpdateModel(User_tableForm user_tableForm, Model model) {
 		model.addAttribute("id", user_tableForm.getId());
-		user_tableForm.setNewQuiz(false);
+		user_tableForm.setNewUser_table(false);
 		model.addAttribute("quizForm", user_tableForm);
 		model.addAttribute("title","更新用フォーム");
 	}
