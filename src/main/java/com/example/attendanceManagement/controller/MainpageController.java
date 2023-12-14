@@ -12,13 +12,20 @@ public class MainpageController {
 	public String sample(Model model) {
 		return "tanaka";
 	}
-	
+	@GetMapping("/personal")
+	public String personal() {
+		return "";
+	}
 	@GetMapping("/attend")
 	public String attend() {
-		
-		System.out.println("abc");
 		Date date=new Date();
 		System.out.println(date);
-		return "redirect :/show";
+		return "redirect:/show";
+	}
+	@GetMapping("/leave")
+	public String leave() {
+		Date date=new Date();
+		System.out.println(date);
+		return "redirect:/show";
 	}
 }	
