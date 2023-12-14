@@ -2,47 +2,50 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>アカウント管理用ページ</title>
-<link rel="stylesheet" href="http://localhost:8080/css/managementstyle.css">
+<title>管理者画面</title>
+<link rel="stylesheet" href="http://localhost:8080/css/managementhome.css">
 </head>
-<body>
+<body>	
 <nav>
   <ul>
 	<li><a href="http://localhost:8080/management">勤怠承認</a></li>
-	<li><a href="#">勤怠管理</a></li>
-    <li><a href="http://localhost:8080/management/accountedit">アカウント管理</a></li>
+	<li><a href="http://localhost:8080/management/accountmanagement">アカウント管理</a></li>
+    <li><a href="http://localhost:8080/management/accountedit">アカウント新規作成</a></li>
   </ul>
 </nav>
+<table>
+  <tr>
+    <th>アカウントid</th>
+    <th>姓</th>
+    <th>名</th>
+    <th>性別</th>
+    <th>年齢</th>
+    <th>雇用形態</th>
+    <th>役職</th>
+    <th>管理者権限</th>
+    <th>勤怠管理</th>
+    <th>アカウント編集</th>
+  </tr>
+</table>
+<table border="1" th:unless="${#lists.isEmpty(list)}" 
+							  style="table-layout: fixed;">	
+  	<tr th:each="obj : ${list}" align="center">
+	<td th:text="${obj.id}">id</td>
+    <td th:text="${obj.lastname}">姓</td>
+    <td th:text="${obj.firstname}">名</td>
+    <td th:text="${obj.sex}">性別</td>
+    <td th:text="${obj.age}">年齢</td>
+    <td th:text="${obj.status}">雇用形態</td>
+    <td th:text="${obj.rank}">役職</td>
+    <td th:text="${obj.admin}">管理者権限</td>
+    <!--<td th:text="${obj.kind}">出勤種別</td>-->
 
-<!-- 新規登録 -->
-	<form method="post"
-	       th:action="@{/management/insert}"
-	       th:object="${user_tableForm}">
-		<table>
-	       <tr>
-	       <th>パスワード</th>
-	       <th>姓</label>
-	       <th>名</label>
-	       <th>性別</label>
-	       <th>年齢</th>
-	       <th>雇用形態</label>
-	       <th>役職</label>
-	       <th>管理権限</label>
-	       </tr>
-	       <tr>
-	       <td><input type="text" th:field="*{pass}"></td>
-	       <td><input type="text" th:field="*{lastname}"></td>
-	       <td><input type="text" th:field="*{firstname}"></td>
-	       <td><input type="number" th:field="*{sex}"></td>
-	       <td><input type="number" th:field="*{age}"></td>
-	       <td><input type="number" th:field="*{status}"></td>
-	       <td><input type="number" th:field="*{rank}"></td>
-	       <td><input type="number" th:field="*{admin}"></td>
-	       </tr>
-		</table>
-		<input th:if="${id}" type="hidden" th:field="*{id}">		
-		 <input type="submit" value="送信">
-		 
-	</form>
+   <td>
+	<form method="POST" th:action="@{/management/{id}(id=${obj.id})}">
+	<input type="submit" value="勤怠管理">
+   <td>
+	<form method="POST" th:action="@{management/accountedit/{id}(id=${obj.id})}">
+	<input type="submit" value="アカウント編集">
+
 </body>
 </html>

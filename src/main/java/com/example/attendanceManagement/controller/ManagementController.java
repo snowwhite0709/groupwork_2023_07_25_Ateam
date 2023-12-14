@@ -23,32 +23,43 @@ import com.example.attendanceManagement.service.WorkService;
 @Controller
 @RequestMapping("/management")
 public class ManagementController {
-	
+
 	@Autowired
 	User_tableService user_tableService;
 	@Autowired
 	WorkService workService;
-	
+
 	@ModelAttribute
 	public User_tableForm setUpForm() {
 		User_tableForm form = new User_tableForm();
 		return form;
 	}
-	
+
+	//トップページ（勤怠承認画面）へ遷移するためのメソッド
 	@GetMapping	
 	public String managementPage(Model model) {
 		Iterable<Work> list = workService.getWork();
 		model.addAttribute("list",list);
 		return "managementpage";
 	}
-	
-	@GetMapping("/accountedit")
-	public String accauntManagement() {
-		
+
+	//アカウント管理画面へ遷移するためのメソッド
+	@GetMapping("/accountmanagement")
+	public String accountmanagement(User_tableForm user_tableForm, Model model) {
+		Iterable<User_table> list = user_tableService.SelectAll();
+
+		model.addAttribute("list",list);
+
 		return "accountmanagement";
 	}
-	
-	//基本情報新規登録用メソッド
+
+	//アカウント新規作成画面へ遷移するためのメソッド
+	@GetMapping("/accountedit")
+	public String accauntManagement() {
+		return "accountmake";
+	}
+
+	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")
 	public String insert(@Validated User_tableForm user_tableForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -61,7 +72,7 @@ public class ManagementController {
 		user_table.setStatus(user_tableForm.getStatus());
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
-		
+
 		if(!bindingResult.hasErrors()) {
 			user_tableService.Insert(user_table);
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
@@ -70,14 +81,82 @@ public class ManagementController {
 			return null;
 		}
 	}
-	
-	@PostMapping("/{id}")
-	public String approval(@PathVariable Integer id) {
-			Work work = new Work();
-			Optional<Work> w = workService.SlectOneById(id);
-			work = w.get();
-			work.setApproval(true);
-			workService.UpdateWork(work);
-		return "managementpage";
+
+
+//トップページで、未承認の勤怠情報を承認するためのメソッド
+@PostMapping("/{id}")
+public String approval(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+	Work work = new Work();
+	Optional<Work> w = workService.SlectOneById(id);
+	work = w.get();
+	work.setApproval(true);
+	workService.UpdateWork(work);
+	redirectAttributes.addFlashAttribute("complete","登録が完了しました");
+	return "redirect:/management";
+}
+
+//Quizデータを1件取得し、フォーム内に表示する
+	@GetMapping("/accountedit/{id}")
+	public String showUpDate(User_tableForm user_tableForm, @PathVariable Integer id, Model model) {
+		//Quiz取得
+		Optional<User_table> user_tableOpt = user_tableService.SlectOneById(id);
+		//QuizFormへの詰めなおし
+		Optional<User_tableForm> user_tableFormOpt = user_tableOpt.map(t -> makeUser_tableForm(t));
+		//QuizがNullでなければ中身を取り出す
+		if(user_tableFormOpt.isPresent()) {
+			user_tableForm = user_tableFormOpt.get();
+		}
+		//更新用のModel作成
+		makeUpdateModel(user_tableForm, model);
+		return "accountmake";
 	}
+	
+	//更新用のModel作成
+	private void makeUpdateModel(User_tableForm user_tableForm, Model model) {
+		model.addAttribute("id", user_tableForm.getId());
+		user_tableForm.setNewUser_table(false);
+		model.addAttribute("quizForm", user_tableForm);
+		model.addAttribute("title","更新用フォーム");
+	}
+	
+	//idをキーにしてデータを更新
+	@PostMapping("/update")
+	public String update(@Validated User_tableForm user_tableForm, BindingResult result, Model model,
+			RedirectAttributes redirectAtrributes) {
+		User_table user_table = makeUser_table(user_tableForm);
+		//入力チェック
+		if(!result.hasErrors()) {
+			//更新処理、フラッシュスコープの使用、リダイレクト
+			user_tableService.Update(user_table);
+			redirectAtrributes.addFlashAttribute("complete","更新が完了しました");
+			//更新画面を表示
+			return "redirect:/quiz/" + user_table.getId();
+		}else {
+			makeUpdateModel(user_tableForm, model);
+			return "crud";
+		}
+	}
+	
+	
+	private User_table makeUser_table(User_tableForm user_tableForm) {
+		User_table user_table = new User_table();
+		user_table.setId(user_tableForm.getId());
+
+		return user_table;
+	}
+	
+	private User_tableForm makeUser_tableForm(User_table user_table) {
+		User_tableForm form = new User_tableForm();
+		form.setId(user_table.getId());
+		form.setNewUser_table(false);
+		return form;
+	}
+	
+	/*	@PostMapping("/delete")
+		public String delete(@RequestParam("id") String id, Model model,
+				RedirectAttributes redirectAttributes) {
+			user_tableService.deleteQuizById(Integer.parseInt(id));
+			redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
+			return "redirect:/quiz";
+		}*/
 }

@@ -1,6 +1,6 @@
 package com.example.attendanceManagement.entity;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import org.springframework.data.annotation.Id;
 
@@ -14,10 +14,11 @@ import lombok.NoArgsConstructor;
 public class Work {
 	 @Id
 	private Integer id;
-	private Timestamp day;
-	private Timestamp attendancetime;
-	private Timestamp leavingtime;
-	private Timestamp overtime;
+	private Integer employee_id;
+	private Date day;
+	private String attendancetime;
+	private String leavingtime;
+	private String overtime;
 	private Integer kind;
 	private boolean approval;
 }
