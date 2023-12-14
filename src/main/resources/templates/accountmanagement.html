@@ -13,8 +13,39 @@
     <li><a href="http://localhost:8080/management/accountedit">アカウント新規作成</a></li>
   </ul>
 </nav>
+<table>
+  <tr>
+    <th>アカウントid</th>
+    <th>姓</th>
+    <th>名</th>
+    <th>性別</th>
+    <th>年齢</th>
+    <th>雇用形態</th>
+    <th>役職</th>
+    <th>管理者権限</th>
+    <th>勤怠管理</th>
+    <th>アカウント編集</th>
+  </tr>
+</table>
+<table border="1" th:unless="${#lists.isEmpty(list)}" 
+							  style="table-layout: fixed;">	
+  	<tr th:each="obj : ${list}" align="center">
+	<td th:text="${obj.id}">id</td>
+    <td th:text="${obj.lastname}">姓</td>
+    <td th:text="${obj.firstname}">名</td>
+    <td th:text="${obj.sex}">性別</td>
+    <td th:text="${obj.age}">年齢</td>
+    <td th:text="${obj.status}">雇用形態</td>
+    <td th:text="${obj.rank}">役職</td>
+    <td th:text="${obj.admin}">管理者権限</td>
+    <!--<td th:text="${obj.kind}">出勤種別</td>-->
 
-
+   <td>
+	<form method="POST" th:action="@{/management/{id}(id=${obj.id})}">
+	<input type="submit" value="勤怠管理">
+   <td>
+	<form method="POST" th:action="@{/management/{id}(id=${obj.id})}">
+	<input type="submit" value="アカウント編集">
 
 </body>
 </html>

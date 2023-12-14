@@ -16,30 +16,22 @@
 <table>
   <tr>
     <th>アカウントid</th>
-    <th>業態</th>
-    <th>出勤時刻</th>
-    <th>退勤時刻</th>
-    <th>エラー</th>
-    <th>承認チェック</th>
-  </tr>
-</table>
-<table border="1" th:unless="${#lists.isEmpty(list)}" 
-							  style="table-layout: fixed;">
-  <tr>
-    <th>id</th>
     <th>出勤日</th>
     <th>出勤時刻</th>
     <th>退勤時刻</th>
     <th>残業時間</th>
-    <th>出勤種別</th>
+    <th>承認チェック</th>
   </tr>
+</table>
+<table border="1" th:unless="${#lists.isEmpty(list)}" 
+							  style="table-layout: fixed;">	
   	<tr th:each="obj : ${list}" align="center">
-	<td th:text="${obj.id}">id</td>
+	<td th:text="${obj.employee_id}">id</td>
     <td th:text="${obj.day}">出勤日</td>
     <td th:text="${obj.attendancetime}">出勤時刻</td>
     <td th:text="${obj.leavingtime}">退勤時刻</td>
     <td th:text="${obj.overtime}">残業時間</td>
-    <td th:text="${obj.kind}">出勤種別</td>
+    <!--<td th:text="${obj.kind}">出勤種別</td>-->
 
    <td>
 	<form method="POST" th:action="@{/management/{id}(id=${obj.id})}">
