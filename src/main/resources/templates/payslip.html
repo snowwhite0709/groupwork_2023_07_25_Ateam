@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Pay List</title>
+	<style>
+		div.container4 {
+			height: 10em;
+			position: relative;
+
+		}
+
+		div.container4 h2 {
+			margin: 0;
+			background: yellow;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: 50%;
+			margin-right: -50%;
+			transform: translate(-50%, -50%);
+
+		}
+
+
+		.text-center {
+			text-align: center;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.info-section1 {
+			margin-top: 20px;
+		}
+
+		.info-section1 table {
+
+			border-collapse: collapse;
+			width: 20%;
+			margin-top: 10px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+			text-align: center;
+		}
+
+		.info-section1 th,
+		.info-section1 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+		}
+
+		.info-section1 th {
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section2 {
+			margin-top: 20px;
+
+		}
+
+		.info-section2 table {
+
+			border-collapse: collapse;
+			width: 5%;
+			height: 200px;
+			margin-top: 10px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+
+		}
+
+		.info-section2 th,
+		.info-section2 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: center;
+		}
+
+		.info-section2 th {
+			background-color: rgb(129, 225, 254);
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 90%;
+			margin-top: 10px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+			text-align: center;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid black;
+
+		}
+
+		th,
+		td {
+			padding: 8px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="div.container4">
+		<div class="div.container4 h2">
+			<br>
+			<h2 align="center">a月分の給与明細</h2>
+
+		</div>
+	</div>
+
+	<div class="info-section1">
+		<table border="2">
+			<colgroup>
+				<col style="width: 40%;" ;>
+				<col style="width: 60%;" ;>
+			</colgroup>
+			<tr>
+				<td style="background-color: rgb(129, 225, 254);">支払日</td>
+				<td>2023/12/15</td>
+			</tr>
+			<tr>
+				<td style="background-color: rgb(129, 225, 254);">社員番号</td>
+				<td>No.000</td>
+			</tr>
+			<tr>
+				<td style="background-color: rgb(129, 225, 254);">氏名</td>
+				<td>安保 匡</td>
+			</tr>
+
+		</table>
+	</div>
+
+	<div class="table">
+		<table>
+			<tbody>
+				<tr>
+					<colgroup>
+						<col style="width: 10%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+					</colgroup>
+					<td style="background-color: rgb(129, 225, 254);" rowspan="4">支給</td>
+					<td style="background-color: rgb(129, 225, 254);">基本給</td>
+					<td style="background-color: rgb(129, 225, 254);">時間外手当</td>
+					<td style="background-color: rgb(129, 225, 254);">役職手当</td>
+					<td style="background-color: rgb(129, 225, 254);">資格手当</td>
+					<td style="background-color: rgb(129, 225, 254);">住宅手当</td>
+					<td style="background-color: rgb(129, 225, 254);">家族手当</td>
+				</tr>
+				<tr>
+					<td>344,000</td>
+					<td>21,130</td>
+					<td>5,000</td>
+					<td>2,000</td>
+					<td>10,000</td>
+					<td>10,000</td>
+				</tr>
+				<tr>
+					<td style="background-color: rgb(129, 225, 254);">通勤手当</td>
+					<td style="background-color: rgb(129, 225, 254);">立替交通費</td>
+					<td style="background-color: rgb(129, 225, 254);"></td>
+					<td style="background-color: rgb(129, 225, 254);">課税支給額合計</td>
+					<td style="background-color: rgb(129, 225, 254);">非課税支給額合計</td>
+					<td style="background-color: rgb(129, 225, 254);">総支給</td>
+				</tr>
+				<tr>
+					<td>0</td>
+					<td>5,700</td>
+					<td></td>
+					<td>392,310</td>
+					<td>5,710</td>
+					<td>398,020</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+		<div class="table">
+			<table>
+				<tbody>
+					<tr>
+						<colgroup>
+							<col style="width: 10%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+						</colgroup>
+						<td style="background-color: rgb(129, 225, 254);" rowspan="4">控除</td>
+						<td style="background-color: rgb(129, 225, 254);">健康保険</td>
+						<td style="background-color: rgb(129, 225, 254);">厚生年金</td>
+						<td style="background-color: rgb(129, 225, 254);">雇用保険</td>
+						<td style="background-color: rgb(129, 225, 254);">所得税</td>
+						<td style="background-color: rgb(129, 225, 254);">住民税</td>
+						<td style="background-color: rgb(129, 225, 254);">財形貯蓄</td>
+					</tr>
+					<tr>
+						<td>15,580</td>
+						<td>25,800</td>
+						<td>6,210</td>
+						<td>16,160</td>
+						<td>31,800</td>
+						<td>20,000</td>
+					</tr>
+					<tr>
+						<td style="background-color: rgb(129, 225, 254);">生命保険</td>
+						<td style="background-color: rgb(129, 225, 254);">積立金</td>
+						<td style="background-color: rgb(129, 225, 254);">組合費</td>
+						<td style="background-color: rgb(129, 225, 254);">その他控除</td>
+						<td style="background-color: rgb(129, 225, 254);"></td>
+						<td style="background-color: rgb(129, 225, 254);">控除額合計</td>
+					</tr>
+					<tr>
+						<td>10,530</td>
+						<td>10,000</td>
+						<td>3,500</td>
+						<td>0</td>
+						<td></td>
+						<td>139,580</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="table">
+				<table border="2">
+					<!-- 当月の出勤状況と残休日の情報を表示 -->
+					<tr>
+						<colgroup>
+							<col style="width: 10%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+						</colgroup>
+						<td style="background-color: rgb(129, 225, 254);" rowspan="2">勤怠</td>
+						<td style="background-color: rgb(129, 225, 254);">出勤日数</td>
+						<td style="background-color: rgb(129, 225, 254);">欠勤日数</td>
+						<td style="background-color: rgb(129, 225, 254);">総残業時間</td>
+						<td style="background-color: rgb(129, 225, 254);">有給使用日数</td>
+						<td style="background-color: rgb(129, 225, 254);">有給残日数</td>
+						<td style="background-color: rgb(129, 225, 254);">有給残日数</td>
+						
+					</tr>
+
+					<tr>
+						<td>20</td>
+						<td>0</td>
+						<td>30</td>
+						<td>1</td>
+						<td>19</td>
+						<td>258,440</td>
+					</tr>
+				</table>
+
+
+
+				</thead>
+				<tbody>
+					<!-- ここにThymeleafを使用してデータを表示 -->
+				</tbody>
+				</table>
+
+
+			</div>
+
+
+</body>
+
+</html>
