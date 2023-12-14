@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class WorkForm {
+	
 	private Integer id;
 	private Timestamp day;
 	private Timestamp attendancetime;

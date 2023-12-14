@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>アカウント管理用ページ</title>
+<link rel="stylesheet" href="http://localhost:8080/css/managementstyle.css">
+</head>
+<body>
+<nav>
+  <ul>
+	<li><a href="http://localhost:8080/management">勤怠承認</a></li>
+	<li><a href="http://localhost:8080/management/accountmanagement">アカウント管理</a></li>
+    <li><a href="http://localhost:8080/management/accountedit">アカウント新規作成</a></li>
+  </ul>
+</nav>
+
+<!-- 新規登録 -->
+	<form method="post"
+	       th:action="@{/management/insert}"
+	       th:object="${user_tableForm}">
+		<table>
+	       <tr>
+	       <th>パスワード</th>
+	       <th>姓</label>
+	       <th>名</label>
+	       <th>性別</label>
+	       <th>年齢</th>
+	       <th>雇用形態</label>
+	       <th>役職</label>
+	       <th>管理権限</label>
+	       </tr>
+	       <tr>
+	       <td><input type="text" th:field="*{pass}"></td>
+	       <td><input type="text" th:field="*{lastname}"></td>
+	       <td><input type="text" th:field="*{firstname}"></td>
+	       <td><input type="number" th:field="*{sex}"></td>
+	       <td><input type="number" th:field="*{age}"></td>
+	       <td><input type="number" th:field="*{status}"></td>
+	       <td><input type="number" th:field="*{rank}"></td>
+	       <td><input type="number" th:field="*{admin}"></td>
+	       </tr>
+		</table>
+		<input th:if="${id}" type="hidden" th:field="*{id}">		
+		 <input type="submit" value="送信">
+		 
+	</form>
+</body>
+</html>

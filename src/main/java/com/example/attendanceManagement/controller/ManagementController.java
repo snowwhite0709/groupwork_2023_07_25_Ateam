@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.controller;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class ManagementController {
 		return form;
 	}
 	
+	//トップページ（勤怠承認画面）へ遷移するためのメソッド
 	@GetMapping	
 	public String managementPage(Model model) {
 		Iterable<Work> list = workService.getWork();
@@ -42,13 +44,19 @@ public class ManagementController {
 		return "managementpage";
 	}
 	
-	@GetMapping("/accountedit")
-	public String accauntManagement() {
-		
+	//アカウント管理画面へ遷移するためのメソッド
+	@GetMapping("/accountmanagement")
+	public String accountmanagement() {
 		return "accountmanagement";
 	}
 	
-	//基本情報新規登録用メソッド
+	//アカウント新規作成画面へ遷移するためのメソッド
+	@GetMapping("/accountedit")
+	public String accauntManagement() {
+		return "accountmake";
+	}
+	
+	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")
 	public String insert(@Validated User_tableForm user_tableForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -71,10 +79,15 @@ public class ManagementController {
 		}
 	}
 	
-	@PostMapping("/{id}")
-	public String approval(@PathVariable Integer id) {
+	//トップページで、未承認の勤怠情報を承認するためのメソッド
+	@PostMapping("/{id}/{day}/{attendancetime}/{leavingtime}")
+	public String approval(@PathVariable Integer id, @PathVariable Timestamp day, @PathVariable Timestamp attendancetime, @PathVariable Timestamp leavingtime) {
 			Work work = new Work();
-			Optional<Work> w = workService.SlectOneById(id);
+			System.out.println(id);
+			System.out.println(day);
+			System.out.println(attendancetime);
+			System.out.println(day);
+			Optional<Work> w = workService.getOneWork(id, day, attendancetime, leavingtime);
 			work = w.get();
 			work.setApproval(true);
 			workService.UpdateWork(work);

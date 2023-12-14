@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>管理者画面</title>
-<link rel="stylesheet" href="http://localhost:8080/css/managementstyle.css">
+<link rel="stylesheet" href="http://localhost:8080/css/managementhome.css">
 </head>
 <body>	
 <nav>
   <ul>
 	<li><a href="http://localhost:8080/management">勤怠承認</a></li>
-	<li><a href="#">勤怠管理</a></li>
-    <li><a href="http://localhost:8080/management/accountedit">アカウント管理</a></li>
+	<li><a href="http://localhost:8080/management/accountmanagement">アカウント管理</a></li>
+    <li><a href="http://localhost:8080/management/accountedit">アカウント新規作成</a></li>
   </ul>
 </nav>
-
+<table>
   <tr>
     <th>アカウントid</th>
     <th>業態</th>
@@ -22,7 +22,7 @@
     <th>エラー</th>
     <th>承認チェック</th>
   </tr>
-
+</table>
 <table border="1" th:unless="${#lists.isEmpty(list)}" 
 							  style="table-layout: fixed;">
   <tr>
@@ -42,12 +42,12 @@
     <td th:text="${obj.kind}">出勤種別</td>
 
    <td>
-	<form method="POST" th:action="@{/management/{id}(id=${obj.id})}">
+	<form method="POST" th:action="@{/management/{id}/{day}/{attendancetime}/{leavingtime}
+	(id=${obj.id}, day=${obj.day}, attendancetime=${obj.attendancetime}, leavingtime=${obj.leavingtime})}">
 	<input type="submit" value="承認">
 	</form>
    </td>
 </table>
-<a>dasfas</a>
 
 </body>
 </html>

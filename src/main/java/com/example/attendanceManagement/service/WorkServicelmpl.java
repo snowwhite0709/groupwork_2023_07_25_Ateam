@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.service;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ public class WorkServicelmpl implements WorkService{
 	public Iterable<Work> getWork() {
 		// TODO 自動生成されたメソッド・スタブ
 		return repository.getWork();
+	}
+
+	@Override
+	public Optional<Work> getOneWork(Integer id, Timestamp day, Timestamp attendancetime, Timestamp leavingtime) {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.getOneWork(id, day, attendancetime, leavingtime);
 	}
 
 }
