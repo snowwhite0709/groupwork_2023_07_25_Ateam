@@ -19,4 +19,5 @@ public class Work {
 	private String attendancetime;
 	private String leavingtime;
 	private String overtime;
+	private boolean approval;
 }

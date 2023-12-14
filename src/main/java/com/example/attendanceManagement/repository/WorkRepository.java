@@ -14,7 +14,8 @@ public interface WorkRepository extends CrudRepository<Work, Integer>{
 	@Query("SELECT * FROM work WHERE approval is NULL")
 	Iterable<Work> getWork();
 	
-	@Query("SELECT * FROM work WHERE id =:id and day = :day and attendancetime = :attendancetime and leavingtime = :leavingtime")
+	@Query("SELECT * FROM work WHERE "
+			+ "id =:id and day = :day and attendancetime = :attendancetime and leavingtime = :leavingtime")
 	Optional<Work> getOneWork(
 			@Param("id") Integer id,
 			@Param("day") Timestamp day, 

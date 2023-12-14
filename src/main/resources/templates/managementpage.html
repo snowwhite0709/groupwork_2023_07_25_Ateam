@@ -42,8 +42,7 @@
     <td th:text="${obj.kind}">出勤種別</td>
 
    <td>
-	<form method="POST" th:action="@{/management/{id}/{day}/{attendancetime}/{leavingtime}
-	(id=${obj.id}, day=${obj.day}, attendancetime=${obj.attendancetime}, leavingtime=${obj.leavingtime})}">
+	<form method="POST" th:action="@{/management/{id}(id=${obj.id})}">
 	<input type="submit" value="承認">
 	</form>
    </td>

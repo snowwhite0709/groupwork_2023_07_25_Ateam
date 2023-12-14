@@ -1,6 +1,5 @@
 package com.example.attendanceManagement.controller;
 
-import java.sql.Timestamp;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,14 +79,10 @@ public class ManagementController {
 	}
 	
 	//トップページで、未承認の勤怠情報を承認するためのメソッド
-	@PostMapping("/{id}/{day}/{attendancetime}/{leavingtime}")
-	public String approval(@PathVariable Integer id, @PathVariable Timestamp day, @PathVariable Timestamp attendancetime, @PathVariable Timestamp leavingtime) {
+	@PostMapping("/{id}")
+	public String approval(@PathVariable Integer id) {
 			Work work = new Work();
-			System.out.println(id);
-			System.out.println(day);
-			System.out.println(attendancetime);
-			System.out.println(day);
-			Optional<Work> w = workService.getOneWork(id, day, attendancetime, leavingtime);
+			Optional<Work> w = workService.SlectOneById(id);
 			work = w.get();
 			work.setApproval(true);
 			workService.UpdateWork(work);
