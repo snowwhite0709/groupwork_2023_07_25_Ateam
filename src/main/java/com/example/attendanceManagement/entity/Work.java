@@ -19,5 +19,6 @@ public class Work {
 	private String attendancetime;
 	private String leavingtime;
 	private String overtime;
+	private Integer kind;
 	private boolean approval;
 }
