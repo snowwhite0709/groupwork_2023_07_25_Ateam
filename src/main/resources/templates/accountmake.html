@@ -32,12 +32,32 @@
 	       <td><input type="text" th:field="*{pass}"></td>
 	       <td><input type="text" th:field="*{lastname}"></td>
 	       <td><input type="text" th:field="*{firstname}"></td>
-	       <td><input type="number" th:field="*{sex}"></td>
+
+		   <td><select id="sex" name="sex" th:field="*{sex}" required>
+           <option value="1">男</option>
+           <option value="2">女</option>
+           <option value="3">その他</option>
+  		   </select>		   
+		   
 	       <td><input type="number" th:field="*{age}"></td>
-	       <td><input type="number" th:field="*{status}"></td>
-	       <td><input type="number" th:field="*{rank}"></td>
-	       <td><input type="number" th:field="*{admin}"></td>
-	       </tr>
+	       
+	       <td><select id="status" name="status" th:field="*{status}" required>
+           <option value="1">正社員</option>
+           <option value="2">契約社員</option>
+           <option value="3">アルバイト</option>
+  		   </select>
+
+	       <td><select id="rank" name="rank" th:field="*{rank}" required>
+           <option value="1">一般</option>
+           <option value="2">室長</option>
+           <option value="3">部長</option>
+  		   </select>
+		   	
+	       <td><select id="admin" name="admin" th:field="*{admin}" required>
+           <option value="1">下位権限</option>
+           <option value="2">上位権限</option>
+           <option value="3">管理者権限</option>
+  		   </select>
 		</table>
 		<input th:if="${id}" type="hidden" th:field="*{id}">		
 		 <input type="submit" value="送信">

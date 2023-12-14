@@ -47,9 +47,7 @@ public class ManagementController {
 	@GetMapping("/accountmanagement")
 	public String accountmanagement(User_tableForm user_tableForm, Model model) {
 		Iterable<User_table> list = user_tableService.SelectAll();
-
 		model.addAttribute("list",list);
-
 		return "accountmanagement";
 	}
 
@@ -100,6 +98,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 	public String showUpDate(User_tableForm user_tableForm, @PathVariable Integer id, Model model) {
 		//Quiz取得
 		Optional<User_table> user_tableOpt = user_tableService.SlectOneById(id);
+		System.out.println(id);
 		//QuizFormへの詰めなおし
 		Optional<User_tableForm> user_tableFormOpt = user_tableOpt.map(t -> makeUser_tableForm(t));
 		//QuizがNullでなければ中身を取り出す
@@ -113,27 +112,43 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 	
 	//更新用のModel作成
 	private void makeUpdateModel(User_tableForm user_tableForm, Model model) {
-		model.addAttribute("id", user_tableForm.getId());
+		
+		model.addAttribute("lastname", user_tableForm.getLastname());
+		model.addAttribute("firstname", user_tableForm.getFirstname());
+		model.addAttribute("sex", user_tableForm.getSex());
+		model.addAttribute("age", user_tableForm.getAge());
+		model.addAttribute("status", user_tableForm.getStatus());
+		model.addAttribute("rank", user_tableForm.getRank());
+		model.addAttribute("admin", user_tableForm.getAdmin());
 		user_tableForm.setNewUser_table(false);
-		model.addAttribute("quizForm", user_tableForm);
+		model.addAttribute("user_tableForm", user_tableForm);
 		model.addAttribute("title","更新用フォーム");
 	}
-	
+
 	//idをキーにしてデータを更新
 	@PostMapping("/update")
 	public String update(@Validated User_tableForm user_tableForm, BindingResult result, Model model,
 			RedirectAttributes redirectAtrributes) {
-		User_table user_table = makeUser_table(user_tableForm);
+		User_table user_table = new User_table();
+		user_table.setId(user_tableForm.getId());
+		user_table.setPass(user_tableForm.getPass());
+		user_table.setLastname(user_tableForm.getLastname());
+		user_table.setFirstname(user_tableForm.getFirstname());
+		user_table.setSex(user_tableForm.getSex());
+		user_table.setAge(user_tableForm.getAge());
+		user_table.setStatus(user_tableForm.getStatus());
+		user_table.setRank(user_tableForm.getRank());
+		user_table.setAdmin(user_tableForm.getAdmin());
 		//入力チェック
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト
 			user_tableService.Update(user_table);
 			redirectAtrributes.addFlashAttribute("complete","更新が完了しました");
 			//更新画面を表示
-			return "redirect:/quiz/" + user_table.getId();
+			return "redirect:accountmanagement";
 		}else {
 			makeUpdateModel(user_tableForm, model);
-			return "crud";
+			return "null";
 		}
 	}
 	
@@ -146,10 +161,18 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 	}
 	
 	private User_tableForm makeUser_tableForm(User_table user_table) {
-		User_tableForm form = new User_tableForm();
-		form.setId(user_table.getId());
-		form.setNewUser_table(false);
-		return form;
+		User_tableForm user_tableForm = new User_tableForm();
+		user_tableForm.setId(user_table.getId());
+		user_tableForm.setPass(user_table.getPass());
+		user_tableForm.setLastname(user_table.getLastname());
+		user_tableForm.setFirstname(user_table.getFirstname());
+		user_tableForm.setSex(user_table.getSex());
+		user_tableForm.setAge(user_table.getAge());
+		user_tableForm.setStatus(user_table.getStatus());
+		user_tableForm.setRank(user_table.getRank());
+		user_tableForm.setAdmin(user_table.getAdmin());
+		user_tableForm.setNewUser_table(false);
+		return user_tableForm;
 	}
 	
 	/*	@PostMapping("/delete")

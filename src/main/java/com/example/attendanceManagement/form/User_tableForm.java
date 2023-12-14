@@ -1,5 +1,7 @@
 package com.example.attendanceManagement.form;
 
+import org.hibernate.validator.constraints.Range;
+
 import lombok.Data;
 @Data
 public class User_tableForm {
@@ -8,7 +10,10 @@ public class User_tableForm {
 	private String pass;
 	private String lastname;
 	private String firstname;
+	
 	private Integer sex;
+	
+	@Range(min=1, max=100)
 	private Integer age;
 	private Integer status;
 	private Integer rank;
