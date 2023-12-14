@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.User_table;
@@ -20,8 +19,6 @@ import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.form.User_tableForm;
 import com.example.attendanceManagement.service.User_tableService;
 import com.example.attendanceManagement.service.WorkService;
-import com.example.quiz.entity.Quiz;
-import com.example.quiz.form.QuizForm;
 
 @Controller
 @RequestMapping("/management")
@@ -111,7 +108,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		}
 		//更新用のModel作成
 		makeUpdateModel(user_tableForm, model);
-		return "crud";
+		return "accountmake";
 	}
 	
 	//更新用のModel作成
@@ -124,47 +121,42 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 	
 	//idをキーにしてデータを更新
 	@PostMapping("/update")
-	public String update(@Validated QuizForm quizForm, BindingResult result, Model model,
+	public String update(@Validated User_tableForm user_tableForm, BindingResult result, Model model,
 			RedirectAttributes redirectAtrributes) {
-		Quiz quiz = makeQuiz(quizForm);
+		User_table user_table = makeUser_table(user_tableForm);
 		//入力チェック
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト
-			service.updateQuiz(quiz);
+			user_tableService.Update(user_table);
 			redirectAtrributes.addFlashAttribute("complete","更新が完了しました");
 			//更新画面を表示
-			return "redirect:/quiz/" + quiz.getId();
+			return "redirect:/quiz/" + user_table.getId();
 		}else {
-			makeUpdateModel(quizForm, model);
+			makeUpdateModel(user_tableForm, model);
 			return "crud";
 		}
 	}
 	
 	
-	private Quiz makeQuiz(QuizForm quizForm) {
-		Quiz quiz = new Quiz();
-		quiz.setId(quizForm.getId());
-		quiz.setQuestion(quizForm.getQuestion());
-		quiz.setAnswer(quizForm.getAnswer());
-		quiz.setAuthor(quizForm.getAuthor());
-		return quiz;
+	private User_table makeUser_table(User_tableForm user_tableForm) {
+		User_table user_table = new User_table();
+		user_table.setId(user_tableForm.getId());
+
+		return user_table;
 	}
 	
-	private QuizForm makeUser_tableForm(Quiz quiz) {
-		QuizForm form = new QuizForm();
-		form.setId(quiz.getId());
-		form.setQuestion(quiz.getQuestion());
-		form.setAnswer(quiz.getAnswer());
-		form.setAuthor(quiz.getAuthor());
-		form.setNewQuiz(false);
+	private User_tableForm makeUser_tableForm(User_table user_table) {
+		User_tableForm form = new User_tableForm();
+		form.setId(user_table.getId());
+		form.setNewUser_table(false);
 		return form;
 	}
 	
-	@PostMapping("/delete")
-	public String delete(@RequestParam("id") String id, Model model,
-			RedirectAttributes redirectAttributes) {
-		service.deleteQuizById(Integer.parseInt(id));
-		redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
-		return "redirect:/quiz";
-	}
+	/*	@PostMapping("/delete")
+		public String delete(@RequestParam("id") String id, Model model,
+				RedirectAttributes redirectAttributes) {
+			user_tableService.deleteQuizById(Integer.parseInt(id));
+			redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
+			return "redirect:/quiz";
+		}*/
 }

@@ -13,10 +13,9 @@
     <li><a href="http://localhost:8080/management/accountedit">アカウント新規作成</a></li>
   </ul>
 </nav>
-
 <!-- 新規登録 -->
 	<form method="post"
-	       th:action="@{/management/insert}"
+	       th:action="${user_tableForm.newUser_table}? @{/management/insert} : @{/management/update}"
 	       th:object="${user_tableForm}">
 		<table>
 	       <tr>
