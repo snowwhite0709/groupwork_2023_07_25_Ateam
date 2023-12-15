@@ -37,6 +37,7 @@ public class MainpageController {
 		workService.InsertWork(work);
 		return "redirect:/show";
 	}
+	
 	@GetMapping("/leave")
 	public String leave() {
 		Date date2=new Date();

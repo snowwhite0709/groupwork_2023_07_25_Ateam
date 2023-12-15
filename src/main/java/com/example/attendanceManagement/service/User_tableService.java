@@ -22,4 +22,7 @@ public interface User_tableService {
 
 	/*昇順に全件取得*/
     Iterable<User_table> getAll();
+    
+	/*保存*/
+    void sAll(User_table user_table);
 }

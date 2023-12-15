@@ -72,7 +72,7 @@ public class ManagementController {
 		user_table.setAdmin(user_tableForm.getAdmin());
 
 		if(!bindingResult.hasErrors()) {
-			user_tableService.Insert(user_table);
+			user_tableService.sAll(user_table);
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
 			return "redirect:/management/accountedit";
 		}else {
