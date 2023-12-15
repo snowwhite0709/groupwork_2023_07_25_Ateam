@@ -23,4 +23,5 @@ public interface WorkService {
     
     /*id(主キー)をキーにして1件取得する*/
 	Optional<Work> selectW(Integer id,Date day);
+	
 }

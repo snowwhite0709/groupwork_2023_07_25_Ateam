@@ -33,6 +33,7 @@ public class WorkServicelmpl implements WorkService{
 	public void InsertWork(Work work) {
 		// TODO 自動生成されたメソッド・スタブ
 		repository.save(work);
+		
 	}
 
 	@Override
