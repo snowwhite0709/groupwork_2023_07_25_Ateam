@@ -49,7 +49,8 @@ public class User_tableServicelmpl implements User_tableService{
 
 	@Override
 	public void sAll(User_table user_table) {
-		repository.insertLoginUser(user_table.getPass(), user_table.getLastname(), user_table.getFirstname(), user_table.getSex(), user_table.getAge(), user_table.getStatus(), user_table.getRank(), user_table.getAdmin());
+		repository.insertLoginUser(user_table.getPass(), user_table.getLastname(), user_table.getFirstname(), 
+				user_table.getSex(), user_table.getAge(), user_table.getStatus(), user_table.getRank(), user_table.getAdmin());
 		
 	}
 

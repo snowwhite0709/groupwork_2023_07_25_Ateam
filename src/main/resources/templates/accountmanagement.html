@@ -33,12 +33,22 @@
 	<td th:text="${obj.id}">id</td>
     <td th:text="${obj.lastname}">姓</td>
     <td th:text="${obj.firstname}">名</td>
-    <td th:text="${obj.sex}">性別</td>
+    <td th:if="${obj.sex == 1}">男</td>
+    <td th:if="${obj.sex == 2}">女</td>
+    <td th:if="${obj.sex == 3}">その他</td>
     <td th:text="${obj.age}">年齢</td>
-    <td th:text="${obj.status}">雇用形態</td>
-    <td th:text="${obj.rank}">役職</td>
-    <td th:text="${obj.admin}">管理者権限</td>
-    <!--<td th:text="${obj.kind}">出勤種別</td>-->
+
+    <td th:if="${obj.status == 1}">正社員</td>
+    <td th:if="${obj.status == 2}">契約社員</td>
+    <td th:if="${obj.status == 3}">アルバイト</td>
+    
+    <td th:if="${obj.rank == 1}">一般</td>
+    <td th:if="${obj.rank == 2}">室長</td>
+    <td th:if="${obj.rank == 3}">部長</td>
+    
+    <td th:if="${obj.admin == 1}">管理者</td>
+    <td th:if="${obj.admin == 2}">マネージャー</td>
+    <td th:if="${obj.admin == 3}">なし</td>
 
    <td>
 	<form method="GET" th:action="@{accountedit/{id}(id=${obj.id})}">

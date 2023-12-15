@@ -28,7 +28,7 @@ public class ManagementController {
 	User_tableService user_tableService;
 	@Autowired
 	WorkService workService;
-
+	
 	@ModelAttribute
 	public User_tableForm setUpForm() {
 		User_tableForm form = new User_tableForm();
@@ -71,6 +71,7 @@ public class ManagementController {
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
 
+		
 		if(!bindingResult.hasErrors()) {
 			user_tableService.sAll(user_table);
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
