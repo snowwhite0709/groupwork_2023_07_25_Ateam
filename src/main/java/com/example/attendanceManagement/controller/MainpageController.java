@@ -64,14 +64,14 @@ public class MainpageController {
 	    calendar1.set(Calendar.HOUR_OF_DAY, 0);
 	    Date d = calendar1.getTime();
 		
-		//java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
+		java.sql.Date sqlDate=new java.sql.Date(d.getTime());
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date2);
 		calendar.add(Calendar.HOUR, -9);
 		Date date3 = calendar.getTime();
 		String b=ff.format(date3);
 		int i=Integer.parseInt(b);
-		Optional<Work> o=workService.selectW(1,d);
+		Optional<Work> o=workService.selectW(1,sqlDate);
 		Work w = o.get();
 		if(i>9) {
 			calendar.add(Calendar.HOUR, -9);
