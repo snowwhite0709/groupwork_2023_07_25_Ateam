@@ -1,6 +1,6 @@
 package com.example.attendanceManagement.service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +53,5 @@ public class WorkServicelmpl implements WorkService{
 		// TODO 自動生成されたメソッド・スタブ
 		return repository.selectW(id, day);
 	}
+
 }

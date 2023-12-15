@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.repository;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.data.jdbc.repository.query.Query;
