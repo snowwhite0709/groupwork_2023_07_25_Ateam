@@ -33,7 +33,7 @@ public class MainpageController {
 		String a=f.format(date1);
 		beforeWork bw=new beforeWork(1,date1);
 		java.sql.Date sqlDate=new java.sql.Date(date1.getTime());
-		Work work=new Work(1,1,sqlDate,a,null,null,null,null);
+		Work work=new Work(1,1,sqlDate,a,null,null,null,true);
 		workService.InsertWork(work);
 		return "redirect:/show";
 	}
@@ -51,13 +51,14 @@ public class MainpageController {
 		Date date3 = calendar.getTime();
 		String b=ff.format(date3);
 		int i=Integer.parseInt(b);
+		Work work = new Work();
 		if(i>9) {
 			calendar.add(Calendar.HOUR, -9);
 			Date date4 = calendar.getTime();
 			String c=f.format(date4);
-			Work work=new Work(1,1,sqlDate,null,a,c,null,null);
+			work=new Work(1,1,sqlDate,null,a,c,null,true);
 		}else {
-			Work work=new Work(1,1,sqlDate,null,a,null,null,null);
+			work=new Work(1,1,sqlDate,null,a,null,null,true);
 		}
 		workService.InsertWork(work);
 		return "redirect:/show";

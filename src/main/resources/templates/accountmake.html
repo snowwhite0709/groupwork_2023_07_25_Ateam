@@ -6,62 +6,67 @@
 <link rel="stylesheet" href="http://localhost:8080/css/managementstyle.css">
 </head>
 <body>
-<nav>
-  <ul>
-	<li><a href="http://localhost:8080/management">勤怠承認</a></li>
-	<li><a href="http://localhost:8080/management/accountmanagement">アカウント管理</a></li>
-    <li><a href="http://localhost:8080/management/accountedit">アカウント新規作成</a></li>
-  </ul>
-</nav>
+	<div class="navbar">
+    <a href="http://localhost:8080/management">勤怠承認</a>
+    <a href="http://localhost:8080/management/accountmanagement">アカウント管理</a>
+    <a href="http://localhost:8080/management/accountedit">アカウント新規作成</a>
+</div>
+
 <!-- 新規登録 -->
-	<form method="post"
+<div class="container">
+	<form class="registration-form" method="post"
 	       th:action="${user_tableForm.newUser_table}? @{/management/insert} : @{/management/update}"
 	       th:object="${user_tableForm}">
-		<table>
-	       <tr>
-	       <th>パスワード</th>
-	       <th>姓</label>
-	       <th>名</label>
-	       <th>性別</label>
-	       <th>年齢</th>
-	       <th>雇用形態</label>
-	       <th>役職</label>
-	       <th>管理権限</label>
-	       </tr>
-	       <tr>
-	       <td><input type="text" th:field="*{pass}"></td>
-	       <td><input type="text" th:field="*{lastname}"></td>
-	       <td><input type="text" th:field="*{firstname}"></td>
-
-		   <td><select id="sex" name="sex" th:field="*{sex}" required>
+	       
+	        <h2>アカウント情報登録</h2>
+            <label for="username">パスワード</label>
+            <input type="text" id="username" name="username" th:field="*{pass}" required>
+            
+            <label for="username">姓</label>
+            <input type="text" id="username" name="username" th:field="*{lastname}" required>    
+               
+            <label for="username">名</label>
+            <input type="text" id="username" name="username" th:field="*{firstname}" required>  
+            
+            <label for="username">年齢</label>
+            <input type="text" id="username" name="username" th:field="*{age}" required> 
+                        
+           <label for="username">性別</label>
+           <select id="sex" name="sex" th:field="*{sex}" required>
            <option value="1">男</option>
            <option value="2">女</option>
            <option value="3">その他</option>
-  		   </select>		   
-		   
-	       <td><input type="number" th:field="*{age}"></td>
-	       
-	       <td><select id="status" name="status" th:field="*{status}" required>
+  		   </select>
+  		   
+  		   <label for="username">雇用形態</label>
+  		   <select id="status" name="status" th:field="*{status}" required>
            <option value="1">正社員</option>
            <option value="2">契約社員</option>
            <option value="3">アルバイト</option>
   		   </select>
-
-	       <td><select id="rank" name="rank" th:field="*{rank}" required>
+  		   
+  		   <label for="username">役職</label>
+  		   <select id="rank" name="rank" th:field="*{rank}" required>
            <option value="1">一般</option>
            <option value="2">室長</option>
            <option value="3">部長</option>
   		   </select>
-		   	
-	       <td><select id="admin" name="admin" th:field="*{admin}" required>
-           <option value="1">下位権限</option>
-           <option value="2">上位権限</option>
-           <option value="3">管理者権限</option>
+  		   
+  		   <label for="username">管理権限</label>
+  		   <select id="admin" name="admin" th:field="*{admin}" required>
+           <option value="3">一般社員</option>
+           <option value="2">マネージャー</option>
+           <option value="1">管理者</option>
   		   </select>
+  		   
+		<table>
+	       
 		</table>
 		<input th:if="${id}" type="hidden" th:field="*{id}">		
-		 <input type="submit" value="送信">
+		<input class="pushbutton" type="submit" value="送信">
 		 
 	</form>
+	</div>
+
 </body>
 </html>

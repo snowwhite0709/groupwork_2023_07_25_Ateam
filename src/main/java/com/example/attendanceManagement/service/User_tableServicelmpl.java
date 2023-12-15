@@ -41,4 +41,10 @@ public class User_tableServicelmpl implements User_tableService{
 		
 	}
 
+	@Override
+	public Iterable<User_table> getAll() {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.getAll();
+	}
+
 }

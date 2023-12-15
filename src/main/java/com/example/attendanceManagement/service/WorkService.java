@@ -1,6 +1,5 @@
 package com.example.attendanceManagement.service;
 
-import java.sql.Timestamp;
 import java.util.Optional;
 
 import com.example.attendanceManagement.entity.Work;
@@ -21,7 +20,6 @@ public interface WorkService {
     //承認がNULLのものを表示するためのメソッド
     Iterable<Work> getWork();
     
-    //1件のみの情報を取得するためのメソッド
-	Optional<Work> getOneWork(Integer id, Timestamp day, Timestamp attendancetime, Timestamp leavingtime);
+    
     
 }

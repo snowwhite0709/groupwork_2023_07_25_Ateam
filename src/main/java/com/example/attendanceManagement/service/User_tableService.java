@@ -20,5 +20,6 @@ public interface User_tableService {
     /* データを更新する */
     void Update(User_table user_table);
 
-	
+	/*昇順に全件取得*/
+    Iterable<User_table> getAll();
 }

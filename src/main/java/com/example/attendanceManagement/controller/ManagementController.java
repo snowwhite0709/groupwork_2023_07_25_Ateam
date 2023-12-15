@@ -46,7 +46,7 @@ public class ManagementController {
 	//アカウント管理画面へ遷移するためのメソッド
 	@GetMapping("/accountmanagement")
 	public String accountmanagement(User_tableForm user_tableForm, Model model) {
-		Iterable<User_table> list = user_tableService.SelectAll();
+		Iterable<User_table> list = user_tableService.getAll();
 		model.addAttribute("list",list);
 		return "accountmanagement";
 	}
