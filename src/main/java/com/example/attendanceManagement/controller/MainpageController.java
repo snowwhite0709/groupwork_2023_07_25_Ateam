@@ -85,5 +85,4 @@ public class MainpageController {
 		workService.InsertWork(w);
 		return "redirect:/show";
 	}
-	
 }	

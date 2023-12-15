@@ -21,7 +21,10 @@ public interface WorkService {
     //承認がNULLのものを表示するためのメソッド
     Iterable<Work> getWork();
     
-    /*id(主キー)をキーにして1件取得する*/
+    /*id(主キー)と日付をキーにして1件取得する*/
 	Optional<Work> selectW(Integer id,Date day);
+	
+	//Employee IDで一件取得する
+	Optional<Work> selectW2(Integer id);
 	
 }
