@@ -33,6 +33,7 @@ body {
     height: 100vh;
     margin-top: 120px; /* メニューバーの高さに合わせてmargin-topを設定 */
     padding: 100px;
+    
 }
 
 .container {

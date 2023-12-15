@@ -82,8 +82,11 @@
 </head>
 
 <body>
+			<!-- ログインエラーのときはメッセージを表示 -->
+	<div th:if="${failureMessage != null}" th:text="${failureMessage}"></div>
+	</form>
 	<!-- HTMLコード -->
-	<form name="login_form">
+	<form name="login_form" th:action="@{/authenticate}" method="post">
 		<div class="login_form_top">
 			<h1>LOGIN</h1>
 			<p>UserID、Passwordをご入力の上、「LOGIN」ボタンをクリックしてください。</p>

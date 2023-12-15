@@ -27,8 +27,9 @@ table{
   border-collapse: collapse;
   border-spacing: 0;
   table-layout: fixed;
-  width: 100%;
-  margin-top: 100px; /* メニューバーの高さに合わせてmargin-topを設定 */
+  width: 80%;
+  margin-top: 70px; /* メニューバーの高さに合わせてmargin-topを設定 */
+  margin-left: 10%;
 }
 
 table tr:last-child{
@@ -36,6 +37,7 @@ table tr:last-child{
 }
 
 table th{
+margin-top: 70px;
   text-align: center;
   padding: 10px 0;
   border-right:solid 1px #ddd;
@@ -43,63 +45,12 @@ table th{
   width: 10%;
 }
 
-table th:nth-child(1){
-  background-color:#dddddd;
-}
-
-table th:nth-child(3){
-  background-color:#f5b932;
-  color: white;
-}
-
-table tr:nth-child(2) td{
-  font-size: 20px;
-}
 
 table td{
   text-align: center;
   padding: 7px 0;
   border-right:solid 1px #ddd;
   border-left:solid 1px #ddd;
-  width: 155px;
-}
-
-table td a{
-  background-color: #25b327;
-  color: white;
-  padding:5px 20px;
-  border-radius: 30px;
-  font-weight: bold;
-}
-
-table .popular{
-  width: 180px;
-}
-
-table th.popular{
-  position: relative;
-}
-
-table th.popular span.no1{
-  position: absolute;
-  top: -10px;
-  left:calc(50% - 30px);
-  background: #bdcc28;
-  width: 60px;
-  font-size: 10px;
-  border-radius: 15px;
-  line-height: 1;
-  padding: 5px;
-}
-
-table th.popular span.inner{
-  position: absolute;
-  color:white;
-  background-color: #f34955;
-  left: 0;
-  bottom: 0;
-  display: block;
-  width: 180px;
-  padding: 10px 0;
+  width: 100%;
 }
 
