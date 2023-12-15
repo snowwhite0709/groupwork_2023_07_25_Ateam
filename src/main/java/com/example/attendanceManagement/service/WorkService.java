@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import com.example.attendanceManagement.entity.Work;
@@ -20,6 +21,6 @@ public interface WorkService {
     //承認がNULLのものを表示するためのメソッド
     Iterable<Work> getWork();
     
-    
-    
+    /*id(主キー)をキーにして1件取得する*/
+	Optional<Work> selectW(Integer id,Date day);
 }

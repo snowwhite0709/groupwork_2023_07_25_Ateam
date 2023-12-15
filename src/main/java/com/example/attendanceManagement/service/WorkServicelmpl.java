@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class WorkServicelmpl implements WorkService{
 		return repository.getWork();
 	}
 
-
-
+	@Override
+	public Optional<Work> selectW(Integer id, Date day) {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.selectW(id, day);
+	}
 }
