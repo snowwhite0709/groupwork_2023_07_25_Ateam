@@ -4,11 +4,10 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import com.example.attendanceManagement.entity.User_table;
 
-@Service
+
 public class UserDetailsImpl implements UserDetails {
 	// ユーザー情報クラス
 	private final User_table user_table;
