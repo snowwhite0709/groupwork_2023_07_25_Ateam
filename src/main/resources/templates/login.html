@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link th:href="@{/style.css}" rel="stylesheet">
+<!--	<link th:href="@{/style.css}" rel="stylesheet">-->
 	<title>ログイン</title>
 	
 	<style>
@@ -82,17 +82,20 @@
 </head>
 
 <body>
-			<!-- ログインエラーのときはメッセージを表示 -->
-	<div th:if="${failureMessage != null}" th:text="${failureMessage}"></div>
+	
 	</form>
 	<!-- HTMLコード -->
 	<form name="login_form" th:action="@{/authenticate}" method="post">
 		<div class="login_form_top">
 			<h1>LOGIN</h1>
+			<!-- ログインエラーのときはメッセージを表示 -->
+			<font color="red">
+				<a th:if="${failureMessage != null}" th:text="${failureMessage}"></a>
+			</font>
 			<p>UserID、Passwordをご入力の上、「LOGIN」ボタンをクリックしてください。</p>
 		</div>
 		<div class="login_form_btm">
-			<input type="id" name="user_id" placeholder="UserID">
+			<input type="id" name="username" placeholder="UserID">
 			<input type="password" name="password" placeholder="Password">
 			<input type="submit" name="botton" value="login">
 		</div>
