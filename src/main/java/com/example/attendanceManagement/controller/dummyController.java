@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.service.WorkServicelmpl;
+import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
 @Controller
 public class dummyController {
 	@Autowired
 	WorkServicelmpl service;
+	@Autowired
+	UserDetailsImpl udi;
 
 	@GetMapping("/table")
 	public String showTable(Model model) {
@@ -45,7 +48,7 @@ public class dummyController {
 		//Listに要素を詰め込む
 		for(Work w : work) {
 			//指定したemployee_idの当月の勤怠情報を取得
-			if (w.getEmployee_id() == 1 && sdf2.format(w.getDay()).equals(Kongetu)) {
+			if (w.getEmployee_id() == udi.getUser_Id() && sdf2.format(w.getDay()).equals(Kongetu)) {
 				//ListにEmpleyee_idが1の情報を追加
 				list.add(w);
 				//DBの年月日と今日の年月日が一緒であればtodayWorkに出勤時間と退勤時間を追加

@@ -24,6 +24,7 @@ public class MainpageController {
 	}
 	@GetMapping("/personal")
 	public String personal() {
+		
 		return "/table";
 	}
 	@GetMapping("/attend")
