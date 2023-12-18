@@ -21,6 +21,9 @@ import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
+	public static Integer USERID;
+	
+	
 	@Autowired
 	User_tableRepository user_tableRepository;
 	@Autowired
@@ -59,6 +62,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("username:" + username);
+		USERID = Integer.parseInt(username);
 		Integer val = Integer.valueOf(username);
 		// login_user テーブルから username に対応するデータを取得する
 		Optional<User_table> loginUserOpt = user_tableRepository.findById(val);

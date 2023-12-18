@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.service.UserDetailServiceImpl;
 import com.example.attendanceManagement.service.WorkServicelmpl;
 
 @Controller
@@ -23,14 +25,12 @@ public class dummyController {
 	@Autowired
 	WorkServicelmpl service;
 	
-
 	@GetMapping("/table")
-	public String showTable(Model model) {
+	public String showTable(Model model, Authentication authentication) {
 		
+//		System.out.println("id: " + authentication.getPrincipal());
 		
-//		
-//		@Autowired
-		
+		System.out.println("id: " + UserDetailServiceImpl.USERID);
 		
 		List<String> todayWork = new ArrayList<>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -50,7 +50,7 @@ public class dummyController {
 		//Listに要素を詰め込む
 		for(Work w : work) {
 			//指定したemployee_idの当月の勤怠情報を取得
-			if (w.getEmployee_id() == 1 && sdf2.format(w.getDay()).equals(Kongetu)) {
+			if (w.getEmployee_id()  == UserDetailServiceImpl.USERID && sdf2.format(w.getDay()).equals(Kongetu)) {
 				//ListにEmpleyee_idが1の情報を追加
 				list.add(w);
 				//DBの年月日と今日の年月日が一緒であればtodayWorkに出勤時間と退勤時間を追加
