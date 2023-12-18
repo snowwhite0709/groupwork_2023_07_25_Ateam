@@ -31,8 +31,98 @@
 	<input type="submit" value="承認">
 	</form>
     </ul>
-    	
-    
     </div>	
+    
+    <!-- てすと -->
+    <div class="main">
+		<div class="container-fluid">
+			<!-- from start-->
+			<form name="form" th:action="@{/country}" th:method="post" th:object="${countryForm}" class="needs-validation" novalidate>
+
+				<input type="hidden" id="mode" name="mode" th:value="${mode}">
+				<!-- contents start-->
+				<div class="contents">
+					<div class="contents-header">国区分一覧</div>
+					<!-- contents-body-edit -->
+					<div class="contents-body" id="contents-body-edit">
+						<table class="table table-striped table-hover table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 5%;">No.</th>
+									<th style="width: 20%;">国区分</th>
+									<th style="width: 20%;">国名</th>
+									<th>作成者</th>
+									<th>作成日時</th>
+									<th>更新者</th>
+									<th>更新日時</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="country,stat:${countryForm.countryList}" th:object="${country}">
+									<td th:text="${stat.count}"></td>
+									<td th:text="*{countryKbn}"></td>
+									<td th:text="*{countryName}"></td>
+									<td th:text="*{createUser}"></td>
+									<td th:text="*{createDateTime}"></td>
+									<td th:text="*{updateUser}"></td>
+									<td th:text="*{updateDateTime}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.contents-body-edit -->
+					<!-- contents-body-update -->
+					<div class="contents-body" id="contents-body-update" style="display: none;">
+						<table class="table table-striped table-hover table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 5%;">No.</th>
+									<th style="width: 20%;">国区分</th>
+									<th style="width: 20%;">国名</th>
+									<th>作成者</th>
+									<th>作成日時</th>
+									<th>更新者</th>
+									<th>更新日時</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="country,stat : *{countryList}">
+									<td th:text="${stat.count}"></td>
+									<td><input type="text" class="form-control" th:field="*{countryList[__${stat.index}__].countryKbn}" readonly="readonly"></td>
+									<td><input type="text" class="form-control" th:field="*{countryList[__${stat.index}__].countryName}"></td>
+									<td th:text="*{countryList[__${stat.index}__].createUser}"></td>
+									<td th:text="*{countryList[__${stat.index}__].createDateTime}"></td>
+									<td th:text="*{countryList[__${stat.index}__].updateUser}"></td>
+									<td th:text="*{countryList[__${stat.index}__].updateDateTime}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.contents-body-update -->
+					<!-- contents-footer-edit -->
+					<div class="contents-footer" id="contents-footer-edit">
+						<button type="button" class="btn btn-primary" id="edit">編集</button>
+					</div>
+					<!-- /.contents-footer-edit -->
+					<!-- contents-footer-update -->
+					<div class="contents-footer" id="contents-footer-update" style="display: none;">
+						<button type="submit" id="update" name="update" class="btn btn-primary" onclick="_submit()">更新</button>
+						<button type="submit" id="cancel" name="cancel" class="btn btn-secondary" onclick="cancel()">キャンセル</button>
+					</div>
+					<!-- /.contents-footer-update -->
+
+				</div>
+				<!-- /.contents -->
+			</form>
+			<!-- /.from -->
+		</div>
+		<!-- container-fluid -->
+	</div>
+	<!-- main end-->
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </body>
 </html>
