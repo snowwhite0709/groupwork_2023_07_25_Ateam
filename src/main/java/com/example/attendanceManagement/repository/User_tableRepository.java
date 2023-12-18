@@ -19,7 +19,11 @@ public interface User_tableRepository extends CrudRepository<User_table, Integer
     void insertLoginUser(@Param("pass") String pass, @Param("lastname") String lastname, @Param("firstname") String firstname,
     		@Param("sex") Integer sex, @Param("age") Integer age,@Param("status") Integer status,
     		 @Param("rank") Integer rank,@Param("admin") Integer admin);
+	
+	@Query("SELECT * FROM work WHERE approval is NULL")
+	Iterable<User_table> getUser_table();
 }
+
 
 /*旧記載
 @Modifying
