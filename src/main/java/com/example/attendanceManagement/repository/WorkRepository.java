@@ -19,4 +19,8 @@ public interface WorkRepository extends CrudRepository<Work, Integer>{
 			@Param("id") Integer id,
 			@Param("day") Date day);
 	
+	@Query("SELECT * FROM work WHERE employee_id=:employee_id")
+	Optional<Work> selectW2(
+			@Param("employee_id") Integer employee_id);
+	
 }

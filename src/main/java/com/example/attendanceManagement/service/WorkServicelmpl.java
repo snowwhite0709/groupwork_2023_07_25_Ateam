@@ -55,9 +55,9 @@ public class WorkServicelmpl implements WorkService{
 	}
 
 	@Override
-	public Optional<Work> selectW2(Integer id) {
+	public Optional<Work> selectW2(Integer employee_id) {
 		// TODO 自動生成されたメソッド・スタブ
-		return repository.selectW2(id);
+		return repository.selectW2(employee_id);
 	}
 	
 

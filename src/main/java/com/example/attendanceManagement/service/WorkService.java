@@ -25,6 +25,6 @@ public interface WorkService {
 	Optional<Work> selectW(Integer id,Date day);
 	
 	//Employee IDで一件取得する
-	Optional<Work> selectW2(Integer id);
+	Optional<Work> selectW2(Integer employee_id);
 	
 }
