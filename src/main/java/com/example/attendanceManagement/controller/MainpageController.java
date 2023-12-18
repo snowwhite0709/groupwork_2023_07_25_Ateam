@@ -40,7 +40,8 @@ public class MainpageController {
 	    calendar.set(Calendar.HOUR_OF_DAY, 0);
 	    Date date2 = calendar.getTime();
 		java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
-		Optional<Work> o=workService.SlectOneById(1);
+		//Optional<Work> o=workService.SlectOneById(1);
+		Optional<Work> o=workService.selectW2(1);
 		Work w = o.get();
 		w.setDay(sqlDate);
 		w.setAttendancetime(a);
@@ -85,5 +86,4 @@ public class MainpageController {
 		workService.InsertWork(w);
 		return "redirect:/show";
 	}
-	
 }	
