@@ -28,6 +28,10 @@ public class dummyController {
 	public String showTable(Model model) {
 		
 		
+//		
+//		@Autowired
+		
+		
 		List<String> todayWork = new ArrayList<>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		
