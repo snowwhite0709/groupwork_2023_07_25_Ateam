@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>管理者画面</title>
+<link rel="stylesheet" href="http://localhost:8080/css/managementhome.css">
+</head>
+<body>	
+	<div class="navbar">
+    <a href="http://localhost:8080/management">勤怠承認</a>
+    <a href="http://localhost:8080/management/attendanceregistration">勤怠登録</a>
+    <a href="http://localhost:8080/management/accountmanagement">アカウント管理</a>
+    <a href="http://localhost:8080/management/accountedit">アカウント新規作成</a>
+</div>		
+ <div class="choise">
+    <form th:action="@{/management/selected-month-dates}" method="get">
+        <label for="selectedMonth">Select Month:</label>
+        <select id="selectedMonth" name="selectedMonth">
+            <option th:each="date : ${startOfMonthDates}" th:value="${date}" th:text="${date}"></option>
+        </select>
+        
+        <button type="submit">選択</button>
+    </form>
+    </div>	
+ <div class="calender">
+      <h1 th:text="${selectedMonth}"></h1>
+    <ul th:each="date : ${selectedMonthDates}">
+        <li th:text="${date}"></li>
+        <form method="POST" th:action="@{/management}">
+			<input type="text"/>
+	<input type="submit" value="承認">
+	</form>
+    </ul>
+    	
+    
+    </div>	
+</body>
+</html>

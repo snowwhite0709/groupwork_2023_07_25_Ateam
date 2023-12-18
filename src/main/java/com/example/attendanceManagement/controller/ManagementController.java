@@ -1,8 +1,14 @@
 package com.example.attendanceManagement.controller;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.User_table;
@@ -56,6 +63,53 @@ public class ManagementController {
 	public String accauntManagement() {
 		return "accountmake";
 	}
+	
+	//勤怠登録画面へ遷移するためのメソッド
+    @GetMapping("/attendanceregistration")
+    public String getDateSelector(Model model) {
+        List<String> startOfMonthDates = generateStartOfMonthDates();
+        model.addAttribute("startOfMonthDates", startOfMonthDates);
+        return "attendanceregistration";
+    }
+
+    @GetMapping("/selected-month-dates")
+    public String getSelectedMonthDates(
+            @RequestParam(name = "selectedMonth") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedMonth,
+            Model model) {
+        List<String> selectedMonthDates = generateMonthDates(selectedMonth);
+        model.addAttribute("selectedMonth", selectedMonth.format(DateTimeFormatter.ofPattern("yyyy-MM")));
+        model.addAttribute("selectedMonthDates", selectedMonthDates);
+        return "attendanceregistration";
+    }
+
+    private List<String> generateStartOfMonthDates() {
+        List<String> startOfMonthDates = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        for (int i = 0; i < 12; i++) {
+            currentDate = currentDate.withDayOfMonth(1);
+            startOfMonthDates.add(currentDate.format(formatter));
+            currentDate = currentDate.plusMonths(1);
+        }
+
+        return startOfMonthDates;
+    }
+
+    private List<String> generateMonthDates(LocalDate selectedMonth) {
+        List<String> selectedMonthDates = new ArrayList<>();
+        YearMonth yearMonth = YearMonth.from(selectedMonth);
+        LocalDate currentDate = yearMonth.atDay(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        while (currentDate.getMonth().equals(yearMonth.getMonth())) {
+            selectedMonthDates.add(currentDate.format(formatter));
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return selectedMonthDates;
+    }
+
 
 	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")
@@ -77,7 +131,7 @@ public class ManagementController {
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
 			return "redirect:/management/accountedit";
 		}else {
-			return null;
+			return "accountmake";
 		}
 	}
 
@@ -149,16 +203,8 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 			return "redirect:accountmanagement";
 		}else {
 			makeUpdateModel(user_tableForm, model);
-			return "null";
+			return "accountmake";
 		}
-	}
-	
-	
-	private User_table makeUser_table(User_tableForm user_tableForm) {
-		User_table user_table = new User_table();
-		user_table.setId(user_tableForm.getId());
-
-		return user_table;
 	}
 	
 	private User_tableForm makeUser_tableForm(User_table user_table) {
@@ -176,11 +222,11 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		return user_tableForm;
 	}
 	
-	/*	@PostMapping("/delete")
-		public String delete(@RequestParam("id") String id, Model model,
-				RedirectAttributes redirectAttributes) {
-			user_tableService.deleteQuizById(Integer.parseInt(id));
-			redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
-			return "redirect:/quiz";
-		}*/
+	/*@PostMapping("/delete")
+	public String delete(@RequestParam("id") String id, Model model,
+			RedirectAttributes redirectAttributes) {
+		user_tableService.deleteQuizById(Integer.parseInt(id));
+		redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
+		return "redirect:/quiz";
+	}*/
 }

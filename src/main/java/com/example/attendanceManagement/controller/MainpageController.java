@@ -41,7 +41,7 @@ public class MainpageController {
 	    Date date2 = calendar.getTime();
 		java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
 		//Optional<Work> o=workService.SlectOneById(1);
-		Optional<Work> o=workService.selectW2(1);
+		Optional<Work> o=workService.selectW2(4);
 		Work w = o.get();
 		w.setDay(sqlDate);
 		w.setAttendancetime(a);

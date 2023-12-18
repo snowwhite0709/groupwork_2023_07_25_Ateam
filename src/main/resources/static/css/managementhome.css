@@ -54,4 +54,22 @@ table td{
   width: 100%;
 }
 
-   
+/*月選択*/
+
+.choise{
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 80%;
+  margin-top: 70px; /* メニューバーの高さに合わせてmargin-topを設定 */
+  margin-left: 10%;
+}
+
+.calender{
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 80%;
+  margin-top: 150px; /* メニューバーの高さに合わせてmargin-topを設定 */
+  margin-left: 10%;
+}
