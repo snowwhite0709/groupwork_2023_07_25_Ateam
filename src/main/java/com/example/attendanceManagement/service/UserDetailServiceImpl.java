@@ -24,6 +24,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	public static Integer USERID;
 	
 	
+	
 	@Autowired
 	User_tableRepository user_tableRepository;
 	@Autowired
