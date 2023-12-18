@@ -25,4 +25,6 @@ public interface User_tableService {
     
 	/*保存*/
     void sAll(User_table user_table);
+    
+    Iterable<User_table> getUser_table(); 
 }

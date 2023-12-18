@@ -16,6 +16,8 @@ public class User_tableServicelmpl implements User_tableService{
 	@Autowired
 	User_tableRepository repository;
 	
+	
+	
 	@Override
 	public Iterable<User_table> SelectAll() {
 		// TODO 自動生成されたメソッド・スタブ
@@ -52,6 +54,12 @@ public class User_tableServicelmpl implements User_tableService{
 		repository.insertLoginUser(user_table.getPass(), user_table.getLastname(), user_table.getFirstname(), 
 				user_table.getSex(), user_table.getAge(), user_table.getStatus(), user_table.getRank(), user_table.getAdmin());
 		
+	}
+
+	@Override
+	public Iterable<User_table> getUser_table() {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.getUser_table();
 	}
 
 }
