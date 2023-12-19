@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Attendance Information</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: aliceblue;
+			background: linear-gradient(#05FBFF, #1D62F0) fixed;
+
+		}
+
+		.info-section1 {
+			margin-top: 20px;
+		}
+
+		.info-section1 h2 {
+			margin-bottom: 10px;
+		}
+
+		.info-section1 table {
+			border-collapse: collapse;
+			width: 30%;
+			margin-top: 10px;
+		}
+
+		.info-section1 th,
+		.info-section1 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section1 td {
+			background-color: rgb(255, 255, 255);
+		}
+
+
+		.info-section2 {
+			margin-top: 20px;
+		}
+
+		.info-section2 h2 {
+			margin-bottom: 10px;
+		}
+
+		.info-section2 table {
+			border-collapse: collapse;
+			width: 80%;
+			margin-top: 10px;
+		}
+
+		.info-section2 th,
+		.info-section2 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section2 td {
+			background-color: rgb(255, 255, 255);
+		}
+
+		.buttonInfo {
+			display: flex;
+			justify-content: left;
+		}
+
+		.buttonInfo form {
+			margin-right: 10px;
+			/* フォーム間の余白（必要に応じて調整） */
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="info-section1">
+		<h2>当日の出勤・退勤時刻</h2>
+
+		<table>
+			<!-- 当日の出勤・退勤時刻の情報を表示 -->
+
+			<tr>
+				<th>出勤時間</th>
+				<th>退勤時間</th>
+			</tr>
+
+			<tr th:if="${todayWork != null and todayWork.size() > 0}">
+				<td th:text="${todayWork[0]}"></td>
+				<td th:text="${todayWork[1]}"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="info-section2">
+		<h2>当月の出勤状況</h2>
+	</div>
+
+	<form action="/submitForm" method="post">
+		<label for="yearMonth">年月を選択:</label>
+		<select id="yearMonth" name="yearMonth">
+			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
+		</select>
+		<input type="submit" value="Submit">
+	</form>
+
+
+	<div class="info-section2">
+		<table border="2">
+			<!-- 当月の出勤状況と残休日の情報を表示 -->
+			<tr>
+				<th>日付</th>
+				<th>出勤時間</th>
+				<th>退勤時間</th>
+				<th>定時</th>
+				<th>残業時間</th>
+			</tr>
+
+			<tr th:each="work : ${list}">
+				<td th:text="${work.day}"></td>
+				<!-- 例: テンプレート内のSpEL式を修正 -->
+				<td th:text="${work.attendancetime}"></td>
+				<td th:text="${work.leavingtime}"></td>
+				<td>09:00-18:00</td>
+				<td th:text="${work.overtime}"></td>
+
+			</tr>
+			<!-- ここにThymeleafを使用してデータを表示 -->
+		</table>
+	</div>
+
+	<div class="info-section2">
+		<table border="2">
+			<!-- 当月の出勤状況と残休日の情報を表示 -->
+			<tr>
+				<th>出勤日数</th>
+				<th>欠勤日数</th>
+				<th>総残業時間</th>
+				<th>有給使用日数</th>
+				<th>有給残日数</th>
+			</tr>
+
+			<tr>
+				<td th:text="${workingDays}"></td>
+				<td>0</td>
+				<td>30</td>
+				<td>0</td>
+				<td>19</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<div class="buttonInfo">
+		<form action="/login" method="get">
+			<button type="submit">ログイン画面</button>
+		</form>
+		<form action="/show" method="get">
+			<button>メインメニュー</button>
+		</form>
+
+	</div>
+
+</body>
+
+</html>

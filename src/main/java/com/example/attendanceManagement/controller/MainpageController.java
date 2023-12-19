@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.service.WorkService;
@@ -22,8 +25,15 @@ public class MainpageController {
 	public String sample(Model model) {
 		return "tanaka";
 	}
-	@GetMapping("/personal")
-	public String personal() {
+	@PostMapping("/personal")
+	public String personal(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+//			Work work = new Work();
+//			Optional<Work> w = workService.SlectOneById(id);
+//			work = w.get();
+//			work.setApproval(true);
+//			workService.UpdateWork(work);
+			redirectAttributes.addFlashAttribute("user_ui",id);
+		
 		return "/table";
 	}
 	@GetMapping("/attend")
@@ -41,7 +51,7 @@ public class MainpageController {
 	    Date date2 = calendar.getTime();
 		java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
 		//Optional<Work> o=workService.SlectOneById(1);
-		Optional<Work> o=workService.selectW2(1);
+		Optional<Work> o=workService.selectW2(4);
 		Work w = o.get();
 		w.setDay(sqlDate);
 		w.setAttendancetime(a);

@@ -8,6 +8,7 @@
 <body>
 	<div class="navbar">
     <a href="http://localhost:8080/management">勤怠承認</a>
+    <a href="http://localhost:8080/management/attendanceregistration">勤怠登録</a>
     <a href="http://localhost:8080/management/accountmanagement">アカウント管理</a>
     <a href="http://localhost:8080/management/accountedit">アカウント新規作成</a>
 </div>
@@ -21,15 +22,19 @@
 	        <h2>アカウント情報登録</h2>
             <label for="username">パスワード</label>
             <input type="text" id="username" name="username" th:field="*{pass}" required>
+            <div th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
             
             <label for="username">姓</label>
             <input type="text" id="username" name="username" th:field="*{lastname}" required>    
+            <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
                
             <label for="username">名</label>
             <input type="text" id="username" name="username" th:field="*{firstname}" required>  
+            <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
             
             <label for="username">年齢</label>
             <input type="text" id="username" name="username" th:field="*{age}" required> 
+            <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
                         
            <label for="username">性別</label>
            <select id="sex" name="sex" th:field="*{sex}" required>

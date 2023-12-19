@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1>Monthly Dates</h1>
+    <ul th:each="date : ${monthlyDates}">
+        <li th:text="${date}"></li>
+    </ul>
+</body>
+</html>
