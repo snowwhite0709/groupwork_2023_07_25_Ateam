@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +25,7 @@ public class dummyController {
 	WorkServicelmpl service;
 	
 	@GetMapping("/table")
-	public String showTable(Model model, Authentication authentication) {
-		
-//		System.out.println("id: " + authentication.getPrincipal());
-		
+	public String showTable(Model model) {
 		System.out.println("id: " + UserDetailServiceImpl.USERID);
 		
 		List<String> todayWork = new ArrayList<>();
@@ -40,7 +36,7 @@ public class dummyController {
 		
 		Set<String>yearMonth = new TreeSet<>();
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
-		
+		//今月の年月を取得
 		String Kongetu = sdf2.format(new Date());
 		
 		//workテーブルの情報を取得
@@ -60,8 +56,9 @@ public class dummyController {
 					todayWork.add(w.getAttendancetime());
 					todayWork.add(w.getLeavingtime());
 				}
+				yearMonth.add(sdf2.format(w.getDay()));
 			}
-			yearMonth.add(sdf2.format(w.getDay()));
+			
 		}
 		System.out.println("list size : " + list.size());
 		
@@ -89,12 +86,11 @@ public class dummyController {
 		//Listに要素を詰め込む
 		for(Work w : work) {
 			//指定したemployee_idの当月の勤怠情報を取得
-			if (w.getEmployee_id() == 1 && sdf2.format(w.getDay()).equals(selectedYearMonth)) {
+			if (w.getEmployee_id() == UserDetailServiceImpl.USERID && sdf2.format(w.getDay()).equals(selectedYearMonth)) {
 				//ListにEmpleyee_idが1の情報を追加
 				list.add(w);
-				//DBの年月日と今日の年月日が一緒であればtodayWorkに出勤時間と退勤時間を追加
+				yearMonth.add(sdf2.format(w.getDay()));
 			}
-			yearMonth.add(sdf2.format(w.getDay()));
 		}
 		System.out.println("list size : " + list.size());
 		
@@ -109,6 +105,8 @@ public class dummyController {
         // 他の処理や遷移先を返す
         return "selectedYearMonthAttendance";
     }
+    
 	
+    
 
 }
