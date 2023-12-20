@@ -14,11 +14,19 @@ public interface User_tableRepository extends CrudRepository<User_table, Integer
 	Iterable<User_table> getAll();
 	
 	@Modifying
-    @Query("INSERT INTO login_user (pass, lastname, firstname, sex, age, status, rank, admin) "
+    @Query("INSERT INTO user_table (pass, lastname, firstname, sex, age, status, rank, admin) "
     		+ "VALUES (:pass, :lastname, :firstname, :sex, :age, :status, :rank, :admin)")
     void insertLoginUser(@Param("pass") String pass, @Param("lastname") String lastname, @Param("firstname") String firstname,
     		@Param("sex") Integer sex, @Param("age") Integer age,@Param("status") Integer status,
     		 @Param("rank") Integer rank,@Param("admin") Integer admin);
+	
+	@Modifying
+    @Query("UPDATE user_table SET pass = ;pass, lastname =  :lastname, firstname = :firstname, sex = :sex, "
+    		+ "age = :age, status = :status, rank = :rank, admin = :admin WHERE id = :id) "
+    		+ "VALUES (:pass, :lastname, :firstname, :sex, :age, :status, :rank, :admin)")
+    void updateLoginUser(@Param("pass") String pass, @Param("lastname") String lastname, @Param("firstname") String firstname,
+    		@Param("sex") Integer sex, @Param("age") Integer age,@Param("status") Integer status,
+    		 @Param("rank") Integer rank,@Param("admin") Integer admin,@Param("id") Integer id);
 	
 	@Query("SELECT * FROM work WHERE approval is NULL")
 	Iterable<User_table> getUser_table();

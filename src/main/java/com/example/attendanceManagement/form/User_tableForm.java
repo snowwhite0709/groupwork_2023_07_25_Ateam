@@ -2,14 +2,13 @@ package com.example.attendanceManagement.form;
 
 import org.hibernate.validator.constraints.Range;
 
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 @Data
 public class User_tableForm {
 
 	private Integer id;
 	
-	@Size(min=8,max=12)
+	/*@Size(min=8,max=12)*/
 	private String pass;
 	private String lastname;
 	private String firstname;

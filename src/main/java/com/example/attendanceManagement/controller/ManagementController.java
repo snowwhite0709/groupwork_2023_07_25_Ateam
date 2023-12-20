@@ -1,15 +1,9 @@
 package com.example.attendanceManagement.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.attendanceManagement.entity.User_table;
 import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.form.User_tableForm;
+import com.example.attendanceManagement.method.GetIdMethod;
 import com.example.attendanceManagement.service.User_tableService;
 import com.example.attendanceManagement.service.WorkService;
 
@@ -36,6 +31,8 @@ public class ManagementController {
 	User_tableService user_tableService;
 	@Autowired
 	WorkService workService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@ModelAttribute
 	public User_tableForm setUpForm() {
@@ -66,97 +63,42 @@ public class ManagementController {
 	}
 	
 
-	//給与管理画面へ遷移するためのメソッド
-	@GetMapping("/pay")
-	public String pay() {
-		return "payslip";
-	}
+	/*	//給与管理画面へ遷移するためのメソッド
+		@GetMapping("/pay")
+		public String pay() {
+			return "payslip";
+		}*/
 	
 	//勤怠登録画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
 	public String atten(@PathVariable Integer id, Model model) {
-    	
-		List<String> todayWork = new ArrayList<>();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		//idを渡してstatic化
+		GetIdMethod g = new GetIdMethod(id);
 		
-		String dbToDay;
-		String toDay;
-		
-		Set<String>yearMonth = new TreeSet<>();
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
-		//今月の年月を取得
-		String Kongetu = sdf2.format(new Date());
-		
-		//workテーブルの情報を取得
-		Iterable<Work> work = workService.selectI(id);
-		
-		//List型を宣言
-		List<Work> list = new ArrayList<>();
-		//Listに要素を詰め込む
-
-		for(Work w : work) {
-			//指定したemployee_idの当月の勤怠情報を取得
-			if (w.getEmployee_id()  == id && sdf2.format(w.getDay()).equals(Kongetu)) {
-				//ListにEmpleyee_idが1の情報を追加
-				list.add(w);
-				//DBの年月日と今日の年月日が一緒であればtodayWorkに出勤時間と退勤時間を追加
-				dbToDay = sdf.format(w.getDay());
-				toDay = sdf.format(new Date());
-				if(dbToDay.equals(toDay)){
-					todayWork.add(w.getAttendancetime());
-					todayWork.add(w.getLeavingtime());
-				}
-			}
-			yearMonth.add(sdf2.format(w.getDay()));
-		}		
-		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
-		//HTMLに送る
-		model.addAttribute("list", list);
-		model.addAttribute("todayWork",todayWork);
-		model.addAttribute("workingDays", list.size());
-		model.addAttribute("yearMonth", yearMonth);
+		//メソッドを利用し画面内容反映
+		g.getMonth(model,workService);
 		
         return "attendanceregistration";
     }
-	@PostMapping("/submitForm")
-    public String handleFormSubmission(@PathVariable Integer id,@RequestParam("yearMonth") String selectedYearMonth,
-    		Model model,RedirectAttributes redirectAttributes) {
+	
 		
-		Set<String>yearMonth = new TreeSet<>();
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
-		System.out.println("ここまで");
+	@GetMapping("/mitForm")
+	public String attend(@RequestParam("yearMonth") String selectedYearMonth,Model model) {
+		System.out.println(selectedYearMonth);
+		GetIdMethod g = new GetIdMethod();
 		
-		//workテーブルの情報を取得
-		Iterable<Work> work = workService.SelectAll();
-		//List型を宣言
-		List<Work> list = new ArrayList<>();
-		//Listに要素を詰め込む
-		for(Work w : work) {
-			//指定したemployee_idの当月の勤怠情報を取得
-			if (w.getEmployee_id() == id && sdf2.format(w.getDay()).equals(selectedYearMonth)) {
-				//ListにEmpleyee_idが1の情報を追加
-				list.add(w);
-				yearMonth.add(sdf2.format(w.getDay()));
-			}
-		}	
-		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
-		
-		//HTMLに送る
-		model.addAttribute("list", list);
-		model.addAttribute("workingDays", list.size());
-		model.addAttribute("yearMonth", yearMonth);
-		model.addAttribute("selectedYearMonth", selectedYearMonth);
-
-        // 他の処理や遷移先を返す
-        return "redirect:attendanceregistration";
-    }
+		//メソッドを利用し画面内容反映
+		g.getNowMonth(model,workService,selectedYearMonth);
+			return "attendanceregistration";
+		}
 
 	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")
 	public String insert(@Validated User_tableForm user_tableForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
 		User_table user_table = new User_table();
-		user_table.setPass(user_tableForm.getPass());
+		
+		user_table.setPass(passwordEncoder.encode(user_tableForm.getPass()));
 		user_table.setLastname(user_tableForm.getLastname());
 		user_table.setFirstname(user_tableForm.getFirstname());
 		user_table.setSex(user_tableForm.getSex());
@@ -200,7 +142,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		if(user_tableFormOpt.isPresent()) {
 			user_tableForm = user_tableFormOpt.get();
 		}
-		//更新用のModel作成
+		//更新用のModel作成-s
 		makeUpdateModel(user_tableForm, model);
 		return "accountmake";
 	}
@@ -215,7 +157,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		model.addAttribute("status", user_tableForm.getStatus());
 		model.addAttribute("rank", user_tableForm.getRank());
 		model.addAttribute("admin", user_tableForm.getAdmin());
-		user_tableForm.setNewUser_table(false);
+		user_tableForm.setNewUser_table(true);
 		model.addAttribute("user_tableForm", user_tableForm);
 		model.addAttribute("title","更新用フォーム");
 	}
@@ -226,7 +168,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 			RedirectAttributes redirectAtrributes) {
 		User_table user_table = new User_table();
 		user_table.setId(user_tableForm.getId());
-		user_table.setPass(user_tableForm.getPass());
+		user_table.setPass(passwordEncoder.encode(user_tableForm.getPass()));
 		user_table.setLastname(user_tableForm.getLastname());
 		user_table.setFirstname(user_tableForm.getFirstname());
 		user_table.setSex(user_tableForm.getSex());
@@ -234,6 +176,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		user_table.setStatus(user_tableForm.getStatus());
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
+		
 		//入力チェック
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト
