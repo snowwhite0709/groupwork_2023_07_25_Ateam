@@ -14,10 +14,11 @@
 		</h1>
 	
 		<nav>
-			<ul class="nav-menu" action="@{/table}" method="post">
-				<li><a href="@{/personal}" th:text="${username}">name</a></li>
-				<li><a href="@{/personal}" th:text="${password}">pass</a></li>
-				<li><a href="http://localhost:8080/table" name="id" th:text="${id}">id</a></li>
+			<!--<ul class="nav-menu" action="@{/table}" method="post">
+				<li><a href="@{/personal}" th:text="${id}">name</a></li>
+				<li><a href="@{/personal}" th:text="${password}">pass</a></li>-->
+			<ul class="nav-menu">
+				<li><a href="http://localhost:8080/table" sec:authentication="name">id</a></li>
 			</ul>
 		</nav>
 	</header>
