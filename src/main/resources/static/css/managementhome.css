@@ -73,3 +73,73 @@ table td{
   margin-top: 150px; /* メニューバーの高さに合わせてmargin-topを設定 */
   margin-left: 10%;
 }
+
+/*勤怠計算*/
+body {
+			font-family: Arial, sans-serif;
+			
+
+		}
+
+		.info-section1 {
+			margin-top: 20px;
+		}
+
+		.info-section1 h2 {
+			margin-bottom: 10px;
+		}
+
+		.info-section1 table {
+			border-collapse: collapse;
+			width: 30%;
+			margin-top: 10px;
+		}
+
+		.info-section1 th,
+		.info-section1 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section1 td {
+			background-color: rgb(255, 255, 255);
+		}
+
+
+		.info-section2 {
+			margin-top: 20px;
+		}
+
+		.info-section2 h2 {
+			margin-bottom: 10px;
+		}
+
+		.info-section2 table {
+			border-collapse: collapse;
+			width: 80%;
+			margin-top: 10px;
+		}
+
+		.info-section2 th,
+		.info-section2 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section2 td {
+			background-color: rgb(255, 255, 255);
+		}
+
+		.buttonInfo {
+			display: flex;
+			justify-content: left;
+		}
+
+		.buttonInfo form {
+			margin-right: 10px;
+			/* フォーム間の余白（必要に応じて調整） */
+		}

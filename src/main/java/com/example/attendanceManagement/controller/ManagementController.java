@@ -1,14 +1,15 @@
 package com.example.attendanceManagement.controller;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -72,51 +73,83 @@ public class ManagementController {
 	}
 	
 	//勤怠登録画面へ遷移するためのメソッド
-    @GetMapping("/attendanceregistration")
-    public String getDateSelector(Model model) {
-        List<String> startOfMonthDates = generateStartOfMonthDates();
-        model.addAttribute("startOfMonthDates", startOfMonthDates);
+	@GetMapping("/attendanceregistration/{id}")
+	public String atten(@PathVariable Integer id, Model model) {
+    	
+		List<String> todayWork = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		
+		String dbToDay;
+		String toDay;
+		
+		Set<String>yearMonth = new TreeSet<>();
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
+		//今月の年月を取得
+		String Kongetu = sdf2.format(new Date());
+		
+		//workテーブルの情報を取得
+		Iterable<Work> work = workService.selectI(id);
+		
+		//List型を宣言
+		List<Work> list = new ArrayList<>();
+		//Listに要素を詰め込む
+
+		for(Work w : work) {
+			//指定したemployee_idの当月の勤怠情報を取得
+			if (w.getEmployee_id()  == id && sdf2.format(w.getDay()).equals(Kongetu)) {
+				//ListにEmpleyee_idが1の情報を追加
+				list.add(w);
+				//DBの年月日と今日の年月日が一緒であればtodayWorkに出勤時間と退勤時間を追加
+				dbToDay = sdf.format(w.getDay());
+				toDay = sdf.format(new Date());
+				if(dbToDay.equals(toDay)){
+					todayWork.add(w.getAttendancetime());
+					todayWork.add(w.getLeavingtime());
+				}
+			}
+			yearMonth.add(sdf2.format(w.getDay()));
+		}		
+		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
+		//HTMLに送る
+		model.addAttribute("list", list);
+		model.addAttribute("todayWork",todayWork);
+		model.addAttribute("workingDays", list.size());
+		model.addAttribute("yearMonth", yearMonth);
+		
         return "attendanceregistration";
     }
+	@PostMapping("/submitForm")
+    public String handleFormSubmission(@PathVariable Integer id,@RequestParam("yearMonth") String selectedYearMonth,
+    		Model model,RedirectAttributes redirectAttributes) {
+		
+		Set<String>yearMonth = new TreeSet<>();
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
+		System.out.println("ここまで");
+		
+		//workテーブルの情報を取得
+		Iterable<Work> work = workService.SelectAll();
+		//List型を宣言
+		List<Work> list = new ArrayList<>();
+		//Listに要素を詰め込む
+		for(Work w : work) {
+			//指定したemployee_idの当月の勤怠情報を取得
+			if (w.getEmployee_id() == id && sdf2.format(w.getDay()).equals(selectedYearMonth)) {
+				//ListにEmpleyee_idが1の情報を追加
+				list.add(w);
+				yearMonth.add(sdf2.format(w.getDay()));
+			}
+		}	
+		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
+		
+		//HTMLに送る
+		model.addAttribute("list", list);
+		model.addAttribute("workingDays", list.size());
+		model.addAttribute("yearMonth", yearMonth);
+		model.addAttribute("selectedYearMonth", selectedYearMonth);
 
-    @GetMapping("/selected-month-dates")
-    public String getSelectedMonthDates(
-            @RequestParam(name = "selectedMonth") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedMonth,
-            Model model) {
-        List<String> selectedMonthDates = generateMonthDates(selectedMonth);
-        model.addAttribute("selectedMonth", selectedMonth.format(DateTimeFormatter.ofPattern("yyyy-MM")));
-        model.addAttribute("selectedMonthDates", selectedMonthDates);
-        return "attendanceregistration";
+        // 他の処理や遷移先を返す
+        return "redirect:attendanceregistration";
     }
-
-    private List<String> generateStartOfMonthDates() {
-        List<String> startOfMonthDates = new ArrayList<>();
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        for (int i = 0; i < 12; i++) {
-            currentDate = currentDate.withDayOfMonth(1);
-            startOfMonthDates.add(currentDate.format(formatter));
-            currentDate = currentDate.plusMonths(1);
-        }
-
-        return startOfMonthDates;
-    }
-
-    private List<String> generateMonthDates(LocalDate selectedMonth) {
-        List<String> selectedMonthDates = new ArrayList<>();
-        YearMonth yearMonth = YearMonth.from(selectedMonth);
-        LocalDate currentDate = yearMonth.atDay(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        while (currentDate.getMonth().equals(yearMonth.getMonth())) {
-            selectedMonthDates.add(currentDate.format(formatter));
-            currentDate = currentDate.plusDays(1);
-        }
-
-        return selectedMonthDates;
-    }
-
 
 	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")
@@ -155,12 +188,12 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 	return "redirect:/management";
 }
 
-//Quizデータを1件取得し、フォーム内に表示する
+//データを1件取得し、フォーム内に表示する
 	@GetMapping("/accountedit/{id}")
 	public String showUpDate(User_tableForm user_tableForm, @PathVariable Integer id, Model model) {
 		//Quiz取得
 		Optional<User_table> user_tableOpt = user_tableService.SlectOneById(id);
-		System.out.println(id);
+		
 		//QuizFormへの詰めなおし
 		Optional<User_tableForm> user_tableFormOpt = user_tableOpt.map(t -> makeUser_tableForm(t));
 		//QuizがNullでなければ中身を取り出す

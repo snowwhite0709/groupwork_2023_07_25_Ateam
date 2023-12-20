@@ -58,6 +58,12 @@ public class WorkServicelmpl implements WorkService{
 		// TODO 自動生成されたメソッド・スタブ
 		return repository.selectW2(employee_id);
 	}
+
+	@Override
+	public Iterable<Work> selectI(Integer employee_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.selectI(employee_id);
+	}
 	
 
 }

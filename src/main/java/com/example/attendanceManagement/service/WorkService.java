@@ -26,4 +26,7 @@ public interface WorkService {
 	
 	//Employee IDで一件取得する
 	Optional<Work> selectW2(Integer employee_id);
+	
+	//Employee IDで一件Iterableで取得する
+	Iterable<Work> selectI(Integer employee_id);
 }
