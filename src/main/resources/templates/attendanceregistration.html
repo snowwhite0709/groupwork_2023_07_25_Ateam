@@ -13,26 +13,88 @@
     <a href="http://localhost:8080/management/accountedit">アカウント新規作成</a>
     <a href="http://localhost:8080/management/pay">給与計算</a>
 </div>		
- <div class="choise">
-    <form th:action="@{/management/selected-month-dates}" method="get">
-        <label for="selectedMonth">Select Month:</label>
-        <select id="selectedMonth" name="selectedMonth">
-            <option th:each="date : ${startOfMonthDates}" th:value="${date}" th:text="${date}"></option>
-        </select>
-        
-        <button type="submit">選択</button>
-    </form>
-    </div>	
- <div class="calender">
-      <h1 th:text="${selectedMonth}"></h1>
-    <ul th:each="date : ${selectedMonthDates}">
-        <li th:text="${date}"></li>
-        <form method="POST" th:action="@{/management}">
-			<input type="text"/>
-	<input type="submit" value="承認">
+ <head>
+	<title>Attendance Information</title>
+</head>
+
+<body>
+
+	<div class="info-section1">
+		<h2>当日の出勤・退勤時刻</h2>
+
+		<table>
+			<!-- 当日の出勤・退勤時刻の情報を表示 -->
+
+			<tr>
+				<th>出勤時間</th>
+				<th>退勤時間</th>
+			</tr>
+
+			<tr th:if="${todayWork != null and todayWork.size() > 0}">
+				<td th:text="${todayWork[0]}"></td>
+				<td th:text="${todayWork[1]}"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="info-section2">
+		<h2>当月の出勤状況</h2>
+	</div>
+
+	<form action="/submitForm" method="post">
+		<label for="yearMonth">年月を選択:</label>
+		<select id="yearMonth" name="yearMonth">
+			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
+		</select>
+		<input type="submit" value="Submit">
 	</form>
-    </ul>
-    </div>	
- 
+
+
+	<div class="info-section2">
+		<table border="2">
+			<!-- 当月の出勤状況と残休日の情報を表示 -->
+			<tr>
+				<th>日付</th>
+				<th>出勤時間</th>
+				<th>退勤時間</th>
+				<th>定時</th>
+				<th>残業時間</th>
+			</tr>
+
+			<tr th:each="work : ${list}">
+				<td th:text="${work.day}"></td>
+				<!-- 例: テンプレート内のSpEL式を修正 -->
+				<td th:text="${work.attendancetime}"></td>
+				<td th:text="${work.leavingtime}"></td>
+				<td>09:00-18:00</td>
+				<td th:text="${work.overtime}"></td>
+
+			</tr>
+			<!-- ここにThymeleafを使用してデータを表示 -->
+		</table>
+	</div>
+
+	<div class="info-section2">
+		<table border="2">
+			<!-- 当月の出勤状況と残休日の情報を表示 -->
+			<tr>
+				<th>出勤日数</th>
+				<th>欠勤日数</th>
+				<th>総残業時間</th>
+				<th>有給使用日数</th>
+				<th>有給残日数</th>
+			</tr>
+
+			<tr>
+				<td th:text="${workingDays}"></td>
+				<td>0</td>
+				<td>30</td>
+				<td>0</td>
+				<td>19</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+
 </body>
+
 </html>

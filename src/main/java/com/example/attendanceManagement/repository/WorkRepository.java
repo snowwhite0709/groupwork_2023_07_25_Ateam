@@ -20,4 +20,8 @@ public interface WorkRepository extends CrudRepository<Work, Integer>{
 	@Query("SELECT * FROM work WHERE employee_id=:employee_id")
 	Optional<Work> selectW2(
 			@Param("employee_id") Integer employee_id);
+	
+	@Query("SELECT * FROM work WHERE employee_id=:employee_id")
+	Iterable<Work> selectI(
+			@Param("employee_id") Integer employee_id);
 }
