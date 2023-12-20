@@ -40,6 +40,7 @@ public class dummyController {
 		*/
 		
 		//System.out.println("id: " + UserDetailServiceImpl.USERID);
+		
 		//DBのDate型の日付をString型にして比較したりする用フォーマット
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
