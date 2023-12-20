@@ -148,7 +148,7 @@
 		</table>
 	</div>
 
-	<div class="table">
+	<div class="table" th:object="${pay}">
 		<table>
 			<tbody>
 				<tr>
@@ -170,12 +170,12 @@
 					<td style="background-color: rgb(129, 225, 254);">家族手当</td>
 				</tr>
 				<tr>
-					<td >344,000</td>
-					<td>21,130</td>
-					<td>5,000</td>
-					<td>2,000</td>
-					<td>10,000</td>
-					<td>10,000</td>
+					<td th:text="*{basepay}"></td>
+					<td th:text="*{overtimepay}"></td>
+					<td th:text="*{overtimepay}"></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
 				</tr>
 				<tr>
 					<td style="background-color: rgb(129, 225, 254);">通勤手当</td>
@@ -186,12 +186,12 @@
 					<td style="background-color: rgb(129, 225, 254);">総支給</td>
 				</tr>
 				<tr>
-					<td>0</td>
-					<td>5,700</td>
-					<td></td>
-					<td>392,310</td>
-					<td>5,710</td>
-					<td>398,020</td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
 				</tr>
 			</tbody>
 		</table>
@@ -220,12 +220,12 @@
 						<td style="background-color: rgb(129, 225, 254);">財形貯蓄</td>
 					</tr>
 					<tr>
-						<td>15,580</td>
-						<td>25,800</td>
-						<td>6,210</td>
-						<td>16,160</td>
-						<td>31,800</td>
-						<td>20,000</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td style="background-color: rgb(129, 225, 254);">生命保険</td>
@@ -236,12 +236,12 @@
 						<td style="background-color: rgb(129, 225, 254);">控除額合計</td>
 					</tr>
 					<tr>
-						<td>10,530</td>
-						<td>10,000</td>
-						<td>3,500</td>
-						<td>0</td>
 						<td></td>
-						<td>139,580</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
@@ -270,12 +270,12 @@
 					</tr>
 
 					<tr>
-						<td>20</td>
-						<td>0</td>
-						<td>30</td>
-						<td>1</td>
-						<td>19</td>
-						<td>258,440</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td th:text="*{total}"></td>
 					</tr>
 				</table>
 

@@ -24,8 +24,10 @@ public class PayalipServiceimple implements PayslipService{
 
 	@Override
 	public Optional<Payslip> SlectOneById(Integer id) {
+		Optional<Payslip> pay = repository.findById(id);
+		
 		// TODO 自動生成されたメソッド・スタブ
-		return Optional.empty();
+		return pay;
 	}
 
 	@Override
