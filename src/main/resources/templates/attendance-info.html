@@ -6,9 +6,16 @@
 	<style>
 		body {
 			font-family: Arial, sans-serif;
-			background-color: aliceblue;
-			background: linear-gradient(#05FBFF, #1D62F0) fixed;
+			background: #9CECFB;
+			/* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
+			/* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
+			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		}
 
+		table {
+			table-layout: fixed;
 		}
 
 		.info-section1 {
@@ -29,7 +36,7 @@
 		.info-section1 td {
 			border: 1px solid rgb(0, 0, 0);
 			padding: 8px;
-			text-align: left;
+			text-align: center;
 			background-color: rgb(129, 225, 254);
 		}
 
@@ -48,7 +55,7 @@
 
 		.info-section2 table {
 			border-collapse: collapse;
-			width: 80%;
+			width: 70%;
 			margin-top: 10px;
 		}
 
@@ -56,12 +63,16 @@
 		.info-section2 td {
 			border: 1px solid rgb(0, 0, 0);
 			padding: 8px;
-			text-align: left;
+			text-align: center;
 			background-color: rgb(129, 225, 254);
 		}
 
 		.info-section2 td {
-			background-color: rgb(255, 255, 255);
+			background-color: #fff;
+		}
+
+		table tr:nth-child(odd) td {
+			background: #eee
 		}
 
 		.buttonInfo {
@@ -71,7 +82,6 @@
 
 		.buttonInfo form {
 			margin-right: 10px;
-			/* フォーム間の余白（必要に応じて調整） */
 		}
 	</style>
 </head>
@@ -119,16 +129,14 @@
 				<th>残業時間</th>
 			</tr>
 
-			<tr th:each="work : ${list}">
+			<tr th:each="work, row  : ${list}">
 				<td th:text="${work.day}"></td>
-				<!-- 例: テンプレート内のSpEL式を修正 -->
 				<td th:text="${work.attendancetime}"></td>
 				<td th:text="${work.leavingtime}"></td>
 				<td>09:00-18:00</td>
 				<td th:text="${work.overtime}"></td>
 
 			</tr>
-			<!-- ここにThymeleafを使用してデータを表示 -->
 		</table>
 	</div>
 
@@ -139,26 +147,26 @@
 				<th>出勤日数</th>
 				<th>欠勤日数</th>
 				<th>総残業時間</th>
-				<th>有給使用日数</th>
 				<th>有給残日数</th>
+				<th>有給使用日数</th>
 			</tr>
 
 			<tr>
 				<td th:text="${workingDays}"></td>
 				<td>0</td>
-				<td>30</td>
+				<td th:text="${totalOverTime}"></td>
+				<td>10</td>
 				<td>0</td>
-				<td>19</td>
 			</tr>
 		</table>
 	</div>
 	<br>
 	<div class="buttonInfo">
-		
+
 		<form action="/login" method="get">
 			<button type="submit">ログイン画面</button>
 		</form>
-		
+
 		<form th:action="@{/tanaka/employee}" method="get">
 			<button>メインメニュー</button>
 		</form>
