@@ -22,9 +22,8 @@ public interface WorkService {
     Iterable<Work> getWork();
     
     /*id(主キー)と日付をキーにして1件取得する*/
-	Optional<Work> selectW(Integer id,Date day);
+	Optional<Work> selectW(Integer employee_id,Date day);
 	
 	//Employee IDで一件取得する
 	Optional<Work> selectW2(Integer employee_id);
-	
 }

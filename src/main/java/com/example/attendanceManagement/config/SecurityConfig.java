@@ -29,7 +29,7 @@ public class SecurityConfig  {
 				.requestMatchers("/login").permitAll()// 「/login」はすべて許可
 				// URL ごとに Role の権限を設定
 				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/management**").hasRole("MANAGER")
+				.requestMatchers("/management/**").hasRole("MANAGER")
 				.requestMatchers("/employee/**").hasRole("EMPLOYEE")
 				.anyRequest().authenticated() // 他の URL はログイン後のみアクセス可能
 		).exceptionHandling((exceptionHandling) -> exceptionHandling
