@@ -62,13 +62,6 @@ public class ManagementController {
 		return "accountmake";
 	}
 	
-
-	/*	//給与管理画面へ遷移するためのメソッド
-		@GetMapping("/pay")
-		public String pay() {
-			return "payslip";
-		}*/
-	
 	//勤怠登録画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
 	public String atten(@PathVariable Integer id, Model model) {
@@ -212,4 +205,10 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
 		return "redirect:/quiz";
 	}*/
+	
+	
+	public String setSalary() {
+		return null;
+		
+	}
 }

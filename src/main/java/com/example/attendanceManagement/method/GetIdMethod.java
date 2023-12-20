@@ -63,6 +63,7 @@ public class GetIdMethod {
 		model.addAttribute("todayWork",todayWork);
 		model.addAttribute("workingDays", list.size());
 		model.addAttribute("yearMonth", yearMonth);
+		model.addAttribute("thisMonth",Kongetu);
 	}
 	
 	public void getNowMonth(Model model,WorkService workService,String selectedYearMonth) {
@@ -103,5 +104,6 @@ public class GetIdMethod {
 		model.addAttribute("todayWork",todayWork);
 		model.addAttribute("workingDays", list.size());
 		model.addAttribute("yearMonth", yearMonth);
+		model.addAttribute("thisMonth",selectedYearMonth);
 	}
 }
