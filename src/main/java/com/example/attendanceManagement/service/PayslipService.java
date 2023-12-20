@@ -14,7 +14,7 @@ public interface PayslipService {
 	
 	/* 取得したデータをDBにInsertする */
     void Insert(Payslip paylist);
-    
+     
     /* データを更新する */
     void Update(Payslip paylist);
 

@@ -25,7 +25,7 @@ public class Payslip {
 	private Integer texableamount; //課税支給額合計
 	private Integer taxfreepaymentamount; //非課税支給額合計
 	private Integer total; //総支給
-	
+	 
 	/*private Integer health; //健康保険
 	private Integer welfarepension; //厚生年金
 	private Integer employment;  //雇用保険

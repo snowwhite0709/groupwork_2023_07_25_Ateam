@@ -8,3 +8,4 @@ public interface PayslipRepository extends CrudRepository<Payslip, Integer> {
     // 任意のクエリメソッドやカスタムメソッドを追加することができます
     // 例：List<PayslipEntity> findByFirstname(String firstname);
 }
+ 

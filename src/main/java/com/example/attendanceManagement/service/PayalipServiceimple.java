@@ -20,7 +20,7 @@ public class PayalipServiceimple implements PayslipService{
 	public Iterable<Payslip> SelectAll() {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
-	}
+	} 
 
 	@Override
 	public Optional<Payslip> SlectOneById(Integer id) {

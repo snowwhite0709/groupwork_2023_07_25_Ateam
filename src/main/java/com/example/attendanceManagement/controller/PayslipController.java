@@ -20,7 +20,7 @@ public class PayslipController {
 		System.out.println("paypaypya");
 		Payslip payslip = payslipService.SlectOneById(1).orElse(null);
 		model.addAttribute("pay", payslip);
-
+ 
 		/*
 		if (payslip != null) {
 			// 各項目ごとに変数に代入
