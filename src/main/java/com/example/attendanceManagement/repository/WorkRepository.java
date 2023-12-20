@@ -11,7 +11,7 @@ import com.example.attendanceManagement.entity.Work;
 
 public interface WorkRepository extends CrudRepository<Work, Integer>{
 
-	@Query("SELECT * FROM work WHERE approval is NULL")
+	@Query("SELECT * FROM work WHERE approval is false")
 	Iterable<Work> getWork();
 	
 	@Query("SELECT * FROM work WHERE employee_id=:employee_id and day = :day")
