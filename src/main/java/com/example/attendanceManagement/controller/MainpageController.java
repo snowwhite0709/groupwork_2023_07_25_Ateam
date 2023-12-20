@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.service.UserDetailServiceImpl;
 import com.example.attendanceManagement.service.WorkService;
 
 @Controller
@@ -51,8 +52,10 @@ public class MainpageController {
 	    Date date2 = calendar.getTime();
 		java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
 		//Optional<Work> o=workService.SlectOneById(1);
-		Optional<Work> o=workService.selectW2(4);
-		Work w = o.get();
+		//Optional<Work> o=workService.selectW2(4);
+		//Work w = o.get();
+		Work w=new Work();
+		w.setEmployee_id(UserDetailServiceImpl.USERID);
 		w.setDay(sqlDate);
 		w.setAttendancetime(a);
 		workService.InsertWork(w);
@@ -82,7 +85,7 @@ public class MainpageController {
 		Date date3 = calendar.getTime();
 		String b=ff.format(date3);
 		int i=Integer.parseInt(b);
-		Optional<Work> o=workService.selectW(1,sqlDate);
+		Optional<Work> o=workService.selectW(UserDetailServiceImpl.USERID,sqlDate);
 		Work w = o.get();
 		if(i>9) {
 			calendar.add(Calendar.HOUR, -9);

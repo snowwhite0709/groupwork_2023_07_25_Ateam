@@ -64,6 +64,13 @@ public class ManagementController {
 		return "accountmake";
 	}
 	
+
+	//給与管理画面へ遷移するためのメソッド
+	@GetMapping("/pay")
+	public String pay() {
+		return "payslip";
+	}
+	
 	//勤怠登録画面へ遷移するためのメソッド
     @GetMapping("/attendanceregistration")
     public String getDateSelector(Model model) {
