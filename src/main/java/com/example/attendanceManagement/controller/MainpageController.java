@@ -54,15 +54,22 @@ public class MainpageController {
 		java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
 		System.out.println("sql:"+sqlDate);
 		//Optional<Work> o=workService.SlectOneById(1);
-		//Optional<Work> o=workService.selectW2(4);
-		//Work w = o.get();
+		
+		
 		Work w=new Work();
-		System.out.println(w);
 		w.setEmployee_id(UserDetailServiceImpl.USERID);
 		w.setDay(sqlDate);
 		w.setAttendancetime(a);
-		workService.InsertWork(w);
-		System.out.println(w);
+		System.out.println("w:"+w);
+		
+		Optional<Work> o=workService.selectW(UserDetailServiceImpl.USERID,sqlDate);
+		System.out.println("o:"+o);
+		//Work ww = o.get();
+		//System.out.println("ww:"+ww);
+		
+		if(o.isEmpty()) {
+			workService.InsertWork(w);
+		}
 		return "redirect:/show";
 	}
 	
@@ -79,6 +86,8 @@ public class MainpageController {
 		
 		SimpleDateFormat f=new SimpleDateFormat("HH:mm");
 		SimpleDateFormat ff=new SimpleDateFormat("HH");
+		SimpleDateFormat fff=new SimpleDateFormat("mm");
+		
 		String a=f.format(date2);
 		System.out.println("a:"+a);
 		
@@ -98,21 +107,21 @@ public class MainpageController {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date2);
-		//calendar.add(Calendar.HOUR, -9);
+		calendar.add(Calendar.HOUR, -9);
 		Date date3 = calendar.getTime();
 		System.out.println("date3:"+date3);
 		
 		String b=ff.format(date3);
-		System.out.println("b:"+b);
+		String bb=fff.format(date3);
 		
 		int i=Integer.parseInt(b);
-		System.out.println("i:"+i);
+		int ii=Integer.parseInt(bb);
+		
 		
 		Optional<Work> o=workService.selectW(UserDetailServiceImpl.USERID,sqlDate);
 		Work w = o.get();
-		System.out.println("w:"+w.getAttendancetime());
 		
-		if(i>9) {
+		if(i>9 || (i==9&&ii>0)) {
 			calendar.add(Calendar.HOUR, -9);
 			Date date4 = calendar.getTime();
 			String c=f.format(date4);
