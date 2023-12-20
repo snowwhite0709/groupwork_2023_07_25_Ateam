@@ -82,13 +82,12 @@ public class dummyController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
 		//workテーブルの情報を取得
 		Iterable<Work> work = service.SelectAll();
-		//List型を宣言
+		//指定した月の出退勤情報をHTMLに送るためのList
 		List<Work> list = new ArrayList<>();
 		//Listに要素を詰め込む
 		for(Work w : work) {
 			//指定したemployee_idの当月の勤怠情報を取得
 			if (w.getEmployee_id() == UserDetailServiceImpl.USERID && sdf2.format(w.getDay()).equals(selectedYearMonth)) {
-				//ListにEmpleyee_idが1の情報を追加
 				list.add(w);
 				yearMonth.add(sdf2.format(w.getDay()));
 			}
