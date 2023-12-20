@@ -63,11 +63,11 @@ public class ManagementController {
 	}
 	
 
-	//給与管理画面へ遷移するためのメソッド
-	@GetMapping("/pay")
-	public String pay() {
-		return "payslip";
-	}
+	/*	//給与管理画面へ遷移するためのメソッド
+		@GetMapping("/pay")
+		public String pay() {
+			return "payslip";
+		}*/
 	
 	//勤怠登録画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
@@ -142,7 +142,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		if(user_tableFormOpt.isPresent()) {
 			user_tableForm = user_tableFormOpt.get();
 		}
-		//更新用のModel作成
+		//更新用のModel作成-s
 		makeUpdateModel(user_tableForm, model);
 		return "accountmake";
 	}
@@ -157,7 +157,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		model.addAttribute("status", user_tableForm.getStatus());
 		model.addAttribute("rank", user_tableForm.getRank());
 		model.addAttribute("admin", user_tableForm.getAdmin());
-		user_tableForm.setNewUser_table(false);
+		user_tableForm.setNewUser_table(true);
 		model.addAttribute("user_tableForm", user_tableForm);
 		model.addAttribute("title","更新用フォーム");
 	}
@@ -176,6 +176,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		user_table.setStatus(user_tableForm.getStatus());
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
+		
 		//入力チェック
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト
