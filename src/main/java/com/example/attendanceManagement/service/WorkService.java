@@ -26,5 +26,4 @@ public interface WorkService {
 	
 	//Employee IDで一件取得する
 	Optional<Work> selectW2(Integer employee_id);
-	
 }

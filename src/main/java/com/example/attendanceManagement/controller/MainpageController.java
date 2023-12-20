@@ -73,7 +73,7 @@ public class MainpageController {
 		
 		
 		
-		
+	
 		Date date2=new Date();
 		System.out.println("date2:"+date2);
 		

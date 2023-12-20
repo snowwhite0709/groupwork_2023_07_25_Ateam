@@ -35,7 +35,6 @@ public class WorkServicelmpl implements WorkService{
 		repository.save(work);
 		
 	}
-
 	@Override
 	public void UpdateWork(Work work) {
 		// TODO 自動生成されたメソッド・スタブ
