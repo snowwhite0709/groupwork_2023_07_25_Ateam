@@ -17,7 +17,7 @@
 <!-- 新規登録 -->
 <div class="container">
 	<form class="registration-form" method="post"
-	       th:action="${user_tableForm.newUser_table}? @{/management/insert} : @{/management/update}"
+	       th:action="${user_tableForm.newUser_table}? @{/management/update} : @{/management/insert}"
 	       th:object="${user_tableForm}">
 	       
 	        <h2>アカウント情報登録</h2>
