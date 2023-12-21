@@ -94,8 +94,10 @@ public class dummyController {
 		//System.out.println("sumMinutes:"+sumMinutes);
 		String fmt = "%02d:%02d";
 		String totalOverTime = String.format(fmt, sumHours, sumMinutes);
+		
 		//昇順に並び替え
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
+		
 		//HTMLに送る
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
@@ -145,13 +147,14 @@ public class dummyController {
 				}
 			}
 		}
-
+		
 		sumHours += sumMinutes/60;
 		sumMinutes = sumMinutes%60;
 		//System.out.println("sumHours:"+sumHours);
 		//System.out.println("sumMinutes:"+sumMinutes);
 		String fmt = "%02d:%02d";
 		String totalOverTime = String.format(fmt, sumHours, sumMinutes);
+		
 		//昇順に並び替え
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
 
@@ -162,7 +165,6 @@ public class dummyController {
 		model.addAttribute("selectedYearMonth", selectedYearMonth);
 		model.addAttribute("totalOverTime", totalOverTime);
 
-		// 他の処理や遷移先を返す
 		return "selectedYearMonthAttendance";
 	}
 
