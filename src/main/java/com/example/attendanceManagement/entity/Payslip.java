@@ -1,5 +1,7 @@
 package com.example.attendanceManagement.entity;
 
+import java.sql.Date;
+
 import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class Payslip {
 	@Id
 	private Integer id;
+	private Integer employee_id;
+	
 	//private String  firstname;
 	//private String lastname;
 	private Integer basepay; //基本給
@@ -38,5 +42,5 @@ public class Payslip {
 	private Integer others; //その他
 	private Integer totalamount; //控除額合計
 	*/
-
+	private Date day;
 }

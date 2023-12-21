@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.attendanceManagement.entity.Work;
-import com.example.attendanceManagement.service.UserDetailServiceImpl;
 import com.example.attendanceManagement.service.WorkServicelmpl;
+import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
 @Controller
 public class dummyController {
@@ -26,20 +26,14 @@ public class dummyController {
 	WorkServicelmpl service;
 
 	@GetMapping("/table")
-	public String showTable(Model model) {
-		/*
-		// 現在のユーザー情報を取得
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public String showTable(Model model, Authentication auth) {
 		
+		/*現在のユーザー情報を取得*/
 		// UserDetailsを取り出す
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-		
+		UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
 		// ユーザーIDを取得
 		Integer userId = userDetails.getUser_Id();
-		System.out.println("UserDetailUserId"+userId);
-		*/
-		
-		//System.out.println("id: " + UserDetailServiceImpl.USERID);
+		//System.out.println("UserDetailUserId"+userId);
 		
 		//DBのDate型の日付をString型にして比較したりする用フォーマット
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -50,59 +44,60 @@ public class dummyController {
 		String toDay;
 		//当日の出退勤の時刻をHTMLに送るためのList
 		List<String> todayWork = new ArrayList<>();
-		//指定したemployee_idの出退勤があった年月を保存するSet
+		//ログイン中のIDの出退勤があった年月を保存するSet
 		Set<String>yearMonth = new TreeSet<>();
 		//今月の年月String型を取得
 		String thisMonth = sdf2.format(new Date());
-		//workテーブルの情報を取得
-		Iterable<Work> work = service.SelectAll();
+		//ログイン中のIDのworkテーブルの情報を取得
+		Iterable<Work> work = service.selectI(userId);
 		//指定した月の出退勤情報をHTMLに送るためのList
 		List<Work> list = new ArrayList<>();
-		
+
 		//残業時間（HH）計算用
 		int sumHours = 0;
 		//残業時間(mm)計算用
 		int sumMinutes = 0;
 		//Listに要素を詰め込む（一旦全件取得）
 		for(Work w : work) {
-			//user_tableのIDとログイン中のIDを比較
-			if (w.getEmployee_id()  == UserDetailServiceImpl.USERID) {
-				//指定したemployee_idの出退勤があった年月を保存
-				yearMonth.add(sdf2.format(w.getDay()));
-				//今月の情報をリストに追加
-				if(sdf2.format(w.getDay()).equals(thisMonth)) {
-					//勤務時間
-					list.add(w);
-					//残業時間がnullの時は何もしない
-					if(w.getOvertime() != null) {
-						String[] overTime;
-						//残業時間をMMとmmに分割する
-						overTime = w.getOvertime().split(":");
-						//int型に変換して足していく
-						sumHours += Integer.parseInt(overTime[0]);
-						sumMinutes += Integer.parseInt(overTime[1]);
-					}
-					//DB上のDate型の数値を年月日のString型に変更
-					dbToDay = sdf.format(w.getDay());
-					//当日の年月日をString型で取得
-					toDay = sdf.format(new Date());
-					//DB上の日付と当日の日付を比較、一致すれば出退勤情報をリストに追加
-					if(dbToDay.equals(toDay)){
-						todayWork.add(w.getAttendancetime());
-						todayWork.add(w.getLeavingtime());
-					}
-				}	
-			}
+			//ログイン中のIDの出退勤があった年月を保存
+			yearMonth.add(sdf2.format(w.getDay()));
+			//今月の情報をリストに追加
+			if(sdf2.format(w.getDay()).equals(thisMonth)) {
+				//勤務時間
+				list.add(w);
+				//残業時間がnullの時は何もしない
+				if(w.getOvertime() != null) {
+					String[] overTime;
+					//残業時間をMMとmmに分割する
+					overTime = w.getOvertime().split(":");
+					//int型に変換して足していく
+					sumHours += Integer.parseInt(overTime[0]);
+					sumMinutes += Integer.parseInt(overTime[1]);
+				}
+				//DB上のDate型の数値を年月日のString型に変更
+				dbToDay = sdf.format(w.getDay());
+				//当日の年月日をString型で取得
+				toDay = sdf.format(new Date());
+				//DB上の日付と当日の日付を比較、一致すれば出退勤情報をリストに追加
+				if(dbToDay.equals(toDay)){
+					todayWork.add(w.getAttendancetime());
+					todayWork.add(w.getLeavingtime());
+				}
+			}	
+
 		}
 		//月の残業時間（mm)を60で割って、割り切れた数を月の残業時間(HH)に足す
 		//割り切れない分は月の残業時間(mm）になります。
 		sumHours += sumMinutes/60;
 		sumMinutes = sumMinutes%60;
-		System.out.println("sumHours:"+sumHours);
-		System.out.println("sumMinutes:"+sumMinutes);
-		String totalOverTime = sumHours+":"+sumMinutes;
+		//System.out.println("sumHours:"+sumHours);
+		//System.out.println("sumMinutes:"+sumMinutes);
+		String fmt = "%02d:%02d";
+		String totalOverTime = String.format(fmt, sumHours, sumMinutes);
+		
 		//昇順に並び替え
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
+		
 		//HTMLに送る
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
@@ -116,44 +111,49 @@ public class dummyController {
 	@PostMapping("/submitForm")
 	public String handleFormSubmission(@RequestParam("yearMonth") String selectedYearMonth,Model model, Authentication auth) {
 		
-		System.out.println("auth: " + auth.getName());
-		//指定したemployee_idの出退勤があった年月を保存するSet
+		/*現在のユーザー情報を取得*/
+		// UserDetailsを取り出す
+		UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+		// ユーザーIDを取得
+		Integer userId = userDetails.getUser_Id();
+		//System.out.println("UserDetailUserId"+userId);
+		
+		//ログイン中のIDの出退勤があった年月を保存するSet
 		Set<String>yearMonth = new TreeSet<>();
 		//DBのDate型の日付をString型にして比較したりする用フォーマット
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
-		//workテーブルの情報を取得
-		Iterable<Work> work = service.SelectAll();
+		//ログイン中のIDのworkテーブルの情報を取得
+		Iterable<Work> work = service.selectI(userId);
 		//指定した月の出退勤情報をHTMLに送るためのList
 		List<Work> list = new ArrayList<>();
-		
+
 		//残業時間（HH）計算用
 		int sumHours = 0;
 		//残業時間(mm)計算用
 		int sumMinutes = 0;
-		
+
 		//Listに要素を詰め込む
 		for(Work w : work) {
-			//指定したemployee_idの当月の勤怠情報を取得
-			if (w.getEmployee_id() == UserDetailServiceImpl.USERID) {
-				yearMonth.add(sdf2.format(w.getDay()));
-				if(sdf2.format(w.getDay()).equals(selectedYearMonth)) {
-					list.add(w);
-					if(w.getOvertime() != null) {
-						//残業時間をMMとmmに分割する
-						String[] overTime;
-						overTime = w.getOvertime().split(":");
-						//int型に変換して足していく
-						sumHours += Integer.parseInt(overTime[0]);
-						sumMinutes += Integer.parseInt(overTime[1]);
-					}
+			yearMonth.add(sdf2.format(w.getDay()));
+			if(sdf2.format(w.getDay()).equals(selectedYearMonth)) {
+				list.add(w);
+				if(w.getOvertime() != null) {
+					//残業時間をMMとmmに分割する
+					String[] overTime;
+					overTime = w.getOvertime().split(":");
+					//int型に変換して足していく
+					sumHours += Integer.parseInt(overTime[0]);
+					sumMinutes += Integer.parseInt(overTime[1]);
 				}
 			}
 		}
+		
 		sumHours += sumMinutes/60;
 		sumMinutes = sumMinutes%60;
-		System.out.println("sumHours:"+sumHours);
-		System.out.println("sumMinutes:"+sumMinutes);
-		String totalOverTime = sumHours+":"+sumMinutes;
+		//System.out.println("sumHours:"+sumHours);
+		//System.out.println("sumMinutes:"+sumMinutes);
+		String fmt = "%02d:%02d";
+		String totalOverTime = String.format(fmt, sumHours, sumMinutes);
 		
 		//昇順に並び替え
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
@@ -165,7 +165,6 @@ public class dummyController {
 		model.addAttribute("selectedYearMonth", selectedYearMonth);
 		model.addAttribute("totalOverTime", totalOverTime);
 
-		// 他の処理や遷移先を返す
 		return "selectedYearMonthAttendance";
 	}
 
