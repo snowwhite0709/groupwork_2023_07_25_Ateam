@@ -13,7 +13,7 @@
 			background: linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
 			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		}
-		
+
 		table {
 			table-layout: fixed;
 		}
@@ -83,6 +83,82 @@
 		.buttonInfo form {
 			margin-right: 10px;
 		}
+
+		.btn1 {
+			display: inline-block;
+			text-align: center;
+			/* 文字位置   */
+			cursor: pointer;
+			/* カーソル   */
+			background: #27acd9;
+			/* 背景色     */
+			border-radius: 5px;
+			/* 背景色     */
+			color: #ffffff;
+			/* 文字色     */
+			line-height: 1em;
+			/* 1行の高さ  */
+			transition: .3s;
+			/* なめらか変化 */
+			box-shadow: 3px 3px 3px #666666;
+			/* 影の設定 */
+			border: 2px solid #27acd9;
+			/* 枠の指定 */
+		}
+
+		.btn2,
+		.btn3 {
+			  font-weight: bold;
+			display: inline-block;
+			border-radius: 5px;
+			/*角の丸み */
+			font-size: 10pt;
+			/* 文字サイズ */
+			text-align: center;
+			/* 文字位置   */
+			cursor: pointer;
+			/* カーソル   */
+			padding: 10px 10px;
+			/* 余白       */
+			background: #27acd9;;
+			/* 背景色     */
+			color: #ffffff;
+			/* 文字色     */
+			line-height: 1em;
+			/* 1行の高さ  */
+			transition: .3s;
+			/* なめらか変化 */
+			box-shadow: 3px 3px 3px #666666;
+			/* 影の設定 */
+			border: 2px solid #27acd9;;
+			/* 枠の指定 */
+		}
+
+		.btn1:hover,
+		.btn2:hover,
+		.btn3:hover {
+			box-shadow: none;
+			/* カーソル時の影消去 */
+			color: #27acd9;
+			/* 背景色     */
+			background: #ffffff;
+			/* 文字色     */
+		}
+
+		.selectbox1 {
+			font-size: 14px;
+			/* フォントサイズ */
+			border: 1.5px solid #27acd9;;
+			/* プルダウンのボーダー */
+			border-radius: 5px;
+			/* プルダウンの角の丸み */
+			background-color: rgb(255, 255, 255);
+			/* プルダウンの背景色 */
+			outline: 1px solid #27acd9;
+			/* フォーカス時の外側のボーダーを色 */
+			color:  rgb(0, 0, 0);
+			/* 文字色  */
+		}
 	</style>
 </head>
 
@@ -111,10 +187,10 @@
 
 	<form th:action="@{/submitForm}" method="post">
 		<label for="yearMonth">年月を選択:</label>
-		<select id="yearMonth" name="yearMonth">
+		<select class="selectbox1" id="yearMonth" name="yearMonth">
 			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
 		</select>
-		<input type="submit" value="Submit">
+		<input class="btn1" type="submit" value="Submit">
 	</form>
 
 
@@ -163,13 +239,15 @@
 	<br>
 	<div class="buttonInfo">
 
-		<form action="/login" method="get">
-			<button type="submit">ログイン画面</button>
+		<form th:action="@{/tanaka/employee}" method="get">
+			<button class="btn2">メインメニュー</button>
 		</form>
 
-		<form th:action="@{/tanaka/employee}" method="get">
-			<button>メインメニュー</button>
+		<form action="/login" method="get">
+			<button class="btn3" type="submit">ログイン画面</button>
 		</form>
+
+
 
 	</div>
 
