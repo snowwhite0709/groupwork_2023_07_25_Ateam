@@ -4,6 +4,7 @@
   mix-blend-mode: multiply;
 			/* 画像の白い部分を透過*/
 }
+
 .nav-menu{
   display: flex;
   font-size: 1rem;
