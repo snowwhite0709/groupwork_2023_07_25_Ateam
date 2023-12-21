@@ -153,77 +153,84 @@
 
 <body>
 	<div class="info-section">
-		<img class="logo" src="/a/c.png">
-		<h2 th:text="${selectedYearMonth + 'の出勤状況'}"></h2>
-	</div>
+		<div class="info-section1">
+			<img class="logo" src="/a/c.png" onclick="redirectToPage('/tanaka/employee')" style="cursor: pointer;">
+			<script>
+				// JavaScriptでURLにリダイレクトする関数
+				function redirectToPage(url) {
+					window.location.href = url;
+				}
+			</script>
+			<h2 th:text="${selectedYearMonth + 'の出勤状況'}"></h2>
+		</div>
 
-	<form th:action="@{/submitForm}" method="post">
-		<label for="yearMonth">年月を選択:</label>
-		<select class="selectbox1" id="yearMonth" name="yearMonth">
-			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
-		</select>
-		<input class="btn1" type="submit" value="Submit">
-	</form>
-
-
-	<div class="info-section">
-		<table border="2">
-			<!-- 月の出勤状況と残休日の情報を表示 -->
-			<tr>
-				<th>日付</th>
-				<th>出勤時間</th>
-				<th>退勤時間</th>
-				<th>定時</th>
-				<th>残業時間</th>
-			</tr>
-
-			<tr th:each="work : ${list}">
-				<td th:text="${work.day}"></td>
-				<td th:text="${work.attendancetime}"></td>
-				<td th:text="${work.leavingtime}"></td>
-				<td>09:00-18:00</td>
-				<td th:text="${work.overtime}"></td>
-			</tr>
-		</table>
-	</div>
-
-	<div class="info-section">
-		<table border="2">
-			<!-- 月の出勤状況と残休日の情報を表示 -->
-			<tr>
-				<th>出勤日数</th>
-				<th>欠勤日数</th>
-				<th>総残業時間</th>
-				<th>有給残日数</th>
-				<th>有給使用日数</th>
-			</tr>
-
-			<tr>
-				<td th:text="${workingDays}"></td>
-				<td>0</td>
-				<td th:text="${totalOverTime}"></td>
-				<td>10</td>
-				<td>0</td>
-			</tr>
-		</table>
-	</div>
-	<br>
-	<div class="buttonInfo">
-
-		<form th:action="@{/tanaka/employee}" method="get">
-			<button class="btn2">メインメニュー</button>
-		</form>
-
-		<form action="/table" method="get">
-			<button class="btn3" type="submit">当日・当月の出勤状況へ戻る</button>
-		</form>
-
-		<form action="/login" method="get">
-			<button class="btn4" type="submit">ログイン画面</button>
+		<form th:action="@{/submitForm}" method="post">
+			<label for="yearMonth">年月を選択:</label>
+			<select class="selectbox1" id="yearMonth" name="yearMonth">
+				<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
+			</select>
+			<input class="btn1" type="submit" value="Submit">
 		</form>
 
 
-	</div>
+		<div class="info-section">
+			<table border="2">
+				<!-- 月の出勤状況と残休日の情報を表示 -->
+				<tr>
+					<th>日付</th>
+					<th>出勤時間</th>
+					<th>退勤時間</th>
+					<th>定時</th>
+					<th>残業時間</th>
+				</tr>
+
+				<tr th:each="work : ${list}">
+					<td th:text="${work.day}"></td>
+					<td th:text="${work.attendancetime}"></td>
+					<td th:text="${work.leavingtime}"></td>
+					<td>09:00-18:00</td>
+					<td th:text="${work.overtime}"></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="info-section">
+			<table border="2">
+				<!-- 月の出勤状況と残休日の情報を表示 -->
+				<tr>
+					<th>出勤日数</th>
+					<th>欠勤日数</th>
+					<th>総残業時間</th>
+					<th>有給残日数</th>
+					<th>有給使用日数</th>
+				</tr>
+
+				<tr>
+					<td th:text="${workingDays}"></td>
+					<td>0</td>
+					<td th:text="${totalOverTime}"></td>
+					<td>10</td>
+					<td>0</td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<div class="buttonInfo">
+
+			<form th:action="@{/tanaka/employee}" method="get">
+				<button class="btn2">メインメニュー</button>
+			</form>
+
+			<form action="/table" method="get">
+				<button class="btn3" type="submit">当日・当月の出勤状況へ戻る</button>
+			</form>
+
+			<form action="/login" method="get">
+				<button class="btn4" type="submit">ログイン画面</button>
+			</form>
+
+
+		</div>
 
 </body>
 

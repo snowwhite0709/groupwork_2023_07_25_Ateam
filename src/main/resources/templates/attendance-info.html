@@ -176,7 +176,13 @@
 
 <body>
 	<div class="info-section1">
-		<img class="logo" src="/a/c.png">
+		<img class="logo" src="/a/c.png" onclick="redirectToPage('/tanaka/employee')" style="cursor: pointer;">
+    <script>
+        // JavaScriptでURLにリダイレクトする関数
+        function redirectToPage(url) {
+            window.location.href = url;
+        }
+    </script>
 		<h2>当日の出勤・退勤時刻</h2>
 
 		<table>
