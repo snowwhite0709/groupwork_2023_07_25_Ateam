@@ -14,6 +14,15 @@
 			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		}
 
+		.logo {
+			width: 75px;
+			/* 幅を指定 */
+			height: 42px;
+			/* 高さを指定*/
+			mix-blend-mode: multiply;
+			/* 画像の白い部分を透過*/
+		}
+
 		table {
 			table-layout: fixed;
 		}
@@ -108,7 +117,7 @@
 
 		.btn2,
 		.btn3 {
-			  font-weight: bold;
+			font-weight: bold;
 			display: inline-block;
 			border-radius: 5px;
 			/*角の丸み */
@@ -120,7 +129,8 @@
 			/* カーソル   */
 			padding: 10px 10px;
 			/* 余白       */
-			background: #27acd9;;
+			background: #27acd9;
+			;
 			/* 背景色     */
 			color: #ffffff;
 			/* 文字色     */
@@ -130,7 +140,8 @@
 			/* なめらか変化 */
 			box-shadow: 3px 3px 3px #666666;
 			/* 影の設定 */
-			border: 2px solid #27acd9;;
+			border: 2px solid #27acd9;
+			;
 			/* 枠の指定 */
 		}
 
@@ -148,7 +159,8 @@
 		.selectbox1 {
 			font-size: 14px;
 			/* フォントサイズ */
-			border: 1.5px solid #27acd9;;
+			border: 1.5px solid #27acd9;
+			;
 			/* プルダウンのボーダー */
 			border-radius: 5px;
 			/* プルダウンの角の丸み */
@@ -156,15 +168,15 @@
 			/* プルダウンの背景色 */
 			outline: 1px solid #27acd9;
 			/* フォーカス時の外側のボーダーを色 */
-			color:  rgb(0, 0, 0);
+			color: rgb(0, 0, 0);
 			/* 文字色  */
 		}
 	</style>
 </head>
 
 <body>
-
 	<div class="info-section1">
+		<img class="logo" src="/a/c.png">
 		<h2>当日の出勤・退勤時刻</h2>
 
 		<table>
@@ -181,6 +193,7 @@
 			</tr>
 		</table>
 	</div>
+
 	<div class="info-section2">
 		<h2>当月の出勤状況</h2>
 	</div>

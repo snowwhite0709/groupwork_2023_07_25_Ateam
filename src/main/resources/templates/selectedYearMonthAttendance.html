@@ -14,6 +14,15 @@
 			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		}
 
+		.logo {
+			width: 75px;
+			/* 幅を指定 */
+			height: 42px;
+			/* 高さを指定*/
+			mix-blend-mode: multiply;
+			/* 画像の白い部分を透過*/
+		}
+
 		table {
 			table-layout: fixed;
 		}
@@ -123,10 +132,12 @@
 			background: #ffffff;
 			/* 文字色     */
 		}
+
 		.selectbox1 {
 			font-size: 14px;
 			/* フォントサイズ */
-			border: 1.5px solid #27acd9;;
+			border: 1.5px solid #27acd9;
+			;
 			/* プルダウンのボーダー */
 			border-radius: 5px;
 			/* プルダウンの角の丸み */
@@ -134,7 +145,7 @@
 			/* プルダウンの背景色 */
 			outline: 1px solid #27acd9;
 			/* フォーカス時の外側のボーダーを色 */
-			color:  rgb(0, 0, 0);
+			color: rgb(0, 0, 0);
 			/* 文字色  */
 		}
 	</style>
@@ -142,12 +153,13 @@
 
 <body>
 	<div class="info-section">
+		<img class="logo" src="/a/c.png">
 		<h2 th:text="${selectedYearMonth + 'の出勤状況'}"></h2>
 	</div>
 
 	<form th:action="@{/submitForm}" method="post">
 		<label for="yearMonth">年月を選択:</label>
-		<select  class="selectbox1" id="yearMonth" name="yearMonth">
+		<select class="selectbox1" id="yearMonth" name="yearMonth">
 			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
 		</select>
 		<input class="btn1" type="submit" value="Submit">
@@ -171,7 +183,6 @@
 				<td th:text="${work.leavingtime}"></td>
 				<td>09:00-18:00</td>
 				<td th:text="${work.overtime}"></td>
-
 			</tr>
 		</table>
 	</div>
