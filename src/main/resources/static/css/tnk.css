@@ -28,22 +28,28 @@ header{
   color: #27acd9;
   border-bottom:2px solid #27acd9;
 }
+
 a.btn_01 {
-	display: block;
 	text-align: center;
-	vertical-align: middle;
-	text-decoration: none;
-	width: 120px;
-	margin: auto;
-	padding: 1rem 4rem;
-	font-weight: bold;
+	 /*コレ*/display: flex;
+    /*コレ*/justify-content: center;
+    /*コレ*/align-items: center;
+    width: 60px;
+	height: 120px;
+    text-decoration: none;
+    font-weight: bold;
 	border: 2px solid #27acd9;
-	color: #27acd9;
-	transition: 0.5s;
-}
-a.btn_01:hover {
+	border-radius: 10px;
 	color: #fff;
 	background: #27acd9;
+	transition: 0.5s;
+	padding: 1rem 4rem;
+    margin: auto;
+	vertical-align: middle;
+}
+a.btn_01:hover {
+	color: #27acd9;
+	background: #fff;
 }
 span{
   display: block;

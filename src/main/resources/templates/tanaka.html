@@ -9,7 +9,7 @@
 	<header>
 		<h1>
 			<a href="">
-				<img class="logo"    th:src="@{/a/b.png}" >
+				<img class="logo"    th:src="@{/a/c.png}" >
 			</a>
 		</h1>
 	
@@ -42,20 +42,18 @@
 				document.getElementById("Watch").innerHTML = msg;
 			}
 		setInterval('Watch()',500);
-		// ]]></script>
+		// ]]
+</script>
 		</div>
 		<div id="Watch">00:00:00</div>
 		
 	</font>
 	</center>
 	
-	
-	<a th:href="@{/attend}"  class="btn_01">出勤</a><br/>
-	<a th:href="@{/leave}" class="btn_01">退勤</a><br/>
-	
-	
-	<a href="" class="btn_01">休憩開始</a><br/>
-	<a href="" class="btn_01">休憩終了</a>
-	
+	<br>
+	<div class="btn_00">
+	<a th:href="@{/attend}"  class="btn_01">出勤</a><br>
+	<a th:href="@{/leave}" class="btn_01">退勤</a>
+	</div>
 </body>
 </html>
