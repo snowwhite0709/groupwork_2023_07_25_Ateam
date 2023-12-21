@@ -17,5 +17,8 @@ public interface PayslipService {
      
     /* データを更新する */
     void Update(Payslip paylist);
+    
+	//Employee IDでIterableで取得する
+	Iterable<Payslip> selectI(Integer employee_id);
 
 }

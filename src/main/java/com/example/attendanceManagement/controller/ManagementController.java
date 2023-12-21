@@ -18,8 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.User_table;
 import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.form.PaypayForm;
 import com.example.attendanceManagement.form.User_tableForm;
 import com.example.attendanceManagement.method.GetIdMethod;
+import com.example.attendanceManagement.service.PaypayService;
+import com.example.attendanceManagement.service.PayslipService;
 import com.example.attendanceManagement.service.User_tableService;
 import com.example.attendanceManagement.service.WorkService;
 
@@ -32,8 +35,12 @@ public class ManagementController {
 	@Autowired
 	WorkService workService;
 	@Autowired
+	PayslipService payslipService;
+	@Autowired
+	PaypayService paypayService;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@ModelAttribute
 	public User_tableForm setUpForm() {
 		User_tableForm form = new User_tableForm();
@@ -61,36 +68,53 @@ public class ManagementController {
 	public String accauntManagement() {
 		return "accountmake";
 	}
-	
-	//勤怠登録画面へ遷移するためのメソッド
+
+	//勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
 	public String atten(@PathVariable Integer id, Model model) {
 		//idを渡してstatic化
 		GetIdMethod g = new GetIdMethod(id);
-		
+
 		//メソッドを利用し画面内容反映
-		g.getMonth(model,workService);
-		
-        return "attendanceregistration";
-    }
-	
-		
+		g.getMonth(model,workService,payslipService);
+
+		return "attendanceregistration";
+	}
+
+	//月次の勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/mitForm")
 	public String attend(@RequestParam("yearMonth") String selectedYearMonth,Model model) {
 		System.out.println(selectedYearMonth);
 		GetIdMethod g = new GetIdMethod();
-		
+
 		//メソッドを利用し画面内容反映
-		g.getNowMonth(model,workService,selectedYearMonth);
-			return "attendanceregistration";
-		}
+		g.getNowMonth(model,workService,selectedYearMonth,payslipService);
+		return "attendanceregistration";
+	}
+
+	//月次の勤怠給与管理画面へ遷移するためのメソッド
+	@GetMapping("/paypay")
+	public String paypay(Model model) {
+		model.addAttribute("paypayForm", new PaypayForm());
+		return "paypay";
+	}
+	
+	@PostMapping("/payin")
+	public String payin(@Validated PaypayForm paypayForm, BindingResult bindingResult,
+			Model model,RedirectAttributes redirectAttributes) {
+		System.out.println(paypayForm.getBasepay());
+		//paypayService.save( paypayForm.getBasepay(), paypayForm.getDay());
+		
+		return "redirect:/management/paypay";
+		
+	}
 
 	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")
 	public String insert(@Validated User_tableForm user_tableForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
 		User_table user_table = new User_table();
-		
+
 		user_table.setPass(passwordEncoder.encode(user_tableForm.getPass()));
 		user_table.setLastname(user_tableForm.getLastname());
 		user_table.setFirstname(user_tableForm.getFirstname());
@@ -100,7 +124,7 @@ public class ManagementController {
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
 
-		
+
 		if(!bindingResult.hasErrors()) {
 			user_tableService.sAll(user_table);
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
@@ -111,24 +135,24 @@ public class ManagementController {
 	}
 
 
-//トップページで、未承認の勤怠情報を承認するためのメソッド
-@PostMapping("/{id}")
-public String approval(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-	Work work = new Work();
-	Optional<Work> w = workService.SlectOneById(id);
-	work = w.get();
-	work.setApproval(true);
-	workService.UpdateWork(work);
-	redirectAttributes.addFlashAttribute("complete","登録が完了しました");
-	return "redirect:/management";
-}
+	//トップページで、未承認の勤怠情報を承認するためのメソッド
+	@PostMapping("/{id}")
+	public String approval(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		Work work = new Work();
+		Optional<Work> w = workService.SlectOneById(id);
+		work = w.get();
+		work.setApproval(true);
+		workService.UpdateWork(work);
+		redirectAttributes.addFlashAttribute("complete","登録が完了しました");
+		return "redirect:/management";
+	}
 
-//データを1件取得し、フォーム内に表示する
+	//データを1件取得し、フォーム内に表示する
 	@GetMapping("/accountedit/{id}")
 	public String showUpDate(User_tableForm user_tableForm, @PathVariable Integer id, Model model) {
 		//Quiz取得
 		Optional<User_table> user_tableOpt = user_tableService.SlectOneById(id);
-		
+
 		//QuizFormへの詰めなおし
 		Optional<User_tableForm> user_tableFormOpt = user_tableOpt.map(t -> makeUser_tableForm(t));
 		//QuizがNullでなければ中身を取り出す
@@ -139,10 +163,10 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		makeUpdateModel(user_tableForm, model);
 		return "accountmake";
 	}
-	
+
 	//更新用のModel作成
 	private void makeUpdateModel(User_tableForm user_tableForm, Model model) {
-		
+
 		model.addAttribute("lastname", user_tableForm.getLastname());
 		model.addAttribute("firstname", user_tableForm.getFirstname());
 		model.addAttribute("sex", user_tableForm.getSex());
@@ -169,7 +193,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		user_table.setStatus(user_tableForm.getStatus());
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
-		
+
 		//入力チェック
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト
@@ -182,7 +206,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 			return "accountmake";
 		}
 	}
-	
+
 	private User_tableForm makeUser_tableForm(User_table user_table) {
 		User_tableForm user_tableForm = new User_tableForm();
 		user_tableForm.setId(user_table.getId());
@@ -197,7 +221,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		user_tableForm.setNewUser_table(false);
 		return user_tableForm;
 	}
-	
+
 	/*@PostMapping("/delete")
 	public String delete(@RequestParam("id") String id, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -205,10 +229,10 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		redirectAttributes.addFlashAttribute("delcomplete", "削除が完了しました");
 		return "redirect:/quiz";
 	}*/
-	
-	
+
+
 	public String setSalary() {
 		return null;
-		
+
 	}
 }

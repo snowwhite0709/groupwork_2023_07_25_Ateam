@@ -1,52 +1,50 @@
 package com.example.attendanceManagement.service;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.attendanceManagement.entity.Payslip;
-import com.example.attendanceManagement.repository.PayslipRepository;
-
+import com.example.attendanceManagement.entity.Paypay;
+import com.example.attendanceManagement.repository.PaypayRepository;
 @Service
 @Transactional
-public class PayalipServiceimple implements PayslipService{
+public class PaypayServicelmpl implements PaypayService{
 
 	@Autowired
-	PayslipRepository repository;
-	
-	@Override
-	public Iterable<Payslip> SelectAll() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	} 
+	PaypayRepository repository;
 
 	@Override
-	public Optional<Payslip> SlectOneById(Integer id) {
-		Optional<Payslip> pay = repository.findById(id);
-		
+	public Iterable<Paypay> SelectAll() {
 		// TODO 自動生成されたメソッド・スタブ
-		return pay;
+		return repository.findAll();
 	}
 
 	@Override
-	public void Insert(Payslip payslip) {
+	public Optional<Paypay> SlectOneById(Integer id) {
 		// TODO 自動生成されたメソッド・スタブ
-		repository.save(payslip);
+		return repository.findById(id);
 	}
 
 	@Override
-	public void Update(Payslip payslip) {
+	public void Insert(Paypay paypay) {
 		// TODO 自動生成されたメソッド・スタブ
-		 repository.save(payslip);
+		repository.save(paypay);
 	}
 
 	@Override
-	public Iterable<Payslip> selectI(Integer employee_id) {
+	public void Update(Paypay paypay) {
 		// TODO 自動生成されたメソッド・スタブ
-		return repository.selectI(employee_id);
+		repository.save(paypay);
 	}
-	
+
+	@Override
+	public void save(Integer i,Integer b,Date d) {
+		// TODO 自動生成されたメソッド・スタブ
+		repository.inpay(i, b, d);
+	}
+
 
 }
