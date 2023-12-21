@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 
 import com.example.attendanceManagement.entity.Payslip;
 import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.form.PaypayForm;
+import com.example.attendanceManagement.service.PaypayService;
 import com.example.attendanceManagement.service.PayslipService;
 import com.example.attendanceManagement.service.WorkService;
 
@@ -121,5 +123,10 @@ public class GetIdMethod {
 				model.addAttribute("plist",p.getBasepay());
 			}
 		}
+	}
+	
+	public void setpaypay(PaypayService paypayService,PaypayForm paypayForm) {
+		
+		paypayService.save(id,paypayForm.getBasepay(),null);
 	}
 }

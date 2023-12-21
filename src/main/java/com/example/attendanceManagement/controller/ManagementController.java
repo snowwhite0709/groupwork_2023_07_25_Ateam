@@ -77,7 +77,7 @@ public class ManagementController {
 
 		//メソッドを利用し画面内容反映
 		g.getMonth(model,workService,payslipService);
-
+		
 		return "attendanceregistration";
 	}
 
@@ -103,8 +103,10 @@ public class ManagementController {
 	public String payin(@Validated PaypayForm paypayForm, BindingResult bindingResult,
 			Model model,RedirectAttributes redirectAttributes) {
 		System.out.println(paypayForm.getBasepay());
-		//paypayService.save( paypayForm.getBasepay(), paypayForm.getDay());
 		
+		GetIdMethod g = new GetIdMethod();
+		g.setpaypay(paypayService,paypayForm);
+		System.out.println(model.asMap().get("inputId"));
 		return "redirect:/management/paypay";
 		
 	}
@@ -230,9 +232,4 @@ public class ManagementController {
 		return "redirect:/quiz";
 	}*/
 
-
-	public String setSalary() {
-		return null;
-
-	}
 }
