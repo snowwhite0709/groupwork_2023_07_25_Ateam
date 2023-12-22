@@ -16,11 +16,39 @@
 
 		.logo {
 			width: 75px;
-			/* 幅を指定 */
-			height: 42px;
-			/* 高さを指定*/
 			mix-blend-mode: multiply;
 			/* 画像の白い部分を透過*/
+		}
+
+		.nav-menu {
+			display: flex;
+			font-size: 1rem;
+			text-transform: uppercase;
+			margin-top: 35px;
+			list-style: none;
+		}
+
+		.nav-menu li {
+			margin-left: 10px;
+		}
+
+		.nav-menu a {
+			color: rgb(255, 255, 255);
+			text-decoration: none;
+		}
+
+		header {
+			display: flex;
+			justify-content: space-between;
+			max-width: 1100px;
+			margin: 0 auto;
+			padding: 0 4%;
+			height: 70px;
+		}
+
+		.nav-menu a:hover {
+			color: rgb(128, 0, 128);
+			border-bottom: 2px solid rgb(128, 0, 128);
 		}
 
 		table {
@@ -172,32 +200,41 @@
 			/* 文字色  */
 		}
 	</style>
-</head>
 
 <body>
-	<div class="info-section1">
-		<img class="logo" src="/a/c.png" onclick="redirectToPage('/tanaka/employee')" style="cursor: pointer;">
-    <script>
-        // JavaScriptでURLにリダイレクトする関数
-        function redirectToPage(url) {
-            window.location.href = url;
-        }
-    </script>
-		<h2>当日の出勤・退勤時刻</h2>
+	<header>
+		<h1>
+			<img class="logo" th:src="@{/a/c.png}" onclick="redirectToPage('/tanaka/employee')"
+				style="cursor: pointer;">
+			<script>
+				// JavaScriptでURLにリダイレクトする関数
+				function redirectToPage(url) {
+					window.location.href = url;
+				}
+			</script>
+		</h1>
+		<nav>
+			<ul class="nav-menu">
+				<li><a href="http://localhost:8080/table" sec:authentication="name">id</a></li>
+			</ul>
+		</nav>
+	</header>
 
-		<table>
-			<!-- 当日の出勤・退勤時刻の情報を表示 -->
+	<h2>当日の出勤・退勤時刻</h2>
 
-			<tr>
-				<th>出勤時間</th>
-				<th>退勤時間</th>
-			</tr>
+	<table>
+		<!-- 当日の出勤・退勤時刻の情報を表示 -->
 
-			<tr th:if="${todayWork != null and todayWork.size() > 0}">
-				<td th:text="${todayWork[0]}"></td>
-				<td th:text="${todayWork[1]}"></td>
-			</tr>
-		</table>
+		<tr>
+			<th>出勤時間</th>
+			<th>退勤時間</th>
+		</tr>
+
+		<tr th:if="${todayWork != null and todayWork.size() > 0}">
+			<td th:text="${todayWork[0]}"></td>
+			<td th:text="${todayWork[1]}"></td>
+		</tr>
+	</table>
 	</div>
 
 	<div class="info-section2">
