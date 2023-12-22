@@ -27,5 +27,5 @@ public interface PayslipService {
 
     void in(Integer i,Integer b,Date d);
     
-    void up(Integer i);
+    void up(Integer b,Integer i);
 }

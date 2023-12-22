@@ -24,8 +24,7 @@ public interface PayslipRepository extends CrudRepository<Payslip, Integer> {
     		@Param("day") Date day);
 	
 	@Modifying
-	@Query("UPDATE payslip SET basepay = :basepay where id = :id) "
-    		+ "VALUES (:employee_id, :basepay, :day)")
-    void uppaypay(@Param("id") Integer id);
+	@Query("UPDATE payslip SET basepay = :basepay where id = :id ")
+    void uppaypay(@Param("basepay") Integer basepay,@Param("id") Integer id);
 }
  

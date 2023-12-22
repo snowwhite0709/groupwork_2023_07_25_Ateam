@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -19,7 +19,7 @@
 <br>
     <form th:action="@{/management/payin}"  method="post" th:object="${paypayForm}">
          <label for="username">基本給</label>
-            <input type="text" id="username" name="username" th:field="*{basepay}" required>
+            <input type="number" id="username" name="username" th:field="*{basepay}" required>
             
         <button type="submit">Save</button>
     </form>
