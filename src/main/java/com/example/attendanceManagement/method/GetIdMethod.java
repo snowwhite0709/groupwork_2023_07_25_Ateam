@@ -62,6 +62,7 @@ public class GetIdMethod {
 			yearMonth.add(sdf2.format(w.getDay()));
 		}		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
+		
 		//HTMLに送る
 		showPayslip(payslipService, Kongetu, model);
 		model.addAttribute("list", list);
@@ -117,12 +118,14 @@ public class GetIdMethod {
 	public void showPayslip(PayslipService payslipService,String Kongetu,Model model) {
 		Iterable<Payslip> pay = payslipService.selectI(id);
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
-		
+		Integer i = 0;
 		for(Payslip p :pay) {
 			if (sdf2.format(p.getDay()).equals(Kongetu)) {
-				model.addAttribute("plist",p.getBasepay());
+				i = p.getBasepay();
 			}
 		}
+		
+		model.addAttribute("plist",i);
 	}
 	
 	public void setpaypay(PaypayService paypayService,PaypayForm paypayForm) {

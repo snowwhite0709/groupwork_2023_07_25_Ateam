@@ -46,5 +46,11 @@ public class PaypayServicelmpl implements PaypayService{
 		repository.inpay(i, b, d);
 	}
 
+	@Override
+	public Integer selectBP(Integer id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.selectBP(id);
+	}
+
 
 }

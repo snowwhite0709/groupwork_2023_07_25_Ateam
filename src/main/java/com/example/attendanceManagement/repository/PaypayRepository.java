@@ -16,5 +16,7 @@ public interface PaypayRepository extends CrudRepository<Paypay, Integer>{
     void inpay(@Param("employee_id") Integer employee_id, @Param("basepay") Integer basepay, 
     		@Param("day") Date day);
 
-	
+	@Query("SELECT basepay FROM paypay WHERE employee_id=:employee_id")
+	Integer selectBP(
+			@Param("employee_id") Integer employee_id);
 }

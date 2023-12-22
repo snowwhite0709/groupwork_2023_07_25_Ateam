@@ -19,4 +19,6 @@ public interface PaypayService {
     void Update(Paypay paypay);
     
     void save(Integer i,Integer b,Date d);
+    
+    Integer selectBP(Integer id);
 }
