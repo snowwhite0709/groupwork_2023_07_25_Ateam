@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.service;
 
+import java.sql.Date;
 import java.time.YearMonth;
 import java.util.Optional;
 
@@ -24,4 +25,7 @@ public interface PayslipService {
 	//Employee IDでIterableで取得する
 	Iterable<Payslip> selectI(Integer employee_id);
 
+    void in(Integer i,Integer b,Date d);
+    
+    void up(Integer i);
 }

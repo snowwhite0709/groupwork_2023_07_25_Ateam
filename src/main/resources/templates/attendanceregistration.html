@@ -19,26 +19,12 @@
 
 <body>
 
-	<div class="info-section1">
-		<h2>当日の出勤・退勤時刻</h2>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-		<table>
-			<!-- 当日の出勤・退勤時刻の情報を表示 -->
-
-			<tr>
-				<th>出勤時間</th>
-				<th>退勤時間</th>
-			</tr>
-
-			<tr th:if="${todayWork != null and todayWork.size() > 0}">
-				<td th:text="${todayWork[0]}"></td>
-				<td th:text="${todayWork[1]}"></td>
-			</tr>
-		</table>
-	</div>
-	<div class="info-section2">
-		<h2>当月の出勤状況</h2>
-	</div>
 	<form method="get" th:action="@{/management/mitForm}"}>
 		<label for="yearMonth">年月を選択:</label>
 		<select id="yearMonth" name="yearMonth">
@@ -46,7 +32,12 @@
 		</select>
 		<input type="submit" value="Submit">
 	</form>
-
+		<div class="info-section2">
+		<h1 th:text="${thisMonth}"></h1>
+	</div>
+	<form method="get" th:action="@{/management/paypay}">
+	<input type="submit" value="給与登録">
+	</form>
 
 	<div class="info-section2">
 		<table border="2">
@@ -94,6 +85,8 @@
 	</div>
 	<br>
 	<!-- ここから給与関係 -->
+
+	</form>
 			<table>
 			<tbody>
 				<tr>
@@ -140,6 +133,8 @@
 				</tr>
 			</tbody>
 		</table>
+				<form method="GET" th:action="@{/management/setpaypay}">
+	<input type="submit" value="編集">
 	<table>
 				<tbody>
 					<tr>

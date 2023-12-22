@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.service;
 
+import java.sql.Date;
 import java.time.YearMonth;
 import java.util.Optional;
 
@@ -53,6 +54,20 @@ public class PayalipServiceimple implements PayslipService{
 	public Object getPayDetails(YearMonth selectedMonth) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
+	}
+
+	@Override
+	public void in(Integer i, Integer b, Date d) {
+		// TODO 自動生成されたメソッド・スタブ
+		repository.inpaypay(i, b, d);
+		
+	}
+
+	@Override
+	public void up(Integer i) {
+		// TODO 自動生成されたメソッド・スタブ
+		repository.uppaypay(i);
+		
 	}
 	
 	

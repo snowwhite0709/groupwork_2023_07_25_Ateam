@@ -1,5 +1,8 @@
 package com.example.attendanceManagement.repository;
 
+import java.sql.Date;
+
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +16,16 @@ public interface PayslipRepository extends CrudRepository<Payslip, Integer> {
 	@Query("SELECT * FROM payslip WHERE employee_id=:employee_id")
 	Iterable<Payslip> selectI(
 			@Param("employee_id") Integer employee_id);
+	
+	@Modifying
+	@Query("INSERT INTO payslip (employee_id, basepay, day) "
+    		+ "VALUES (:employee_id, :basepay, :day)")
+    void inpaypay(@Param("employee_id") Integer employee_id, @Param("basepay") Integer basepay, 
+    		@Param("day") Date day);
+	
+	@Modifying
+	@Query("UPDATE payslip SET basepay = :basepay where id = :id) "
+    		+ "VALUES (:employee_id, :basepay, :day)")
+    void uppaypay(@Param("id") Integer id);
 }
  

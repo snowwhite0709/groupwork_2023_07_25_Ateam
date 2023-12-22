@@ -69,13 +69,6 @@ public class ManagementController {
 		return "accountmake";
 	}
 	
-
-	/*	//給与管理画面へ遷移するためのメソッド
-		@GetMapping("/pay")
-		public String pay() {
-			return "payslip";
-		}*/
-	
 	//勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
 	public String atten(@PathVariable Integer id, Model model) {
@@ -83,7 +76,7 @@ public class ManagementController {
 		GetIdMethod g = new GetIdMethod(id);
 
 		//メソッドを利用し画面内容反映
-		g.getMonth(model,workService,payslipService);
+		g.getMonth(model,workService,payslipService,paypayService);
 
 		return "attendanceregistration";
 	}
@@ -94,7 +87,7 @@ public class ManagementController {
 		GetIdMethod g = new GetIdMethod();
 
 		//メソッドを利用し画面内容反映
-		g.getNowMonth(model,workService,selectedYearMonth,payslipService);
+		g.getNowMonth(model,workService,selectedYearMonth,payslipService,paypayService);
 		return "attendanceregistration";
 	}
 
@@ -109,13 +102,18 @@ public class ManagementController {
 	@PostMapping("/payin")
 	public String payin(@Validated PaypayForm paypayForm, BindingResult bindingResult,
 			Model model,RedirectAttributes redirectAttributes) {
-		System.out.println(paypayForm.getBasepay());
 
 		GetIdMethod g = new GetIdMethod();
 		g.setpaypay(paypayService,paypayForm);
-		System.out.println(model.asMap().get("inputId"));
 		return "redirect:/management/paypay";
+	}
+	
+	//月次の給与を編集するためのメソッド
+	@GetMapping("/setpaypay")
+	public String setpaypay() {
+		
 
+		return "setpaypay";
 	}
 
 	//アカウント新規作成の情報登録用メソッド

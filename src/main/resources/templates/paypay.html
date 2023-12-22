@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="http://localhost:8080/css/managementhome.css">
+</head>
+<body>	
+	<div class="navbar">
+    <a th:href="@{/management}">勤怠承認</a>
+    <a th:href="@{/management/attendanceregistration}">勤怠登録</a>
+    <a th:href="@{/management/accountmanagement}">アカウント管理</a>
+    <a th:href="@{/management/accountedit}">アカウント新規作成</a>
+    <a th:href="@{/management/pay}">給与計算</a>
+</div>	
+<br>
+<br>
+<br>
+<br>
+    <form th:action="@{/management/payin}"  method="post" th:object="${paypayForm}">
+         <label for="username">基本給</label>
+            <input type="text" id="username" name="username" th:field="*{basepay}" required>
+            
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
