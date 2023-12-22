@@ -93,7 +93,99 @@
 		</table>
 	</div>
 	<br>
-
+	<!-- ここから給与関係 -->
+			<table>
+			<tbody>
+				<tr>
+					<colgroup>
+						<col style="width: 10%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+						<col style="width: 15%;" ;>
+					</colgroup>
+					<td style="background-color: rgb(129, 225, 254);" rowspan="4">支給</td>
+					<td style="background-color: rgb(129, 225, 254);">基本給</td>
+					<td style="background-color: rgb(129, 225, 254);">時間外手当</td>
+					<td style="background-color: rgb(129, 225, 254);">役職手当</td>
+					<td style="background-color: rgb(129, 225, 254);">資格手当</td>
+					<td style="background-color: rgb(129, 225, 254);">住宅手当</td>
+					<td style="background-color: rgb(129, 225, 254);">家族手当</td>
+				</tr>
+				<tr>
+					<td th:text="*{plist}"></td>
+					<td th:text="*{overtimepay}"></td>
+					<td th:text="*{overtimepay}"></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+				</tr>
+				<tr>
+					<td style="background-color: rgb(129, 225, 254);">通勤手当</td>
+					<td style="background-color: rgb(129, 225, 254);">立替交通費</td>
+					<td style="background-color: rgb(129, 225, 254);"></td>
+					<td style="background-color: rgb(129, 225, 254);">課税支給額合計</td>
+					<td style="background-color: rgb(129, 225, 254);">非課税支給額合計</td>
+					<td style="background-color: rgb(129, 225, 254);">総支給</td>
+				</tr>
+				<tr>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+				</tr>
+			</tbody>
+		</table>
+	<table>
+				<tbody>
+					<tr>
+						<colgroup>
+							<col style="width: 10%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+							<col style="width: 15%;" ;>
+						</colgroup>
+						<td style="background-color: rgb(129, 225, 254);" rowspan="4">控除</td>
+						<td style="background-color: rgb(129, 225, 254);">健康保険</td>
+						<td style="background-color: rgb(129, 225, 254);">厚生年金</td>
+						<td style="background-color: rgb(129, 225, 254);">雇用保険</td>
+						<td style="background-color: rgb(129, 225, 254);">所得税</td>
+						<td style="background-color: rgb(129, 225, 254);">住民税</td>
+						<td style="background-color: rgb(129, 225, 254);">財形貯蓄</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td style="background-color: rgb(129, 225, 254);">生命保険</td>
+						<td style="background-color: rgb(129, 225, 254);">積立金</td>
+						<td style="background-color: rgb(129, 225, 254);">組合費</td>
+						<td style="background-color: rgb(129, 225, 254);">その他控除</td>
+						<td style="background-color: rgb(129, 225, 254);"></td>
+						<td style="background-color: rgb(129, 225, 254);">控除額合計</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
 </body>
 
 </html>

@@ -18,8 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.attendanceManagement.entity.User_table;
 import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.form.PaypayForm;
 import com.example.attendanceManagement.form.User_tableForm;
 import com.example.attendanceManagement.method.GetIdMethod;
+import com.example.attendanceManagement.service.PaypayService;
+import com.example.attendanceManagement.service.PayslipService;
 import com.example.attendanceManagement.service.User_tableService;
 import com.example.attendanceManagement.service.WorkService;
 
@@ -31,6 +34,10 @@ public class ManagementController {
 	User_tableService user_tableService;
 	@Autowired
 	WorkService workService;
+	@Autowired
+	PayslipService payslipService;
+	@Autowired
+	PaypayService paypayService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -69,28 +76,47 @@ public class ManagementController {
 			return "payslip";
 		}*/
 	
-	//勤怠登録画面へ遷移するためのメソッド
+	//勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
 	public String atten(@PathVariable Integer id, Model model) {
 		//idを渡してstatic化
 		GetIdMethod g = new GetIdMethod(id);
-		
+
 		//メソッドを利用し画面内容反映
-		g.getMonth(model,workService);
-		
-        return "attendanceregistration";
-    }
-	
-		
+		g.getMonth(model,workService,payslipService);
+
+		return "attendanceregistration";
+	}
+
+	//月次の勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/mitForm")
 	public String attend(@RequestParam("yearMonth") String selectedYearMonth,Model model) {
-		System.out.println(selectedYearMonth);
 		GetIdMethod g = new GetIdMethod();
-		
+
 		//メソッドを利用し画面内容反映
-		g.getNowMonth(model,workService,selectedYearMonth);
-			return "attendanceregistration";
-		}
+		g.getNowMonth(model,workService,selectedYearMonth,payslipService);
+		return "attendanceregistration";
+	}
+
+	//月次の勤怠給与管理画面へ遷移するためのメソッド
+	@GetMapping("/paypay")
+	public String paypay(Model model) {
+		model.addAttribute("paypayForm", new PaypayForm());
+
+		return "paypay";
+	}
+
+	@PostMapping("/payin")
+	public String payin(@Validated PaypayForm paypayForm, BindingResult bindingResult,
+			Model model,RedirectAttributes redirectAttributes) {
+		System.out.println(paypayForm.getBasepay());
+
+		GetIdMethod g = new GetIdMethod();
+		g.setpaypay(paypayService,paypayForm);
+		System.out.println(model.asMap().get("inputId"));
+		return "redirect:/management/paypay";
+
+	}
 
 	//アカウント新規作成の情報登録用メソッド
 	@PostMapping("/insert")

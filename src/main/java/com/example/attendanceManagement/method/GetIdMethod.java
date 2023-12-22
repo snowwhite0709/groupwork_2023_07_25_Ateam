@@ -10,7 +10,11 @@ import java.util.TreeSet;
 
 import org.springframework.ui.Model;
 
+import com.example.attendanceManagement.entity.Payslip;
 import com.example.attendanceManagement.entity.Work;
+import com.example.attendanceManagement.form.PaypayForm;
+import com.example.attendanceManagement.service.PaypayService;
+import com.example.attendanceManagement.service.PayslipService;
 import com.example.attendanceManagement.service.WorkService;
 
 import lombok.NoArgsConstructor;
@@ -18,26 +22,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetIdMethod {
 	static int id;
-	
+
 	public GetIdMethod(int id ) {
 		GetIdMethod.id = id;
 	}
-	
-	public void getMonth(Model model,WorkService workService) {
+
+	public void getMonth(Model model,WorkService workService,PayslipService payslipService) {
 		List<String> todayWork = new ArrayList<>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		
+
 		String dbToDay;
 		String toDay;
-		
+
 		Set<String>yearMonth = new TreeSet<>();
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
 		//今月の年月を取得
 		String Kongetu = sdf2.format(new Date());
-		
+
 		//workテーブルの情報を取得
 		Iterable<Work> work = workService.selectI(id);
-		
+
 		//List型を宣言
 		List<Work> list = new ArrayList<>();
 		//Listに要素を詰め込む
@@ -58,26 +62,29 @@ public class GetIdMethod {
 			yearMonth.add(sdf2.format(w.getDay()));
 		}		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
+		
 		//HTMLに送る
+		showPayslip(payslipService, Kongetu, model);
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
 		model.addAttribute("workingDays", list.size());
 		model.addAttribute("yearMonth", yearMonth);
+		model.addAttribute("thisMonth",Kongetu);
 	}
-	
-	public void getNowMonth(Model model,WorkService workService,String selectedYearMonth) {
+
+	public void getNowMonth(Model model,WorkService workService,String selectedYearMonth,PayslipService payslipService) {
 		List<String> todayWork = new ArrayList<>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		
+
 		String dbToDay;
 		String toDay;
-		
+
 		Set<String>yearMonth = new TreeSet<>();
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
-		
+
 		//workテーブルの情報を取得
 		Iterable<Work> work = workService.selectI(id);
-		
+
 		//List型を宣言
 		List<Work> list = new ArrayList<>();
 		//Listに要素を詰め込む
@@ -99,9 +106,31 @@ public class GetIdMethod {
 		}		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
 		//HTMLに送る
+		showPayslip(payslipService, selectedYearMonth, model);
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
 		model.addAttribute("workingDays", list.size());
 		model.addAttribute("yearMonth", yearMonth);
+		model.addAttribute("thisMonth",selectedYearMonth);
+	}
+	
+	//給与表示用メソッド
+	public void showPayslip(PayslipService payslipService,String Kongetu,Model model) {
+		Iterable<Payslip> pay = payslipService.selectI(id);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
+		Integer i = 0;
+		for(Payslip p :pay) {
+			if (sdf2.format(p.getDay()).equals(Kongetu)) {
+				i = p.getBasepay();
+			}
+		}
+		
+		model.addAttribute("plist",i);
+	}
+	
+	public void setpaypay(PaypayService paypayService,PaypayForm paypayForm) {
+		
+		paypayService.save(id,paypayForm.getBasepay(),null);
 	}
 }
+
