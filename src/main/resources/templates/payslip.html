@@ -3,127 +3,29 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Pay List</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			background: #9CECFB;
-			/* fallback for old browsers */
-			background: -webkit-linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
-			/* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
-			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-		}
+	<title th:text="#{title.entry}">Pay List</title>
+	<link rel="stylesheet" th:href="@{/css/payslip.css}">
 
-		div.container4 {
-			height: 10em;
-			position: relative;
-			table-layout: fixed;
-
-		}
-
-		div.container4 h2 {
-			margin: 0;
-			background: yellow;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin-top: 50%;
-			margin-right: -50%;
-			transform: translate(-50%, -50%);
-
-		}
-
-
-		.text-center {
-			text-align: center;
-		}
-
-		body {
-			font-family: Arial, sans-serif;
-		}
-
-		.info-section1 {
-			margin-top: 20px;
-		}
-
-		.info-section1 table {
-
-			border-collapse: collapse;
-			width: 20%;
-			margin-top: 10px;
-			position: relative;
-			top: 5px;
-			left: 90px;
-			text-align: center;
-		}
-
-		.info-section1 th,
-		.info-section1 td {
-			border: 1px solid rgb(0, 0, 0);
-			padding: 8px;
-			text-align: left;
-		}
-
-		.info-section1 th {
-			background-color: rgb(129, 225, 254);
-		}
-
-		.info-section2 {
-			margin-top: 20px;
-
-		}
-
-		.info-section2 table {
-
-			border-collapse: collapse;
-			width: 5%;
-			height: 200px;
-			margin-top: 10px;
-			position: relative;
-			top: 5px;
-			left: 90px;
-
-		}
-
-		.info-section2 th,
-		.info-section2 td {
-			border: 1px solid rgb(0, 0, 0);
-			padding: 8px;
-			text-align: center;
-		}
-
-		.info-section2 th {
-			background-color: rgb(129, 225, 254);
-		}
-
-		table {
-			border-collapse: collapse;
-			width: 90%;
-			margin-top: 10px;
-			position: relative;
-			top: 5px;
-			left: 90px;
-			text-align: center;
-		}
-
-		table,
-		th,
-		td {
-			border: 1px solid black;
-
-		}
-
-		th,
-		td {
-			padding: 8px;
-			text-align: center;
-		}
-	</style>
 </head>
 
 <body>
 
+	<header>
+		<h1>
+			<a href="">
+				<img class="logo" th:src="@{/a/c.png}">
+			</a>
+		</h1>
+
+		<nav>
+			<!--<ul class="nav-menu" action="@{/table}" method="post">
+				<li><a href="@{/personal}" th:text="${id}">name</a></li>
+				<li><a href="@{/personal}" th:text="${password}">pass</a></li>-->
+			<ul class="nav-menu">
+				<li><a href="http://localhost:8080/table" sec:authentication="name">id</a></li>
+			</ul>
+		</nav>
+	</header>
 	<div class="div.container4">
 
 		<div class="div.container4 h2">
