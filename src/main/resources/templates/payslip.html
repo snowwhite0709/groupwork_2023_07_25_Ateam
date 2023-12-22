@@ -1,14 +1,131 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8">
+<<<<<<< HEAD
 	<title th:text="#{title.entry}">Pay List</title>
 	<link rel="stylesheet" th:href="@{/css/payslip.css}">
+=======
+	<title>Pay List</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: aliceblue;
+			background: linear-gradient(#05FBFF, #1D62F0) fixed;
+>>>>>>> branch 'master' of https://github.com/ueda268/AttendanceManagement.git
 
+<<<<<<< HEAD
+=======
+		}
+		div.container4 {
+			height: 10em;
+			position: relative;
+
+		}
+
+		div.container4 h2 {
+			margin: 0;
+			background: yellow;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: 50%;
+			margin-right: -50%;
+			transform: translate(-50%, -50%);
+
+		}
+
+
+		.text-center {
+			text-align: center;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.info-section1 {
+			margin-top: 20px;
+		}
+
+		.info-section1 table {
+
+			border-collapse: collapse;
+			width: 20%;
+			margin-top: 10px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+			text-align: center;
+		}
+ 
+		.info-section1 th,
+		.info-section1 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+		}
+
+		.info-section1 th {
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section2 {
+			margin-top: 20px;
+
+		}
+
+		.info-section2 table {
+
+			border-collapse: collapse;
+			width: 5%;
+			height: 200px;
+			margin-top: 10px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+
+		}
+
+		.info-section2 th,
+		.info-section2 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: center;
+		}
+
+		.info-section2 th {
+			background-color: rgb(129, 225, 254);
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 90%;
+			margin-top: 10px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+			text-align: center;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid black;
+
+		}
+
+		th,
+		td {
+			padding: 8px;
+			text-align: center;
+		}
+	</style>
+>>>>>>> branch 'master' of https://github.com/ueda268/AttendanceManagement.git
 </head>
 
 <body>
+<<<<<<< HEAD
 
 	<header>
 		<h1>
@@ -26,32 +143,13 @@
 			</ul>
 		</nav>
 	</header>
+=======
+	
+>>>>>>> branch 'master' of https://github.com/ueda268/AttendanceManagement.git
 	<div class="div.container4">
-
 		<div class="div.container4 h2">
 			<br>
-
 			<h2 align="center">a月分の給与明細</h2>
-			<br>
-
-			<!-- 年月の切り替えフォーム -->
-			<form th:action="@{/management/pay}" method="get">
-				<label for="yearMonth">年月を選択:</label>
-				<select id="yearMonth" name="yearMonth" th:value="${selectedYear + '/' + selectedMonth}">
-					<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
-				</select>
-				<input type="submit" value="Submit">
-			</form>
-
-			<div class="buttonInfo">
-				<form action="/login" method="get">
-					<button class="button-001" type="submit">ログイン画面</button>
-				</form>
-
-				<form th:action="@{/tanaka/employee}" method="get">
-					<button>メインメニュー</button>
-				</form>
-			</div>
 
 		</div>
 	</div>
@@ -103,9 +201,9 @@
 					<td th:text="*{basepay}"></td>
 					<td th:text="*{overtimepay}"></td>
 					<td th:text="*{overtimepay}"></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
 				</tr>
 				<tr>
 					<td style="background-color: rgb(129, 225, 254);">通勤手当</td>
@@ -116,12 +214,12 @@
 					<td style="background-color: rgb(129, 225, 254);">総支給</td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
 				</tr>
 			</tbody>
 		</table>
@@ -196,7 +294,7 @@
 						<td style="background-color: rgb(129, 225, 254);">有給使用日数</td>
 						<td style="background-color: rgb(129, 225, 254);">有給残日数</td>
 						<td style="background-color: rgb(129, 225, 254);">差引支給額</td>
-
+						
 					</tr>
 
 					<tr>
@@ -212,7 +310,9 @@
 
 
 				</thead>
-
+				<tbody>
+					<!-- ここにThymeleafを使用してデータを表示 -->
+				</tbody>
 				</table>
 
 
