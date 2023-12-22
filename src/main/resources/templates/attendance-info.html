@@ -40,6 +40,7 @@
 			padding: 0 4%;
 			height: 70px;
 		}
+
 		.nav-menu a {
 			color: rgb(255, 255, 255);
 			text-decoration: none;
@@ -218,22 +219,22 @@
 			</ul>
 		</nav>
 	</header>
+	<div class="info-section1">
+		<h2>当日の出勤・退勤時刻</h2>
 
-	<h2>当日の出勤・退勤時刻</h2>
+		<table>
+			<!-- 当日の出勤・退勤時刻の情報を表示 -->
 
-	<table>
-		<!-- 当日の出勤・退勤時刻の情報を表示 -->
+			<tr>
+				<th>出勤時間</th>
+				<th>退勤時間</th>
+			</tr>
 
-		<tr>
-			<th>出勤時間</th>
-			<th>退勤時間</th>
-		</tr>
-
-		<tr th:if="${todayWork != null and todayWork.size() > 0}">
-			<td th:text="${todayWork[0]}"></td>
-			<td th:text="${todayWork[1]}"></td>
-		</tr>
-	</table>
+			<tr th:if="${todayWork != null and todayWork.size() > 0}">
+				<td th:text="${todayWork[0]}"></td>
+				<td th:text="${todayWork[1]}"></td>
+			</tr>
+		</table>
 	</div>
 
 	<div class="info-section2">
