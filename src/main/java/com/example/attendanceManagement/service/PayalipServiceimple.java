@@ -1,5 +1,6 @@
 package com.example.attendanceManagement.service;
 
+import java.time.YearMonth;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,20 @@ public class PayalipServiceimple implements PayslipService{
 		// TODO 自動生成されたメソッド・スタブ
 		 repository.save(payslip);
 	}
+	
+	@Override
+	public Iterable<Payslip> selectI(Integer employee_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return repository.selectI(employee_id);
+	}
+
+	@Override
+	public Object getPayDetails(YearMonth selectedMonth) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+	
+	
 	
 
 }

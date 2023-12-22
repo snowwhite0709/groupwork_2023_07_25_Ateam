@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Pay List</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
-			background-color: aliceblue;
-			background: linear-gradient(#05FBFF, #1D62F0) fixed;
-
+			background: #9CECFB;
+			/* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
+			/* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
+			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		}
+
 		div.container4 {
 			height: 10em;
 			position: relative;
+			table-layout: fixed;
 
 		}
 
@@ -51,7 +57,7 @@
 			left: 90px;
 			text-align: center;
 		}
- 
+
 		.info-section1 th,
 		.info-section1 td {
 			border: 1px solid rgb(0, 0, 0);
@@ -117,11 +123,33 @@
 </head>
 
 <body>
-	
+
 	<div class="div.container4">
+
 		<div class="div.container4 h2">
 			<br>
+
 			<h2 align="center">a月分の給与明細</h2>
+			<br>
+
+			<!-- 年月の切り替えフォーム -->
+			<form th:action="@{/management/pay}" method="get">
+				<label for="yearMonth">年月を選択:</label>
+				<select id="yearMonth" name="yearMonth" th:value="${selectedYear + '/' + selectedMonth}">
+					<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
+				</select>
+				<input type="submit" value="Submit">
+			</form>
+
+			<div class="buttonInfo">
+				<form action="/login" method="get">
+					<button class="button-001" type="submit">ログイン画面</button>
+				</form>
+
+				<form th:action="@{/tanaka/employee}" method="get">
+					<button>メインメニュー</button>
+				</form>
+			</div>
 
 		</div>
 	</div>
@@ -173,9 +201,9 @@
 					<td th:text="*{basepay}"></td>
 					<td th:text="*{overtimepay}"></td>
 					<td th:text="*{overtimepay}"></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td style="background-color: rgb(129, 225, 254);">通勤手当</td>
@@ -186,12 +214,12 @@
 					<td style="background-color: rgb(129, 225, 254);">総支給</td>
 				</tr>
 				<tr>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
@@ -266,7 +294,7 @@
 						<td style="background-color: rgb(129, 225, 254);">有給使用日数</td>
 						<td style="background-color: rgb(129, 225, 254);">有給残日数</td>
 						<td style="background-color: rgb(129, 225, 254);">差引支給額</td>
-						
+
 					</tr>
 
 					<tr>
@@ -282,9 +310,7 @@
 
 
 				</thead>
-				<tbody>
-					<!-- ここにThymeleafを使用してデータを表示 -->
-				</tbody>
+
 				</table>
 
 

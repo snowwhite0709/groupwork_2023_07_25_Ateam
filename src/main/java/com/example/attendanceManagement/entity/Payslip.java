@@ -1,5 +1,7 @@
 package com.example.attendanceManagement.entity;
 
+import java.sql.Date;
+
 import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ public class Payslip {
 	private Integer texableamount; //課税支給額合計
 	private Integer taxfreepaymentamount; //非課税支給額合計
 	private Integer total; //総支給
+	private Date day;//日付
 	 
 	/*private Integer health; //健康保険
 	private Integer welfarepension; //厚生年金
