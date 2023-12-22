@@ -37,6 +37,7 @@ a.btn_01 {
 	 /*コレ*/display: flex;
     /*コレ*/justify-content: center;
     /*コレ*/align-items: center;
+    font-size:25px;
     width: 60px;
 	height: 120px;
     text-decoration: none;
@@ -51,7 +52,8 @@ a.btn_01 {
 	vertical-align: middle;
 }
 a.btn_01:hover {
-	color: #27acd9;
+	border: 2px solid rgb(128, 0, 128);
+	color: rgb(128, 0, 128);
 	background: #fff;
 }
 span{
