@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,7 +12,16 @@
     <a th:href="@{/management/accountmanagement}">アカウント管理</a>
     <a th:href="@{/management/accountedit}">アカウント新規作成</a>
     <a th:href="@{/management/pay}">給与計算</a>
-</div>	
-
+</div>	  
+<br>
+<br>
+<br>
+<br>          
+    <form th:action="@{/management/setpayin}"  method="post" th:object="${payslipForm}">
+         <label for="username">基本給</label>
+            <input type="number" id="username" name="username" th:field="*{basepay}" required>
+            
+        <button type="submit">Save</button>
+    </form>            
 </body>
 </html>

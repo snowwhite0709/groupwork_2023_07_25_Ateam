@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import com.example.attendanceManagement.entity.Payslip;
 import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.form.PaypayForm;
+import com.example.attendanceManagement.form.PayslipForm;
 import com.example.attendanceManagement.service.PaypayService;
 import com.example.attendanceManagement.service.PayslipService;
 import com.example.attendanceManagement.service.WorkService;
@@ -109,6 +110,7 @@ public class GetIdMethod {
 		}		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
 		//HTMLに送る
+		System.out.println(selectedYearMonth);
 		showPayslip(payslipService, selectedYearMonth, model,paypayService);
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
@@ -117,11 +119,36 @@ public class GetIdMethod {
 		model.addAttribute("thisMonth",selectedYearMonth);
 	}
 	
+	//給与設定用メソッド
+	public void setPayslip(PayslipService payslipService,PayslipForm payslipForm) {
+		Iterable<Payslip> pas = payslipService.selectI(id);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
+		java.sql.Date sqlDate=now();
+		Payslip p2 = null;
+		for(Payslip p :pas) {
+			if (sdf2.format(p.getDay()).equals(thisMonth)) {
+				p2 = p;
+			}
+		}
+		if(thisMonth != sdf2.format(new Date())) {
+			String[] m =thisMonth.split("/");
+			sqlDate= java.sql.Date.valueOf(m[0] + "-" + m[1] + "-"+ "01");	
+		}
+		
+		if(p2 == null) {
+			payslipService.in(id, payslipForm.getBasepay(), sqlDate);
+		}else {
+			
+			payslipService.up(payslipForm.getBasepay(),p2.getId());
+		}
+	}
+	
 	//給与表示用メソッド
 	public void showPayslip(PayslipService payslipService,String Kongetu,Model model,PaypayService paypayService) {
 		Iterable<Payslip> pay = payslipService.selectI(id);
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
 		Integer i = 0;
+		System.out.println(Kongetu);
 		for(Payslip p :pay) {
 			if (sdf2.format(p.getDay()).equals(Kongetu)) {
 				i = p.getBasepay();
@@ -130,11 +157,18 @@ public class GetIdMethod {
 		if(i == 0) {
 			i = paypayService.selectBP(id);
 		}
+		System.out.println(i);
 		model.addAttribute("plist",i);
 	}
 	
 	//基本給登録
 	public void setpaypay(PaypayService paypayService,PaypayForm paypayForm) {
+			java.sql.Date sqlDate=now();
+		paypayService.save(id,paypayForm.getBasepay(),sqlDate);
+	}
+	
+	//現在時刻取得
+	public java.sql.Date now(){
 		Date date1=new Date();
 		SimpleDateFormat f=new SimpleDateFormat("HH:mm");
 		String a=f.format(date1);
@@ -147,7 +181,7 @@ public class GetIdMethod {
 	    calendar.set(Calendar.HOUR_OF_DAY, 0);
 		 Date date2 = calendar.getTime();
 			java.sql.Date sqlDate=new java.sql.Date(date2.getTime());
-		paypayService.save(id,paypayForm.getBasepay(),sqlDate);
+			return sqlDate;
 	}
 }
 

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.attendanceManagement.entity.User_table;
 import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.form.PaypayForm;
+import com.example.attendanceManagement.form.PayslipForm;
 import com.example.attendanceManagement.form.User_tableForm;
 import com.example.attendanceManagement.method.GetIdMethod;
 import com.example.attendanceManagement.service.PaypayService;
@@ -102,7 +103,7 @@ public class ManagementController {
 	@PostMapping("/payin")
 	public String payin(@Validated PaypayForm paypayForm, BindingResult bindingResult,
 			Model model,RedirectAttributes redirectAttributes) {
-
+		model.addAttribute("payslipForm", new PayslipForm());
 		GetIdMethod g = new GetIdMethod();
 		g.setpaypay(paypayService,paypayForm);
 		return "redirect:/management/paypay";
@@ -110,10 +111,18 @@ public class ManagementController {
 	
 	//月次の給与を編集するためのメソッド
 	@GetMapping("/setpaypay")
-	public String setpaypay() {
-		
-
+	public String setpaypay(Model model) {
+		model.addAttribute("payslipForm", new PayslipForm());
 		return "setpaypay";
+	}
+	
+	@PostMapping("/setpayin")
+	public String setpayin(@Validated PayslipForm payslipForm, BindingResult bindingResult,
+			Model model,RedirectAttributes redirectAttributes) {
+	
+		GetIdMethod g = new GetIdMethod();
+		g.setPayslip(payslipService,payslipForm);
+		return "redirect:/management/setpaypay";
 	}
 
 	//アカウント新規作成の情報登録用メソッド

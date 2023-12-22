@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title th:text="#{title.entry}">main</title>
+<title th:text="【俺の】メインページ">main</title>
 <link rel="stylesheet" th:href="@{/css/tnk.css}">
 </head>
 <body>
 	<header>
 		<h1>
-			<a href="">
+			<a th:href="@{/login}">
 				<img class="logo"    th:src="@{/a/c.png}" >
 			</a>
 		</h1>
