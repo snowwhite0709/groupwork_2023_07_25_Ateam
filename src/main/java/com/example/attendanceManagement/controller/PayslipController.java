@@ -3,6 +3,7 @@ package com.example.attendanceManagement.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,7 +25,7 @@ public class PayslipController {
 	@Autowired
 	private PayslipService payslipService;
 
-	@GetMapping("/management/pay")
+	@GetMapping("/employee/pay")
 	public String calculateSalary(
 			@RequestParam(name = "year", required = false) Integer year,
 			@RequestParam(name = "month", required = false) Integer month,
@@ -43,6 +44,10 @@ public class PayslipController {
 
 		Payslip payslip = payslipService.SlectOneById(1).orElse(null);
 		model.addAttribute("pay", payslip);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM");
+		String thisMonth =sdf.format(new Date());
+		model.addAttribute("thisMonth",thisMonth);
 		
 
 

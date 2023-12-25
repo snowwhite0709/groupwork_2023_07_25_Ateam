@@ -291,11 +291,11 @@
 	<div class="div.container4">
 		<div class="div.container4 h2">
 			<div align="center">
-				<h2 th:text=" ${day}+'月分の給与明細 ' ">月分の給与明細</h2>
+				<h2 th:text=" ${thisMonth}+'月分の給与明細 ' ">月分の給与明細</h2>
 			</div>
 
 			<!-- 年月の切り替えフォーム -->
-			<form th:action="@{/management/pay}" method="get">
+			<form th:action="@{/employee/pay}" method="get">
 				<label for="yearMonth">年月を選択:</label>
 				<select id="yearMonth" name="yearMonth" th:value="${selectedYear + '/' + selectedMonth}">
 					<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
