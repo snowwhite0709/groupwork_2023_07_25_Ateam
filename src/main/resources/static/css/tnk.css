@@ -11,14 +11,17 @@
   text-transform: uppercase;
   margin-top: 35px;
   list-style: none;
+  transition: 0.5s;
 }
 
 .nav-menu li{
   margin-left: 10px;
+  transition: 0.5s;
 }
 .nav-menu a{
   color: rgb(255, 255, 255);
   text-decoration: none;
+  transition: 0.5s;
 }
 header{
   display: flex;
@@ -29,7 +32,8 @@ header{
 }
 .nav-menu a:hover{
   color: rgb(128, 0, 128);
-  border-bottom:2px solid rgb(128, 0, 128);
+  letter-spacing: 0.2em;
+  font-size:20px;
 }
 
 a.btn_01 {
@@ -37,11 +41,10 @@ a.btn_01 {
 	 /*コレ*/display: flex;
     /*コレ*/justify-content: center;
     /*コレ*/align-items: center;
-    font-size:25px;
+    font-size:17px;
     width: 60px;
 	height: 120px;
     text-decoration: none;
-    font-weight: bold;
 	border: 2px solid #27acd9;
 	border-radius: 10px;
 	color: #fff;
@@ -52,9 +55,11 @@ a.btn_01 {
 	vertical-align: middle;
 }
 a.btn_01:hover {
-	border: 2px solid rgb(128, 0, 128);
+	font-size:20px;
+	border: 2px solid transparent;
 	color: rgb(128, 0, 128);
-	background: #fff;
+	background-color: transparent;
+	letter-spacing: 0.3em;
 }
 span{
   display: block;
