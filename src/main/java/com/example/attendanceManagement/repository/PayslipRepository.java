@@ -26,5 +26,10 @@ public interface PayslipRepository extends CrudRepository<Payslip, Integer> {
 	@Modifying
 	@Query("UPDATE payslip SET basepay = :basepay where id = :id ")
     void uppaypay(@Param("basepay") Integer basepay,@Param("id") Integer id);
+	
+	//残業代保存
+	@Modifying
+	@Query("UPDATE payslip SET overtimepay = :overtimepay where id = :id ")
+    void upoverpay(@Param("overtimepay") Integer overtimepay,@Param("id") Integer id);
 }
  

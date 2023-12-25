@@ -67,7 +67,12 @@ public class PayalipServiceimple implements PayslipService{
 	public void up(Integer b,Integer i) {
 		// TODO 自動生成されたメソッド・スタブ
 		repository.uppaypay(b,i);
-		
+	}
+
+	@Override
+	public void upoverpay(Integer o, Integer i) {
+		// TODO 自動生成されたメソッド・スタブ
+		repository.upoverpay(o,i);
 	}
 	
 	

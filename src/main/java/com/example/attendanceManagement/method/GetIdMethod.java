@@ -24,9 +24,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetIdMethod {
 	
+	//選択したid
 	static int id;
+	//当月または選択した月
 	static String thisMonth;
-
+	//当月または選択した月の残業時間
+	static String thisOver;
+	
 	public GetIdMethod(int id ) {
 		GetIdMethod.id = id;
 	}
@@ -67,14 +71,14 @@ public class GetIdMethod {
 				if(dbToDay.equals(toDay)){
 					todayWork.add(w.getAttendancetime());
 					todayWork.add(w.getLeavingtime());
-					if(w.getOvertime() != null) {
-						String[] overTime;
-						//残業時間をMMとmmに分割する
-						overTime = w.getOvertime().split(":");
-						//int型に変換して足していく
-						sumHours += Integer.parseInt(overTime[0]);
-						sumMinutes += Integer.parseInt(overTime[1]);
-					}
+				}
+				if(w.getOvertime() != null) {
+					String[] overTime;
+					//残業時間をMMとmmに分割する
+					overTime = w.getOvertime().split(":");
+					//int型に変換して足していく
+					sumHours += Integer.parseInt(overTime[0]);
+					sumMinutes += Integer.parseInt(overTime[1]);
 				}
 			}
 			yearMonth.add(sdf2.format(w.getDay()));
@@ -83,20 +87,19 @@ public class GetIdMethod {
 		sumHours += sumMinutes/60;
 		sumMinutes = sumMinutes%60;
 		String fmt = "%02d:%02d";
-		String totalOverTime = String.format(fmt, sumHours, sumMinutes);
+		thisOver = String.format(fmt, sumHours, sumMinutes);
 		
 		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
 		
 		//HTMLに送る
 		showPayslip(payslipService, Kongetu, model,paypayService);
-		System.out.println("*-----月変更前-----*");
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
 		model.addAttribute("workingDays", list.size());
 		model.addAttribute("yearMonth", yearMonth);
 		model.addAttribute("thisMonth",Kongetu);
-		model.addAttribute("totalOverTime",totalOverTime);
+		model.addAttribute("totalOverTime",thisOver);
 		
 		return id;
 	}
@@ -126,6 +129,7 @@ public class GetIdMethod {
 			//指定したemployee_idの当月の勤怠情報を取得
 			if (w.getEmployee_id()  == id && sdf2.format(w.getDay()).equals(selectedYearMonth) && (w.isApproval() == true)) {
 				//ListにEmpleyee_idが1の情報を追加
+				
 				list.add(w);
 				//DBの年月日と今日の年月日が一緒であればtodayWorkに出勤時間と退勤時間を追加
 				dbToDay = sdf.format(w.getDay());
@@ -133,14 +137,15 @@ public class GetIdMethod {
 				if(dbToDay.equals(toDay) ){
 					todayWork.add(w.getAttendancetime());
 					todayWork.add(w.getLeavingtime());
-					if(w.getOvertime() != null) {
-						String[] overTime;
-						//残業時間をMMとmmに分割する
-						overTime = w.getOvertime().split(":");
-						//int型に変換して足していく
-						sumHours += Integer.parseInt(overTime[0]);
-						sumMinutes += Integer.parseInt(overTime[1]);
-					}
+
+				}
+				if(w.getOvertime() != null) {
+					String[] overTime;
+					//残業時間をMMとmmに分割する
+					overTime = w.getOvertime().split(":");
+					//int型に変換して足していく
+					sumHours += Integer.parseInt(overTime[0]);
+					sumMinutes += Integer.parseInt(overTime[1]);
 				}
 			}
 			yearMonth.add(sdf2.format(w.getDay()));
@@ -149,19 +154,19 @@ public class GetIdMethod {
 		sumHours += sumMinutes/60;
 		sumMinutes = sumMinutes%60;
 		String fmt = "%02d:%02d";
-		String totalOverTime = String.format(fmt, sumHours, sumMinutes);
+		thisOver = String.format(fmt, sumHours, sumMinutes);
+
 		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
 		//HTMLに送る
 		
 		showPayslip(payslipService, selectedYearMonth, model,paypayService);
-		System.out.println("ここ");
 		model.addAttribute("list", list);
 		model.addAttribute("todayWork",todayWork);
 		model.addAttribute("workingDays", list.size());
 		model.addAttribute("yearMonth", yearMonth);
 		model.addAttribute("thisMonth",selectedYearMonth);
-		model.addAttribute("totalOverTime",totalOverTime);
+		model.addAttribute("totalOverTime",thisOver);
 		
 		return id;
 	}
@@ -196,7 +201,6 @@ public class GetIdMethod {
 		Iterable<Payslip> pay = payslipService.selectI(id);
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
 		Integer i = 0;
-		System.out.println("っこ");
 		//当月給与が確定済みかどうかを判別
 		boolean b = true;
 		for(Payslip p :pay) {
@@ -204,17 +208,23 @@ public class GetIdMethod {
 				i = p.getBasepay();
 			}
 		}
-		System.out.println("っこ2");
 		if(i == 0) {
 			i = paypayService.selectBP(id);
 			b = false;
 		}
-		System.out.println("っこ3");
+		/*残業代設定*/
+		//時間と分の分割
+		String[] over = thisOver.split(":");
+		//時給の計算
+		int hpay = i/160;
+		//時間の残業代
+		int h = Integer.parseInt(over[0]) * hpay;
+		//分の残業代
+		int m = Integer.parseInt(over[1]) * hpay / 60;
+		
+		model.addAttribute("over" ,(h + m));
 		model.addAttribute("apo",b);
-		model.addAttribute("plist",i);
-		int s = 1;
-		s+= 1;
-		System.out.println(s);
+		model.addAttribute("plist",i);	
 	}
 	
 	//基本給登録

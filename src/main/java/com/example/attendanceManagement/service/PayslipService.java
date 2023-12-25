@@ -28,4 +28,6 @@ public interface PayslipService {
     void in(Integer i,Integer b,Date d);
     
     void up(Integer b,Integer i);
+    
+    void upoverpay(Integer o,Integer i);
 }
