@@ -266,17 +266,26 @@
 
 	<header>
 		<h1>
-			<a href="">
-				<img class="logo" th:src="@{/a/c.png}">
-			</a>
+			<img class="logo" th:src="@{/a/c.png}" onclick="redirectToPage('/tanaka/employee')"
+				style="cursor: pointer;">
+			<script>
+				// JavaScriptでURLにリダイレクトする関数
+				function redirectToPage(url) {
+					window.location.href = url;
+				}
+			</script>
 		</h1>
-
 		<nav>
 			<ul class="nav-menu">
 				<li><a href="http://localhost:8080/table" sec:authentication="name">id</a></li>
 			</ul>
 		</nav>
 	</header>
+
+
+
+
+
 
 
 	<div class="div.container4">
@@ -323,11 +332,11 @@
 			</tr>-->
 			<tr>
 				<td style="background-color: rgb(129, 225, 254);">社員番号</td>
-				<td style="background-color: rgb(255, 255, 255);">No.000</td>
+				<td style="background-color: rgb(255, 255, 255);" th:text="'No, ' + *{userId}"></td>
 			</tr>
 			<tr>
 				<td style="background-color: rgb(129, 225, 254);">氏名</td>
-				<td style="background-color: rgb(255, 255, 255);">佐藤　健</td>
+				<td style="background-color: rgb(255, 255, 255);" th:text="*{name}"></td>
 			</tr>
 
 		</table>
@@ -357,8 +366,8 @@
 				<tr>
 					<td style="background-color: rgb(255, 255, 255);" th:text="*{basepay}"></td>
 					<td style="background-color: rgb(255, 255, 255);" th:text="*{overtimepay}"></td>
-					<td style="background-color: rgb(255, 255, 255);" th:text="*{overtimepay}"></td>
 					<td style="background-color: rgb(255, 255, 255);"></td>
+					<td style="background-color: rgb(255, 255, 255);" th:text="*{executive}"></td>
 					<td style="background-color: rgb(255, 255, 255);"></td>
 					<td style="background-color: rgb(255, 255, 255);"></td>
 				</tr>
@@ -376,7 +385,7 @@
 					<td style="background-color: rgb(255, 255, 255);"></td>
 					<td style="background-color: rgb(255, 255, 255);"></td>
 					<td style="background-color: rgb(255, 255, 255);"></td>
-					<td style="background-color: rgb(255, 255, 255);"></td>
+					<td style="background-color: rgb(255, 255, 255);" th:text="*{total}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -460,6 +469,10 @@
 					</tr>
 				</table>
 			</div>
+		</div>-->
+		<!--<div class="btn_00">
+			<a th:href="@{/attend}" class="btn_01">出勤</a><br>
+			<a th:href="@{/leave}" class="btn_01">退勤</a>
 		</div>-->
 	</div>
 </body>
