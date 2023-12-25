@@ -30,6 +30,8 @@ public class GetIdMethod {
 	static String thisMonth;
 	//当月または選択した月の残業時間
 	static String thisOver;
+	//当月または選択した月の残業代
+	static Integer overPay;
 	
 	public GetIdMethod(int id ) {
 		GetIdMethod.id = id;
@@ -188,9 +190,9 @@ public class GetIdMethod {
 		}
 		
 		if(p2 == null) {
-			payslipService.in(id, payslipForm.getBasepay(), sqlDate);
+			payslipService.in(id, payslipForm.getBasepay(),overPay, sqlDate);
 		}else {
-			payslipService.up(payslipForm.getBasepay(),p2.getId());
+			payslipService.up(payslipForm.getBasepay(), overPay, p2.getId());
 		}
 		
 		return id;
@@ -221,8 +223,8 @@ public class GetIdMethod {
 		int h = Integer.parseInt(over[0]) * hpay;
 		//分の残業代
 		int m = Integer.parseInt(over[1]) * hpay / 60;
-		
-		model.addAttribute("over" ,(h + m));
+		overPay = h + m;
+		model.addAttribute("over" ,overPay);
 		model.addAttribute("apo",b);
 		model.addAttribute("plist",i);	
 	}
@@ -237,8 +239,7 @@ public class GetIdMethod {
 	//給与確定
 	public Integer onepay(PayslipService payslipService,PaypayService paypayService) {
 			java.sql.Date sqlDate=now();
-			
-			payslipService.in(id,paypayService.selectBP(id),sqlDate);
+			payslipService.in(id,paypayService.selectBP(id), overPay, sqlDate);
 		return id;
 	}
 	

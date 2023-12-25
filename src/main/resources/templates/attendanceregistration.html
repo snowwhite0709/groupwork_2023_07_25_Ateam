@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>管理者画面</title>
-<link rel="stylesheet" href="http://localhost:8080/css/managementhome.css">
+<link rel="stylesheet" href="http://localhost:8080/css/attendancemanagement.css">
 </head>
 <body>	
 	<div class="navbar">
@@ -19,11 +19,6 @@
 
 <body>
 
-<br>
-<br>
-<br>
-<br>
-<br>
 
 	<form method="get" th:action="@{/management/mitForm}"}>
 		<label for="yearMonth">年月を選択:</label>
@@ -93,25 +88,15 @@
 	<!-- ここから給与関係 -->
 
 	</form>
-			<table>
+		<table border="2">
 			<tbody>
 				<tr>
-					<colgroup>
-						<col style="width: 10%;" ;>
-						<col style="width: 15%;" ;>
-						<col style="width: 15%;" ;>
-						<col style="width: 15%;" ;>
-						<col style="width: 15%;" ;>
-						<col style="width: 15%;" ;>
-						<col style="width: 15%;" ;>
-					</colgroup>
-					<td style="background-color: rgb(129, 225, 254);" rowspan="4">支給</td>
-					<td style="background-color: rgb(129, 225, 254);">基本給</td>
-					<td style="background-color: rgb(129, 225, 254);">時間外手当</td>
-					<td style="background-color: rgb(129, 225, 254);">役職手当</td>
-					<td style="background-color: rgb(129, 225, 254);">資格手当</td>
-					<td style="background-color: rgb(129, 225, 254);">住宅手当</td>
-					<td style="background-color: rgb(129, 225, 254);">家族手当</td>
+					<th >支給</th>
+					<th >基本給</th>
+					<th >時間外手当</th>
+					<th >役職手当</th>
+					<th >資格手当</th>
+					<th >住宅手当</th>
 				</tr>
 				<tr>
 					<td th:text="*{plist}"></td>
@@ -121,13 +106,14 @@
 					<td ></td>
 					<td ></td>
 				</tr>
+				
 				<tr>
-					<td style="background-color: rgb(129, 225, 254);">通勤手当</td>
-					<td style="background-color: rgb(129, 225, 254);">立替交通費</td>
-					<td style="background-color: rgb(129, 225, 254);"></td>
-					<td style="background-color: rgb(129, 225, 254);">課税支給額合計</td>
-					<td style="background-color: rgb(129, 225, 254);">非課税支給額合計</td>
-					<td style="background-color: rgb(129, 225, 254);">総支給</td>
+					<th >通勤手当</th>
+					<th >立替交通費</th>
+					<th ></th>
+					<th >課税支給額合計</th>
+					<th >非課税支給額合計</th>
+					<th >総支給</th>
 				</tr>
 				<tr>
 					<td ></td>
@@ -140,14 +126,15 @@
 				</tr>
 			</tbody>
 		</table>
-				<form method="GET" th:action="@{/management/setpaypay}">
+	<form method="GET" th:action="@{/management/setpaypay}">
 	<input type="submit" value="編集">
 	</form>
-	<td th:unless="*{apo}">
-			<form method="POST" th:action="@{/management/onepay}">
+	
+	<p th:unless="*{apo}">
+	<form method="POST" th:action="@{/management/onepay}">
 	<input type="submit" value="確定">
 	</form>
-</td>
+</p>
 
 </body>
 
