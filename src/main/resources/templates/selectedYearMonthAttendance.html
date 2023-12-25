@@ -120,7 +120,8 @@
 
 		.btn2,
 		.btn3,
-		.btn4 {
+		.btn4,
+		.btn5 {
 			font-weight: bold;
 			display: inline-block;
 			border-radius: 5px;
@@ -152,7 +153,8 @@
 		.btn1:hover,
 		.btn2:hover,
 		.btn3:hover,
-		.btn4:hover {
+		.btn4:hover,
+		.btn5:hover {
 			box-shadow: none;
 			/* カーソル時の影消去 */
 			color: #27acd9;
@@ -260,13 +262,19 @@
 				<button class="btn2">メインメニュー</button>
 			</form>
 
-			<form action="/table" method="get">
+			<form th:action="@{/table}" method="get">
 				<button class="btn3" type="submit">当日・当月の出勤状況へ戻る</button>
+			</form>
+
+			<form th:action="@{employee/pay}" method="get">
+				<button class="btn5" type="submit">給与画面</button>
 			</form>
 
 			<form action="/login" method="get">
 				<button class="btn4" type="submit">ログイン画面</button>
 			</form>
+
+
 
 
 		</div>
