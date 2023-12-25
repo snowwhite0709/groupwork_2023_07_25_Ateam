@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.attendanceManagement.entity.Payslip;
 import com.example.attendanceManagement.service.PayslipService;
+import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
 @Controller
 /*@RequestMapping("/payslip")*/
@@ -26,12 +28,23 @@ public class PayslipController {
 	public String calculateSalary(
 			@RequestParam(name = "year", required = false) Integer year,
 			@RequestParam(name = "month", required = false) Integer month,
-			Model model)  {
+			Model model, Authentication auth)  {
 		
+		/*現在のユーザー情報を取得*/
+		// UserDetailsを取り出す
+		UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+		// ユーザーIDを取得
+		Integer userId = userDetails.getUser_Id();
+		model.addAttribute("userId",userId);
 		
+		String userName=userDetails.getUsername();
+		model.addAttribute("username",userName);
+		System.out.println("ユーザーネーム"+userName);
 
 		Payslip payslip = payslipService.SlectOneById(1).orElse(null);
 		model.addAttribute("pay", payslip);
+		
+
 
 
 		/*// YearMonthからSet<YearMonth>を生成してThymeleafに渡す
@@ -162,9 +175,9 @@ public class PayslipController {
 	private int calculateTotalSalary(int calculateTotaltaxSalary,int calculatetaxSalary) {
 		// 総支給の合計を計算するロジックを実装
 		return calculateTotaltaxSalary+calculatetaxSalary;
-	}
+	}*/
 
-	//課税支給額
+	/*//課税支給額
 	private int calculateTotaltaxSalary(int basepay,int overtimepay,int position,int executive ) {
 		// ここで基本給や手当の合計を計算するロジックを実装
 		return basepay + overtimepay + position + executive; 
@@ -184,5 +197,3 @@ public class PayslipController {
 	    return health+welfarepension+employment+incometax+texableamount+asset+life+deposit + residenttax + unionFee;
 	}*/
 }
-
-
