@@ -296,13 +296,12 @@
 			</div>
 
 			<!-- 年月の切り替えフォーム -->
-			<form th:action="@{employee/pay}" method="get">
+			<form th:action="@{/pay}" method="post">
 				<label for="yearMonth">年月を選択:</label>
-				<select id="yearMonth" name="yearMonth" th:value="${selectedYear + '/' + selectedMonth}">
+				<select class="selectbox1" id="yearMonth" name="yearMonth">
 					<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
 				</select>
-				<input type="submit" value="選択">
-				
+				<input class="btn1" type="submit" value="Submit">
 			</form>
 
 			<div class="buttonInfo">
