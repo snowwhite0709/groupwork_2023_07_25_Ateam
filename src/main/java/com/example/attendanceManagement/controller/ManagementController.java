@@ -41,7 +41,7 @@ public class ManagementController {
 	PaypayService paypayService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@ModelAttribute
 	public User_tableForm setUpForm() {
 		User_tableForm form = new User_tableForm();
@@ -69,7 +69,7 @@ public class ManagementController {
 	public String accauntManagement() {
 		return "accountmake";
 	}
-	
+
 	//勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/attendanceregistration/{id}")
 	public String atten(@PathVariable Integer id, Model model) {
@@ -82,14 +82,27 @@ public class ManagementController {
 		return "attendanceregistration";
 	}
 
-	//月次の勤怠給与管理画面へ遷移するためのメソッド
+	//月を選択した場合に勤怠給与管理画面へ遷移するためのメソッド
 	@GetMapping("/mitForm")
 	public String attend(@RequestParam("yearMonth") String selectedYearMonth,Model model) {
 		GetIdMethod g = new GetIdMethod();
 
 		//メソッドを利用し画面内容反映
 		g.getNowMonth(model,workService,selectedYearMonth,payslipService,paypayService);
+
 		return "attendanceregistration";
+	}
+	
+	//未確定給与をワンボタン確定する為のメソッド
+	@PostMapping("/onepay")
+	public String onepay(@Validated PayslipForm payslipForm, BindingResult bindingResult,
+			Model model,RedirectAttributes redirectAttributes) {
+
+		GetIdMethod g = new GetIdMethod();
+
+		Integer i = g.onepay(payslipService,paypayService);
+		redirectAttributes.addFlashAttribute("setpayincomplete","月次給与登録が完了しました");
+		return "redirect:/management/attendanceregistration/"+i;
 	}
 
 	//月次の勤怠給与管理画面へ遷移するためのメソッド
@@ -100,29 +113,34 @@ public class ManagementController {
 		return "paypay";
 	}
 
+	//給与登録系のメソッド
 	@PostMapping("/payin")
 	public String payin(@Validated PaypayForm paypayForm, BindingResult bindingResult,
 			Model model,RedirectAttributes redirectAttributes) {
 		model.addAttribute("payslipForm", new PayslipForm());
 		GetIdMethod g = new GetIdMethod();
-		g.setpaypay(paypayService,paypayForm);
-		return "redirect:/management/paypay";
+		Integer i = g.setpaypay(paypayService,paypayForm);
+		redirectAttributes.addFlashAttribute("payincomplete","通常時の基本給与登録が完了しました");
+		return "redirect:/management/attendanceregistration/"+i;
 	}
-	
+
 	//月次の給与を編集するためのメソッド
 	@GetMapping("/setpaypay")
 	public String setpaypay(Model model) {
 		model.addAttribute("payslipForm", new PayslipForm());
 		return "setpaypay";
 	}
-	
+
+	//給与登録
 	@PostMapping("/setpayin")
 	public String setpayin(@Validated PayslipForm payslipForm, BindingResult bindingResult,
 			Model model,RedirectAttributes redirectAttributes) {
-	
+
 		GetIdMethod g = new GetIdMethod();
-		g.setPayslip(payslipService,payslipForm);
-		return "redirect:/management/setpaypay";
+
+		Integer i = g.setPayslip(payslipService,payslipForm);
+		redirectAttributes.addFlashAttribute("setpayincomplete","月次給与登録が完了しました");
+		return "redirect:/management/attendanceregistration/"+i;
 	}
 
 	//アカウント新規作成の情報登録用メソッド
@@ -130,7 +148,7 @@ public class ManagementController {
 	public String insert(@Validated User_tableForm user_tableForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
 		User_table user_table = new User_table();
-		
+
 		user_table.setPass(passwordEncoder.encode(user_tableForm.getPass()));
 		user_table.setLastname(user_tableForm.getLastname());
 		user_table.setFirstname(user_tableForm.getFirstname());
@@ -140,7 +158,7 @@ public class ManagementController {
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
 
-		
+
 		if(!bindingResult.hasErrors()) {
 			user_tableService.sAll(user_table);
 			redirectAttributes.addFlashAttribute("complete","登録が完了しました");
@@ -151,24 +169,24 @@ public class ManagementController {
 	}
 
 
-//トップページで、未承認の勤怠情報を承認するためのメソッド
-@PostMapping("/{id}")
-public String approval(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-	Work work = new Work();
-	Optional<Work> w = workService.SlectOneById(id);
-	work = w.get();
-	work.setApproval(true);
-	workService.UpdateWork(work);
-	redirectAttributes.addFlashAttribute("complete","登録が完了しました");
-	return "redirect:/management";
-}
+	//トップページで、未承認の勤怠情報を承認するためのメソッド
+	@PostMapping("/{id}")
+	public String approval(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		Work work = new Work();
+		Optional<Work> w = workService.SlectOneById(id);
+		work = w.get();
+		work.setApproval(true);
+		workService.UpdateWork(work);
+		
+		return "redirect:/management";
+	}
 
-//データを1件取得し、フォーム内に表示する
+	//データを1件取得し、フォーム内に表示する
 	@GetMapping("/accountedit/{id}")
 	public String showUpDate(User_tableForm user_tableForm, @PathVariable Integer id, Model model) {
 		//Quiz取得
 		Optional<User_table> user_tableOpt = user_tableService.SlectOneById(id);
-		
+
 		//QuizFormへの詰めなおし
 		Optional<User_tableForm> user_tableFormOpt = user_tableOpt.map(t -> makeUser_tableForm(t));
 		//QuizがNullでなければ中身を取り出す
@@ -179,10 +197,10 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		makeUpdateModel(user_tableForm, model);
 		return "accountmake";
 	}
-	
+
 	//更新用のModel作成
 	private void makeUpdateModel(User_tableForm user_tableForm, Model model) {
-		
+
 		model.addAttribute("lastname", user_tableForm.getLastname());
 		model.addAttribute("firstname", user_tableForm.getFirstname());
 		model.addAttribute("sex", user_tableForm.getSex());
@@ -209,7 +227,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		user_table.setStatus(user_tableForm.getStatus());
 		user_table.setRank(user_tableForm.getRank());
 		user_table.setAdmin(user_tableForm.getAdmin());
-		
+
 		//入力チェック
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト
@@ -222,7 +240,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 			return "accountmake";
 		}
 	}
-	
+
 	private User_tableForm makeUser_tableForm(User_table user_table) {
 		User_tableForm user_tableForm = new User_tableForm();
 		user_tableForm.setId(user_table.getId());
@@ -237,7 +255,7 @@ public String approval(@PathVariable Integer id, RedirectAttributes redirectAttr
 		user_tableForm.setNewUser_table(false);
 		return user_tableForm;
 	}
-	
+
 	/*@PostMapping("/delete")
 	public String delete(@RequestParam("id") String id, Model model,
 			RedirectAttributes redirectAttributes) {

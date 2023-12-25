@@ -28,6 +28,7 @@
 	<form method="get" th:action="@{/management/mitForm}"}>
 		<label for="yearMonth">年月を選択:</label>
 		<select id="yearMonth" name="yearMonth">
+			<option hidden>選択してください</option>
 			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
 		</select>
 		<input type="submit" value="Submit">
@@ -38,6 +39,9 @@
 	<form method="get" th:action="@{/management/paypay}">
 	<input type="submit" value="給与登録">
 	</form>
+	
+		<!-- 登録・更新完了コメント -->
+	<p th:if="${payincomplete}" th:text="${payincomplete}"></p>
 
 	<div class="info-section2">
 		<table border="2">
@@ -77,13 +81,15 @@
 			<tr>
 				<td th:text="${workingDays}"></td>
 				<td>0</td>
-				<td>30</td>
+				<!--<td th:text="${totalOverTime}"></td>-->
 				<td>0</td>
 				<td>19</td>
 			</tr>
 		</table>
 	</div>
 	<br>
+<!--	 登録・更新完了コメント -->
+	<p th:if="${setpayincomplete}" th:text="${setpayincomplete}"></p>
 	<!-- ここから給与関係 -->
 
 	</form>
@@ -129,58 +135,20 @@
 					<td ></td>
 					<td ></td>
 					<td ></td>
-					<td ></td>
+					<td th:if="*{apo}" th:text="*{plist}"></td>
+					<td th:unless="*{apo}"> <p>当月の給与を確定してください</p></td>
 				</tr>
 			</tbody>
 		</table>
 				<form method="GET" th:action="@{/management/setpaypay}">
 	<input type="submit" value="編集">
-	<table>
-				<tbody>
-					<tr>
-						<colgroup>
-							<col style="width: 10%;" ;>
-							<col style="width: 15%;" ;>
-							<col style="width: 15%;" ;>
-							<col style="width: 15%;" ;>
-							<col style="width: 15%;" ;>
-							<col style="width: 15%;" ;>
-							<col style="width: 15%;" ;>
-						</colgroup>
-						<td style="background-color: rgb(129, 225, 254);" rowspan="4">控除</td>
-						<td style="background-color: rgb(129, 225, 254);">健康保険</td>
-						<td style="background-color: rgb(129, 225, 254);">厚生年金</td>
-						<td style="background-color: rgb(129, 225, 254);">雇用保険</td>
-						<td style="background-color: rgb(129, 225, 254);">所得税</td>
-						<td style="background-color: rgb(129, 225, 254);">住民税</td>
-						<td style="background-color: rgb(129, 225, 254);">財形貯蓄</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td style="background-color: rgb(129, 225, 254);">生命保険</td>
-						<td style="background-color: rgb(129, 225, 254);">積立金</td>
-						<td style="background-color: rgb(129, 225, 254);">組合費</td>
-						<td style="background-color: rgb(129, 225, 254);">その他控除</td>
-						<td style="background-color: rgb(129, 225, 254);"></td>
-						<td style="background-color: rgb(129, 225, 254);">控除額合計</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
+	</form>
+	<td th:unless="*{apo}">
+			<form method="POST" th:action="@{/management/onepay}">
+	<input type="submit" value="確定">
+	</form>
+</td>
+
 </body>
 
 </html>
