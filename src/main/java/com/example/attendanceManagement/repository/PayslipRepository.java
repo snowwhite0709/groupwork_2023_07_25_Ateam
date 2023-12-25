@@ -18,13 +18,19 @@ public interface PayslipRepository extends CrudRepository<Payslip, Integer> {
 			@Param("employee_id") Integer employee_id);
 	
 	@Modifying
-	@Query("INSERT INTO payslip (employee_id, basepay, day) "
-    		+ "VALUES (:employee_id, :basepay, :day)")
+	@Query("INSERT INTO payslip (employee_id, basepay, overtimepay, day) "
+    		+ "VALUES (:employee_id, :basepay, :overtimepay, :day)")
     void inpaypay(@Param("employee_id") Integer employee_id, @Param("basepay") Integer basepay, 
-    		@Param("day") Date day);
+    		@Param("overtimepay") Integer overtimepay, @Param("day") Date day);
 	
 	@Modifying
-	@Query("UPDATE payslip SET basepay = :basepay where id = :id ")
-    void uppaypay(@Param("basepay") Integer basepay,@Param("id") Integer id);
+	@Query("UPDATE payslip SET basepay = :basepay ,overtimepay = :overtimepay where id = :id ")
+    void uppaypay(@Param("basepay") Integer basepay,@Param("overtimepay") Integer overtimepay, 
+    		@Param("id") Integer id);
+	
+	//残業代保存
+	@Modifying
+	@Query("UPDATE payslip SET overtimepay = :overtimepay where id = :id ")
+    void upoverpay(@Param("overtimepay") Integer overtimepay,@Param("id") Integer id);
 }
  

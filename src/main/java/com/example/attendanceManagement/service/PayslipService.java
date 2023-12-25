@@ -25,7 +25,9 @@ public interface PayslipService {
 	//Employee IDでIterableで取得する
 	Iterable<Payslip> selectI(Integer employee_id);
 
-    void in(Integer i,Integer b,Date d);
+    void in(Integer i,Integer b,Integer o,Date d);
     
-    void up(Integer b,Integer i);
+    void up(Integer b,Integer o,Integer i);
+    
+    void upoverpay(Integer o,Integer i);
 }
