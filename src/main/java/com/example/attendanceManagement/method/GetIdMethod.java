@@ -268,6 +268,7 @@ public class GetIdMethod {
 		calendar.clear(Calendar.MINUTE);
 	    calendar.clear(Calendar.SECOND);
 	    calendar.clear(Calendar.MILLISECOND);
+	    
 	    // 時の部分をクリアするには、setで入れないといけない。
 	    calendar.set(Calendar.HOUR_OF_DAY, 0);
 		 Date date2 = calendar.getTime();
