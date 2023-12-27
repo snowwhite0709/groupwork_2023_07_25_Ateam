@@ -188,11 +188,21 @@ public class GetIdMethod {
 			String[] m =thisMonth.split("/");
 			sqlDate= java.sql.Date.valueOf(m[0] + "-" + m[1] + "-"+ "01");	
 		}
-		
+		/*残業代設定*/
+		//時間と分の分割
+		String[] over = thisOver.split(":");
+		//時給の計算
+		int hpay = payslipForm.getBasepay()/160;
+		//時間の残業代
+		int h = Integer.parseInt(over[0]) * hpay;
+		//分の残業代
+		int m = Integer.parseInt(over[1]) * hpay / 60;
+		overPay = h + m;
+		Integer tt = payslipForm.getBasepay()+overPay;
 		if(p2 == null) {
-			payslipService.in(id, payslipForm.getBasepay(),overPay, sqlDate);
+			payslipService.in(id, payslipForm.getBasepay(),overPay,tt , sqlDate);
 		}else {
-			payslipService.up(payslipForm.getBasepay(), overPay, p2.getId());
+			payslipService.up(payslipForm.getBasepay(), overPay,tt, p2.getId());
 		}
 		
 		return id;
@@ -203,11 +213,13 @@ public class GetIdMethod {
 		Iterable<Payslip> pay = payslipService.selectI(id);
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM");
 		Integer i = 0;
+		Integer t = 0;
 		//当月給与が確定済みかどうかを判別
 		boolean b = true;
 		for(Payslip p :pay) {
 			if (sdf2.format(p.getDay()).equals(Kongetu)) {
 				i = p.getBasepay();
+				t = p.getTotal();
 			}
 		}
 		if(i == 0) {
@@ -227,6 +239,7 @@ public class GetIdMethod {
 		model.addAttribute("over" ,String.format("%,d", overPay));
 		model.addAttribute("apo",b);
 		model.addAttribute("plist",String.format("%,d", i));	
+		model.addAttribute("total",String.format("%,d", t));	
 	}
 	
 	//基本給登録
@@ -240,7 +253,8 @@ public class GetIdMethod {
 	public Integer onepay(PayslipService payslipService,PaypayService paypayService) {
 		String[] m =thisMonth.split("/");
 		java.sql.Date sqlDate= java.sql.Date.valueOf(m[0] + "-" + m[1] + "-"+ "01");	
-			payslipService.in(id,paypayService.selectBP(id), overPay, sqlDate);
+		Integer tt = paypayService.selectBP(id)+ overPay;
+			payslipService.in(id,paypayService.selectBP(id), overPay,tt, sqlDate);
 		return id;
 	}
 	
