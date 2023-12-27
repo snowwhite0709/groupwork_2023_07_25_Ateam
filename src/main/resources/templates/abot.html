@@ -115,6 +115,8 @@
 
 		.btn1 {
 			display: inline-block;
+			font-size: 20px;
+			/* 文字サイズ */
 			text-align: center;
 			/* 文字位置   */
 			cursor: pointer;
@@ -297,7 +299,7 @@
 			</div>
 
 			<!-- 年月の切り替えフォーム -->
-			<h3>
+			<h2>
 			<form align="center" th:action="@{/pay}" method="post">
 				<label for="yearMonth">年月を選択:</label>
 				<select class="selectbox1" id="yearMonth" name="yearMonth">
@@ -305,7 +307,7 @@
 				</select>
 				<input class="btn1" type="submit" value="選択">
 			</form>
-			</h3>
+			</h2>
 			
 			<br>
 			<div class="buttonInfo">
