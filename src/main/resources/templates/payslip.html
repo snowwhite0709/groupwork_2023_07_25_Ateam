@@ -203,15 +203,18 @@
 			text-transform: uppercase;
 			margin-top: 35px;
 			list-style: none;
+			transition: 0.5s;
 		}
 
 		.nav-menu li {
 			margin-left: 10px;
+			transition: 0.5s;
 		}
 
 		.nav-menu a {
 			color: #27acd9;
 			text-decoration: none;
+			transition: 0.5s;
 		}
 
 		header {
@@ -223,8 +226,9 @@
 		}
 
 		.nav-menu a:hover {
-			color: #27acd9;
-			border-bottom: 2px solid #27acd9;
+			color: rgb(128, 0, 128);
+			letter-spacing: 0.2em;
+			font-size: 20px;
 		}
 
 		a.btn_01 {
@@ -340,7 +344,7 @@
 			<td>役職手当</td>
 			<td>資格手当</td>
 			<td>住宅手当</td>
-			<td>家族手当</td>
+			<td>総支給</td>
 		</tr>
 
 		<tr style="background-color: rgb(255, 255, 255);"> <!-- 磁路色 -->
@@ -349,7 +353,7 @@
 			<td>0</td>
 			<td th:text="${paypay.executive}"></td>
 			<td>0</td>
-			<td>0</td>
+			<td th:text="${paypay.total}"></td>
 		</tr>
 		<!-- ... 他の行 ... -->
 	</table>

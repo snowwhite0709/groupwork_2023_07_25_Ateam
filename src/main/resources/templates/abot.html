@@ -6,7 +6,7 @@
 	<title>給与明細</title>
 	<style>
 		body {
-			
+
 			font-family: Arial, sans-serif;
 			background: #9CECFB;
 			background: -webkit-linear-gradient(to right, #9CECFB, #65C7F7, #0052D4);
@@ -206,15 +206,18 @@
 			text-transform: uppercase;
 			margin-top: 35px;
 			list-style: none;
+			transition: 0.5s;
 		}
 
 		.nav-menu li {
 			margin-left: 10px;
+			transition: 0.5s;
 		}
 
 		.nav-menu a {
 			color: #27acd9;
 			text-decoration: none;
+			transition: 0.5s;
 		}
 
 		header {
@@ -262,6 +265,12 @@
 			text-align: center;
 
 		}
+
+		.nav-menu a:hover {
+			color: rgb(128, 0, 128);
+			letter-spacing: 0.2em;
+			font-size: 20px;
+		}
 	</style>
 </head>
 
@@ -293,13 +302,13 @@
 
 
 	<div class="div.container4">
-	
-			<div align="center">
-				<h1>給与明細</h1>
-			</div>
 
-			<!-- 年月の切り替えフォーム -->
-			<h2>
+		<div align="center">
+			<h1>給与明細</h1>
+		</div>
+
+		<!-- 年月の切り替えフォーム -->
+		<h2>
 			<form align="center" th:action="@{/pay}" method="post">
 				<label for="yearMonth">年月を選択:</label>
 				<select class="selectbox1" id="yearMonth" name="yearMonth">
@@ -307,24 +316,24 @@
 				</select>
 				<input class="btn1" type="submit" value="選択">
 			</form>
-			</h2>
-			
-			<br>
-			<div class="buttonInfo">
-				
-				
+		</h2>
 
-				<form th:action="@{/tanaka/employee}" method="get">
-					<button class="btn2">メインメニュー</button>
-				</form>
+		<br>
+		<div class="buttonInfo">
 
-				<form action="/login" method="get">
-					<button class="btn3" type="submit">ログイン画面</button>
-				</form>
 
-			</div>
+
+			<form th:action="@{/tanaka/employee}" method="get">
+				<button class="btn2">メインメニュー</button>
+			</form>
+
+			<form action="/login" method="get">
+				<button class="btn3" type="submit">ログイン画面</button>
+			</form>
 
 		</div>
+
+	</div>
 	</div>
 
 
