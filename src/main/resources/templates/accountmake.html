@@ -11,12 +11,9 @@
     <a th:href="@{/management/attendanceregistration}">勤怠登録</a>
     <a th:href="@{/management/accountmanagement}">アカウント管理</a>
     <a th:href="@{/management/accountedit}">アカウント新規作成</a>
-    <a th:href="@{/management/pay}">給与計算</a>
 </div>
 
 <!-- 新規登録 -->
-	<!-- 登録・更新完了コメント -->
-	<p th:if="${complete}" th:text="${complete}"></p>
 <div class="container">
 	<form class="registration-form" method="post"
 	       th:action="${user_tableForm.newUser_table}? @{/management/update} : @{/management/insert}"
