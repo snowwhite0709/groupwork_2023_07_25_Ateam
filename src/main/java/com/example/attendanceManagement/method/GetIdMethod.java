@@ -224,9 +224,9 @@ public class GetIdMethod {
 		//分の残業代
 		int m = Integer.parseInt(over[1]) * hpay / 60;
 		overPay = h + m;
-		model.addAttribute("over" ,overPay);
+		model.addAttribute("over" ,String.format("%,d", overPay));
 		model.addAttribute("apo",b);
-		model.addAttribute("plist",i);	
+		model.addAttribute("plist",String.format("%,d", i));	
 	}
 	
 	//基本給登録
@@ -238,7 +238,8 @@ public class GetIdMethod {
 	
 	//給与確定
 	public Integer onepay(PayslipService payslipService,PaypayService paypayService) {
-			java.sql.Date sqlDate=now();
+		String[] m =thisMonth.split("/");
+		java.sql.Date sqlDate= java.sql.Date.valueOf(m[0] + "-" + m[1] + "-"+ "01");	
 			payslipService.in(id,paypayService.selectBP(id), overPay, sqlDate);
 		return id;
 	}

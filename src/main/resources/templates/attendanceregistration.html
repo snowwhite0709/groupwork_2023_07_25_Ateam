@@ -11,7 +11,6 @@
     <a th:href="@{/management/attendanceregistration}">勤怠登録</a>
     <a th:href="@{/management/accountmanagement}">アカウント管理</a>
     <a th:href="@{/management/accountedit}">アカウント新規作成</a>
-    <a th:href="@{/management/pay}">給与計算</a>
 </div>		
  <head>
 	<title>Attendance Information</title>
@@ -20,7 +19,7 @@
 <body>
 
 
-	<form method="get" th:action="@{/management/mitForm}"}>
+	<form class="topform" method="get" th:action="@{/management/mitForm}"}>
 		<label for="yearMonth">年月を選択:</label>
 		<select id="yearMonth" name="yearMonth">
 			<option hidden>選択してください</option>
@@ -28,12 +27,15 @@
 		</select>
 		<input type="submit" value="Submit">
 	</form>
+	<br>
+		<form method="get" th:action="@{/management/paypay}">
+	<input type="submit" value="基本給与登録">
+	</form>
+	
 		<div class="info-section2">
 		<h1 th:text="${thisMonth}"></h1>
 	</div>
-	<form method="get" th:action="@{/management/paypay}">
-	<input type="submit" value="給与登録">
-	</form>
+
 	
 		<!-- 登録・更新完了コメント -->
 	<p th:if="${payincomplete}" th:text="${payincomplete}"></p>
@@ -126,15 +128,17 @@
 				</tr>
 			</tbody>
 		</table>
+		
 	<form method="GET" th:action="@{/management/setpaypay}">
-	<input type="submit" value="編集">
+	<input type="submit" value="給与編集">
 	</form>
 	
-	<p th:unless="*{apo}">
-	<form method="POST" th:action="@{/management/onepay}">
-	<input type="submit" value="確定">
+	<a th:unless="*{apo}">
+	<form class="inline" method="POST" th:action="@{/management/onepay}">
+	<input type="submit" value="表示給与で確定">
 	</form>
-</p>
+	
+</a>
 
 </body>
 
