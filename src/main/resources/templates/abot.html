@@ -106,7 +106,7 @@
 
 		.buttonInfo {
 			display: flex;
-			justify-content: left;
+			justify-content: center;
 		}
 
 		.buttonInfo form {
@@ -141,13 +141,13 @@
 			display: inline-block;
 			border-radius: 5px;
 			/*角の丸み */
-			font-size: 10pt;
+			font-size: 20px;
 			/* 文字サイズ */
 			text-align: center;
 			/* 文字位置   */
 			cursor: pointer;
 			/* カーソル   */
-			padding: 10px 10px;
+			padding: 80px 80px;
 			/* 余白       */
 			background: #27acd9;
 			;
@@ -291,21 +291,26 @@
 
 
 	<div class="div.container4">
-		<div class="div.container4 h2">
+	
 			<div align="center">
-				<h2>給与明細</h2>
+				<h1>給与明細</h1>
 			</div>
 
 			<!-- 年月の切り替えフォーム -->
-			<form th:action="@{/pay}" method="post">
+			<h3>
+			<form align="center" th:action="@{/pay}" method="post">
 				<label for="yearMonth">年月を選択:</label>
 				<select class="selectbox1" id="yearMonth" name="yearMonth">
 					<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>
 				</select>
-				<input class="btn1" type="submit" value="Submit">
+				<input class="btn1" type="submit" value="選択">
 			</form>
-
+			</h3>
+			
+			<br>
 			<div class="buttonInfo">
+				
+				
 
 				<form th:action="@{/tanaka/employee}" method="get">
 					<button class="btn2">メインメニュー</button>

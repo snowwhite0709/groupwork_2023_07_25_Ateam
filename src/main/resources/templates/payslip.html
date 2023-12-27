@@ -258,7 +258,6 @@
 			display: block;
 			text-align: center;
 		}
-
 	</style>
 </head>
 
@@ -282,20 +281,20 @@
 		</nav>
 	</header>
 	<div class="div.container4">
-			<div align="center">
-				<h2 th:text="${selectedYearMonth}+'月分の給与明細'"></h2>
-			</div>
-	
-			<div class="buttonInfo">
+		<div align="center">
+			<h2 th:text="${selectedYearMonth}+'月分の給与明細'"></h2>
+		</div>
 
-				<form th:action="@{/tanaka/employee}" method="get">
-					<button class="btn2">メインメニュー</button>
-				</form>
+		<div class="buttonInfo">
 
-				<form action="/login" method="get">
-					<button class="btn3" type="submit">ログイン画面</button>
-				</form>
-			</div>
+			<form th:action="@{/tanaka/employee}" method="get">
+				<button class="btn2">メインメニュー</button>
+			</form>
+
+			<form action="/login" method="get">
+				<button class="btn3" type="submit">ログイン画面</button>
+			</form>
+		</div>
 
 	</div>
 
@@ -333,7 +332,8 @@
 			<col style="width: 15%;">
 		</colgroup>
 
-		<tr>
+
+		<tr style="background-color: rgb(129, 225, 254);"> <!-- 水色 -->
 			<td rowspan="4">支給</td>
 			<td>基本給</td>
 			<td>時間外手当</td>
@@ -342,7 +342,8 @@
 			<td>住宅手当</td>
 			<td>家族手当</td>
 		</tr>
-		<tr>
+
+		<tr style="background-color: rgb(255, 255, 255);"> <!-- 磁路色 -->
 			<td th:text="${paypay.basepay}"></td>
 			<td th:text="${paypay.overtimepay}"></td>
 			<td>0</td>
