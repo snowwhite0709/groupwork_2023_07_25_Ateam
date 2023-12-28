@@ -33,7 +33,7 @@ public class UserDetailsImpl implements UserDetails {
 	public String getUsername() {
 	// ログインで利用するユーザー名を返す
 		String name=user_table.getFirstname()+user_table.getLastname();
-		System.out.println(name);
+		//System.out.println(name);
 	return name;
 	}
 	@Override
