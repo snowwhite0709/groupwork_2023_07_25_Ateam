@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>管理者画面</title>
+	<link rel="stylesheet" th:href="@{/css/managementhome.css}">
+</head>
+
+<body>
+	<div class="navbar" style="display: flex; justify-content: space-between;">
+		<a th:href="@{/management}">勤怠承認</a>
+		<a th:href="@{/management/selectShiftMonth}">勤怠登録</a>
+		<a th:href="@{/management/accountmanagement}">アカウント管理</a>
+		<a th:href="@{/management/accountedit}">アカウント新規作成</a>
+		<a th:href="@{/login}" style="margin-left: auto;">ログアウト</a>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table border="2" th:unless="${#lists.isEmpty(userlist)}" align="center">
+		<div>
+			<div>
+				<br>
+				<h2 align="center">ユーザー選択</h2>
+
+			</div>
+		</div>
+
+		<div align="center">
+			<form th:action="@{/management/submitShiftSelect}" method="post">
+				<label for="id">IDを選択:</label>
+				<select class="selectbox1" id="id" name="selectedId">
+					<option th:each="user : ${userlist}" th:value="${user.id}"
+						th:text="${'ID:'+user.id+' NAME:'+user.firstname+user.lastname}"></option>
+				</select>
+				<label for="month">年月を選択:</label>
+				<select class="selectbox1" id="id" name="selectedMonth">
+					<option th:each="month : ${monthlist}" th:value="${month}" th:text="${month}"></option>
+				</select>
+				<input class="btn1" type="submit" value="選択">
+			</form>
+	</table>
+
+
+	<div class="info-section1">
+		<table border="1" th:unless="${username==null}" style="table-layout: fixed;">
+			<h2 align="center">ユーザー情報</h2>
+			<tr>
+				<th>アカウントid</th>
+				<th>名前</th>
+				<th>年月</th>
+			</tr>
+			<tr align="center">
+
+				<td th:text="${id}"></td>
+				<td th:text="${username}"></td>
+				<td th:text="${month}"></td>
+			</tr>
+		</table>
+	</div>
+
+
+
+	<div>
+		<table border="2" th:unless="${#lists.isEmpty(selectlist)}" align="center">
+			<tr>
+				<th>年月日</th>
+
+				<th>出勤</th>
+				<th>シフト</th>
+				<th>承認status</th>
+				<th>承認</th>
+			</tr>
+			<tr th:each="shift, row :${selectlist}" align="center">
+				<td th:text="${shift.yearmonth}"></td>
+
+				<td th:if="${shift.workday == true}">出勤</td>
+				<td th:if="${shift.workday == false}">休日</td>
+
+				<td th:if="${shift.variableattendance == 1}">休日</td>
+				<td th:if="${shift.variableattendance == 2}">7:00〜15:00</td>
+				<td th:if="${shift.variableattendance == 3}">15:00〜23:00</td>
+				<td th:if="${shift.variableattendance == 4}">23:00〜翌7:00</td>
+
+
+				<td th:if="${shift.approval == null}">未承認</td>
+				<td th:if="${shift.approval == true}">承認済み</td>
+				<td th:if="${shift.approval == false}">申請待ち</td>
+				<td>
+					<form method="POST" th:action="@{/#}">
+					<input type="submit" value="承認">
+				</form>
+				</td>
+				
+			</tr>
+
+		</table>
+
+	</div>
+
+
+</body>
+
+</html>

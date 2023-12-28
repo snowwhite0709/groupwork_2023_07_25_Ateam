@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>シフト登録</title>
+	<link rel="stylesheet" th:href="@{/css/managementhome.css}">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+
+
+		}
+
+		div.container4 {
+			height: 20%;
+			position: relative;
+		}
+
+		div.container4 h2 {
+			margin: 0;
+			background: yellow;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: 50%;
+			margin-right: -50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.info-section1 {
+			margin-top: 20px;
+		}
+
+		.info-section1 table {
+
+			border-collapse: collapse;
+			width: 20%;
+			margin-top: 10px;
+			margin-left: 40px;
+			position: relative;
+			top: 5px;
+			left: 90px;
+			text-align: center;
+		}
+
+		.info-section1 th,
+		.info-section1 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: left;
+		}
+
+		.info-section1 th {
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section2 {
+			margin-top: 20px;
+		}
+
+		.info-section2 h2 {
+			margin-bottom: 10px;
+		}
+
+		.info-section2 table {
+			border-collapse: collapse;
+			width: 70%;
+			margin-top: 10px;
+		}
+
+		.info-section2 th,
+		.info-section2 td {
+			border: 1px solid rgb(0, 0, 0);
+			padding: 8px;
+			text-align: center;
+			background-color: rgb(129, 225, 254);
+		}
+
+		.info-section2 td {
+			background-color: #fff;
+		}
+
+		table tr:nth-child(odd) td {
+			background: #eee
+		}
+	</style>
+
+
+
+</head>
+
+<body>
+	<div class="navbar">
+		<a th:href="@{/management}">勤怠承認</a>
+		<a th:href="@{/management/shifttableCreate}">勤怠登録</a>
+		<a th:href="@{/management/accountmanagement}">アカウント管理</a>
+		<a th:href="@{/management/accountedit}">アカウント新規作成</a>
+		<a th:href="@{/management/pay}">給与計算</a>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table border="2" th:unless="${#lists.isEmpty(list)}" align="center">
+		<div>
+			<div>
+				<br>
+				<h2 align="center">シフト登録</h2>
+				<!--(id=${user.id})-->
+			</div>
+		</div>
+
+		<div align="center">
+			<form th:action="@{/management/submitShiftCreate}" method="post">
+				<label for="id">IDを選択:</label>
+				<select class="selectbox1" id="id" name="selectedId">
+					<option th:each="user : ${list}" th:value="${user.id}"
+						th:text="${'ID:'+user.id+' NAME:'+user.firstname+user.lastname}"></option>
+				</select>
+				<input class="btn1" type="submit" value="選択">
+			</form>
+	</table>
+
+	<table border="1"  style="table-layout: fixed;">
+
+		<tr>
+			<th>アカウントid</th>
+			<th>名前</th>
+
+		</tr>
+		<tr align="center">
+
+			<td th:text="${id}"></td>
+			<td th:text="${username}"></td>
+
+		</tr>
+	</table>
+
+	<form class="shift_table-form" method="post"
+		th:action="${shift_tableForm.newShift_table}? @{/management/shiftupdate} : @{/management/shiftinsert}"
+		th:object="${shift_tableForm}">
+		<table border="1" th:unless="${#lists.isEmpty(dateList)}" style="table-layout: fixed;">
+			<tr>
+				<th>年月日</th>
+				<th>出勤日</th>
+				<th>シフト</th>
+				<th>選択</th>
+			</tr>
+			<tr th:each="date,row: ${dateList}" align="center">
+				<input th:if="${id}" type="hidden" th:field="*{employee_id}">
+				
+				<input th:if="${username}" type="hidden" th:field="*{username}">
+
+				<td th:text=" ${date}"></td>
+				<input th:if="${date}" type="hidden" th:field="*{yearmonth}">
+
+				 <!--workday チェック-->
+				<td>
+					<input type="checkbox" th:name="${'work' + date}" value="false" onclick="changeValue(true)"
+						th:field="*{workday}" >
+				</td>
+
+				<td>
+					<select id="variableattendance" name="variableattendance" th:field="*{Variableattendance}" required>
+						<option value="1">休日</option>
+						<option value="2">7:00〜15:00</option>
+						<option value="3">15:00〜23:00</option>
+						<option value="4">23:00〜翌7:00</option>
+					</select>
+				</td>
+				<input th:if="${nextMonth}" type="hidden" th:field="*{month}">
+			</tr>
+
+
+		</table>
+		<div align="center">
+
+			<input class="pushbutton" type="submit" value="送信">
+		</div>
+	</form>
+</body>
+
+</html>
