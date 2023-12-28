@@ -30,7 +30,8 @@ import com.example.attendanceManagement.service.WorkService;
 @Controller
 @RequestMapping("/management")
 public class ManagementController {
-
+	
+	//CRUD文実行用
 	@Autowired
 	User_tableService user_tableService;
 	@Autowired
@@ -42,6 +43,7 @@ public class ManagementController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	//アカウント情報登録用時、HTMLにForm変数を登録するために必要
 	@ModelAttribute
 	public User_tableForm setUpForm() {
 		User_tableForm form = new User_tableForm();
@@ -51,6 +53,7 @@ public class ManagementController {
 	//トップページ（勤怠承認画面）へ遷移するためのメソッド
 	@GetMapping	
 	public String managementPage(Model model) {
+		//getWorkで未承認勤怠のみを取得。HTMLで一覧表示
 		Iterable<Work> list = workService.getWork();
 		model.addAttribute("list",list);
 		return "managementpage";
@@ -59,6 +62,7 @@ public class ManagementController {
 	//アカウント管理画面へ遷移するためのメソッド
 	@GetMapping("/accountmanagement")
 	public String accountmanagement(User_tableForm user_tableForm, Model model) {
+		//全アカウント情報をHTMLで表示
 		Iterable<User_table> list = user_tableService.getAll();
 		model.addAttribute("list",list);
 		return "accountmanagement";
