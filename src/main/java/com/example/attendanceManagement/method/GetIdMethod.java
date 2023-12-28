@@ -46,7 +46,7 @@ public class GetIdMethod {
 				int sumHours = 0;
 				//残業時間(mm)計算用
 				int sumMinutes = 0;
-
+		
 		String dbToDay;
 		String toDay;
 
@@ -90,7 +90,6 @@ public class GetIdMethod {
 		sumMinutes = sumMinutes%60;
 		String fmt = "%02d:%02d";
 		thisOver = String.format(fmt, sumHours, sumMinutes);
-		
 		
 		Collections.sort(list, (d1, d2) -> d1.getDay().compareTo(d2.getDay()));
 		
@@ -223,7 +222,9 @@ public class GetIdMethod {
 			}
 		}
 		if(i == 0) {
+			if(paypayService.selectBP(id) != null) {
 			i = paypayService.selectBP(id);
+			}
 			b = false;
 		}
 		/*残業代設定*/
@@ -252,7 +253,9 @@ public class GetIdMethod {
 	//給与確定
 	public Integer onepay(PayslipService payslipService,PaypayService paypayService) {
 		String[] m =thisMonth.split("/");
+		System.out.println(thisMonth);
 		java.sql.Date sqlDate= java.sql.Date.valueOf(m[0] + "-" + m[1] + "-"+ "01");	
+		System.out.println("保存" + sqlDate);
 		Integer tt = paypayService.selectBP(id)+ overPay;
 			payslipService.in(id,paypayService.selectBP(id), overPay,tt, sqlDate);
 		return id;
