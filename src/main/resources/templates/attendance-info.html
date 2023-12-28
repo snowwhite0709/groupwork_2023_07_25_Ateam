@@ -96,7 +96,9 @@
 			</tr>
 		</table>
 	</div>
+	
 	<br>
+	
 	<div class="buttonInfo">
 
 		<form th:action="@{/tanaka/employee}" method="get">
@@ -107,13 +109,13 @@
 			<button class="btn3" type="submit">給与画面</button>
 		</form>
 		
-		<form action="/login" method="get">
-			<button class="btn4" type="submit">ログイン画面</button>
+		<form th:action="@{/employee/shiftcreate}" method="get">
+			<button class="btn4" type="submit">シフト画面</button>
 		</form>
-
-
-
-
+		
+		<form action="/login" method="get">
+			<button class="btn5" type="submit">ログイン画面</button>
+		</form>
 	</div>
 
 </body>

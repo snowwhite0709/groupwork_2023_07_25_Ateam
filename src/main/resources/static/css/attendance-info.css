@@ -144,7 +144,8 @@ table tr:nth-child(odd) td {
 
 .btn2,
 .btn3,
-.btn4 {
+.btn4,
+.btn5 {
 	font-weight: bold;
 	display: inline-block;
 	border-radius: 5px;
@@ -174,7 +175,8 @@ table tr:nth-child(odd) td {
 .btn1:hover,
 .btn2:hover,
 .btn3:hover,
-.btn4:hover {
+.btn4:hover,
+.btn5:hover{
 	box-shadow: none;
 	/* カーソル時の影消去 */
 	color: #27acd9;
