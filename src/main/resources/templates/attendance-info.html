@@ -65,7 +65,7 @@
 				<th>残業時間</th>
 			</tr>
 
-			<tr th:each="work, row  : ${list}">
+			<tr th:each="work : ${list}">
 				<td th:text="${work.day}"></td>
 				<td th:text="${work.attendancetime}"></td>
 				<td th:text="${work.leavingtime}"></td>
@@ -104,11 +104,11 @@
 		</form>
 
 		<form th:action="@{/employee/pay}" method="get">
-			<button class="btn4" type="submit">給与画面</button>
+			<button class="btn3" type="submit">給与画面</button>
 		</form>
 		
 		<form action="/login" method="get">
-			<button class="btn3" type="submit">ログイン画面</button>
+			<button class="btn4" type="submit">ログイン画面</button>
 		</form>
 
 
