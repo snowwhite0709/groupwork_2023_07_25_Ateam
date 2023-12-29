@@ -20,5 +20,6 @@ public class Shift_table {
 	private Integer kind;
 	private Boolean approval;
 	private String month;
+	
 
 }

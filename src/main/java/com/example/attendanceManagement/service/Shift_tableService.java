@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.example.attendanceManagement.entity.Shift_table;
 
 public interface Shift_tableService {
-
+ 
 
 	/* 全件取得 */
 	Iterable<Shift_table> SelectAll();

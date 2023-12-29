@@ -14,7 +14,7 @@ import com.example.attendanceManagement.repository.Shift_tableRepository;
 public class Shift_tableServiceImple implements Shift_tableService{
 	@Autowired
 	Shift_tableRepository repository;
-	
+	 
 	@Override
 	public Iterable<Shift_table> SelectAll() {
 		// TODO 自動生成されたメソッド・スタブ

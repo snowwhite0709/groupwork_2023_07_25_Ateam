@@ -29,7 +29,7 @@ import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
 @Controller
 public class Shift_tableController {
-
+ 
 	@Autowired
 	User_tableService user_tableService;
 	@Autowired

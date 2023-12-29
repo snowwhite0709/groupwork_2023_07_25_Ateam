@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.attendanceManagement.entity.Shift_table;
 
 public interface Shift_tableRepository extends CrudRepository<Shift_table,Integer>{
-
+ 
 	
 	@Modifying
     @Query("INSERT INTO shift_table (employee_id, username, yearmonth,workday,variableattendance,kind,approval,month) "

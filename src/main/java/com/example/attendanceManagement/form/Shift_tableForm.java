@@ -11,7 +11,7 @@ public class Shift_tableForm {
 	
 	private String yearmonth;
 	private Boolean workday;
-	
+	 
 	private Integer variableattendance;
 	private Integer kind;
 	
