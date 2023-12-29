@@ -156,7 +156,7 @@ public class Shift_tableController {
 
 	}
 
-	//employee_idとyaermonthキーにしてデータを更新したい
+	//employee_idとyaermonthキーにしてデータを更新したい!!
 	@PostMapping("/employee/shiftupdate")
 	public String update(@Validated Shift_tableForm shift_tableForm, BindingResult result, Model model,
 			RedirectAttributes redirectAtrributes) {
@@ -247,10 +247,10 @@ public class Shift_tableController {
 
 		Iterable<Shift_table> selectlist = shift_tableService.idMonthAll(employee_id, month);
 		String username = shift_tableService.idMonthUsernameSelect(employee_id, month);
-		System.out.println(selectlist);
-		System.out.println("username" + username);
-		System.out.println("employee_id" + employee_id);
-		System.out.println("month" + month);
+//		System.out.println(selectlist);
+//		System.out.println("username" + username);
+//		System.out.println("employee_id" + employee_id);
+//		System.out.println("month" + month);
 		model.addAttribute("id", employee_id);
 		model.addAttribute("username", username);
 		model.addAttribute("month", month);

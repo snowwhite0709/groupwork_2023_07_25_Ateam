@@ -45,7 +45,7 @@
 		<h2>当月の出勤状況</h2>
 	</div>
 
-	<form th:action="@{/submitForm}" method="post">
+	<form th:action="@{/employee//submitForm}" method="post">
 		<label for="yearMonth">年月を選択:</label>
 		<select class="selectbox1" id="yearMonth" name="yearMonth">
 			<option th:each="ym : ${yearMonth}" th:value="${ym}" th:text="${ym}"></option>

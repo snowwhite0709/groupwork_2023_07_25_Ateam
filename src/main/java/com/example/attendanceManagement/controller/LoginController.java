@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.attendanceManagement.entity.Work;
 import com.example.attendanceManagement.service.WorkService;
 import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
@@ -18,7 +17,7 @@ public class LoginController {
 	WorkService workService;
 	
 	@GetMapping("/login")
-	public String showLogin(Model model) {
+	public String showLogin() {
 		
 		return "login";
 	}
@@ -35,7 +34,7 @@ public class LoginController {
 	
 	// SecurityConfig の defaultSuccessUrl で指定した URL
 	//admin権限を持ってページ移行
-		@GetMapping("/management/admin")
+		@GetMapping("/admin/management")
 		public String loginAdmin(Model model) {
 			// ユーザー名
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,19 +45,19 @@ public class LoginController {
 			return "managementpage";
 		}
 		//manager権限を持ってページ移行
-		@GetMapping("/management/manager")
+		@GetMapping("/manager/management")
 		public String loginManager(Model model) {
 			// ユーザー名
-//			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//			UserDetailsImpl principal = (UserDetailsImpl) auth.getPrincipal();
-//			model.addAttribute("username", principal.getUsername());
-			Iterable<Work> list = workService.getWork();
-			model.addAttribute("list",list);
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			UserDetailsImpl principal = (UserDetailsImpl) auth.getPrincipal();
+			model.addAttribute("username", principal.getUsername());
+//			Iterable<Work> list = workService.getWork();
+//			model.addAttribute("list",list);
 			// ログインに成功したら表示する URL
 			return "managementpage";
 		}
 		//employee権限を持ってページ移行
-		@GetMapping("/tanaka/employee")
+		@GetMapping("/employee/tanaka")
 		public String loginEmployee(Model model) {
 			// ユーザー名
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -72,11 +71,11 @@ public class LoginController {
 		@GetMapping("/defaultRedirect")
 		public String defaultRedirect(Authentication authentication) {
 			if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-				return "redirect:/management/admin";
+				return "redirect:/admin/management";
 			} else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"))) {
-				return "redirect:/management/manager";
+				return "redirect:/manager/management";
 			} else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_EMPLOYEE"))) {
-				return "redirect:/tanaka/employee";
+				return "redirect:/employee/tanaka";
 			}
 
 			// handle the case when no matching role is found

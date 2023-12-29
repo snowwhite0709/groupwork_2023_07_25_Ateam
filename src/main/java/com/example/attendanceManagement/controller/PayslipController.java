@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.attendanceManagement.entity.Payslip;
@@ -18,7 +19,7 @@ import com.example.attendanceManagement.service.PayslipService;
 import com.example.attendanceManagement.service.userdetails.UserDetailsImpl;
 
 @Controller
-/*@RequestMapping("/payslip")*/
+@RequestMapping("/management")
 public class PayslipController {
 
 	@Autowired

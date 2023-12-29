@@ -147,7 +147,7 @@
 	</table>
 
 	<form class="shift_table-form" method="post"
-		th:action="${shift_tableForm.newShift_table}? @{/management/shiftupdate} : @{/management/shiftinsert}"
+		th:action="${shift_tableForm.newShift_table}? @{/employee/shiftupdate} : @{/employee/shiftinsert}"
 		th:object="${shift_tableForm}">
 		<table border="1" th:unless="${#lists.isEmpty(dateList)}" style="table-layout: fixed;">
 			<tr>

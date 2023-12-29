@@ -16,6 +16,7 @@ import com.example.attendanceManagement.service.UserDetailServiceImpl;
 import com.example.attendanceManagement.service.WorkService;
 
 @Controller
+
 public class MainpageController {
 	@Autowired
 	WorkService workService;
@@ -26,7 +27,7 @@ public class MainpageController {
 	}
 	@GetMapping("/personal")
 	public String personal() {
-		return "/table";
+		return "/employee/table";
 	}
 	@GetMapping("/attend")
 	public String attend() {

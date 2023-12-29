@@ -25,7 +25,7 @@ public class dummyController {
 	@Autowired
 	WorkServicelmpl service;
 
-	@GetMapping("/table")
+	@GetMapping("/employee/table")
 	public String showTable(Model model, Authentication auth) {
 		
 		/*現在のユーザー情報を取得*/
@@ -108,7 +108,7 @@ public class dummyController {
 		return "attendance-info";
 	}
 
-	@PostMapping("/submitForm")
+	@PostMapping("/employee/submitForm")
 	public String handleFormSubmission(@RequestParam("yearMonth") String selectedYearMonth,Model model, Authentication auth) {
 		
 		/*現在のユーザー情報を取得*/
